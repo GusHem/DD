@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampanjkodex: Kurt Eisenwald</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <h1>Kampanjkodex</h1>
+        <ul class="nav-links">
+            <li><a href="#character-sheet" class="active">Karaktärsblad</a></li>
+            <li><a href="#spellbook">Formelsamling</a></li>
+            <li><a href="#world-codex">Världskodex</a></li>
+            <li><a href="#quest-log">Uppdragslogg</a></li>
+            <li><a href="#session-notes">Anteckningar</a></li>
+            <li><a href="#party-roster">Gruppen</a></li>
+            <li><a href="#maps">Kartor</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        <!-- SECTION 1: CHARACTER SHEET -->
+        <section id="character-sheet" class="active">
+            <header>
+                <h1>Kurt Eisenwald</h1>
+                <p class="subtitle">Nivå 2 Mässings-Drakfödd Paladin | "Weinbergsiegern"</p>
+
+                <div class="quick-ref">
+                    <div class="quick-stat"><span>AC</span><span>19</span></div>
+                    <div class="quick-stat"><span>KP</span><span>21 / 21</span></div>
+                    <div class="quick-stat"><span>Fart</span><span>9 m</span></div>
+                    <div class="quick-stat"><span>Init</span><span>+0</span></div>
+                    <div class="quick-stat"><span>Passiv Perception</span><span>9</span></div>
+                    <div class="quick-stat"><span>Färdighetsbonus</span><span>+2</span></div>
+                </div>
+            </header>
+
+            <div class="grid-2">
+                <!-- Ability Scores -->
+                <div class="card">
+                    <h2>Grundegenskaper</h2>
+                    <div class="grid-3">
+                        <div class="stat-box">
+                            <span class="stat-label">STY</span>
+                            <span class="stat-value">16</span>
+                            <span class="stat-mod">+3</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">SMI</span>
+                            <span class="stat-value">10</span>
+                            <span class="stat-mod">+0</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">FYS</span>
+                            <span class="stat-value">14</span>
+                            <span class="stat-mod">+2</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">INT</span>
+                            <span class="stat-value">10</span>
+                            <span class="stat-mod">+0</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">VIS</span>
+                            <span class="stat-value">8</span>
+                            <span class="stat-mod">-1</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">KAR</span>
+                            <span class="stat-value">14</span>
+                            <span class="stat-mod">+2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills & Saves -->
+                <div class="card">
+                    <h2>Kompetenser</h2>
+                    <h3>Räddningskast</h3>
+                    <p><span class="tag">Styrka +5</span> <span class="tag">Karisma +4</span></p>
+
+                    <h3>Färdigheter</h3>
+                    <p>
+                        <span class="tag">Idrott +5</span>
+                        <span class="tag">Övertala +4</span>
+                        <span class="tag">Hot +4</span>
+                        <span class="tag">Historia +2</span>
+                    </p>
+
+                    <h3>Språk</h3>
+                    <p>Allmänna (Common), Drakiska (Draconic)</p>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 2rem;">
+                <!-- Combat Actions -->
+                <div class="card">
+                    <h2>Attacker & Handlingar</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Namn</th>
+                                <th>Bonus</th>
+                                <th>Skada/Effekt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Långsvärd</strong></td>
+                                <td>+5</td>
+                                <td>1d8+3 Huggande (Mångsidig 1d10+3)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Eldandedräkt</strong></td>
+                                <td>DC 12 SMI</td>
+                                <td>1d10+2 Eld (4.5m Kon)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Obeväpnad</strong></td>
+                                <td>+5</td>
+                                <td>4 Krosskada</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="alert alert-info">
+                        <strong>Divine Smite:</strong> Offra en besvärjelseplats vid träff för +2d8 strålningsskada
+                        (Nivå 1). +1d8 mot Odöda/Fiends.
+                    </div>
+                </div>
+
+                <!-- Magic -->
+                <div class="card">
+                    <h2>Magi</h2>
+                    <div class="grid-2">
+                        <div><strong>Magi DC:</strong> 12</div>
+                        <div><strong>Attack:</strong> +4</div>
+                        <div><strong>Platser:</strong> 2 (Nivå 1)</div>
+                    </div>
+
+                    <h3>Förberedda Besvärjelser</h3>
+                    <ul>
+                        <li><strong>Bless:</strong> +1d4 på attack/räddning (3 mål, Konc)</li>
+                        <li><strong>Shield of Faith:</strong> +2 AC (1 mål, Konc)</li>
+                        <li><strong>Cure Wounds:</strong> 1d8+2 Läkning</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="card" style="margin-top: 2rem;">
+                <h2>Egenskaper & Förmågor</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Paladin</h3>
+                        <ul>
+                            <li><strong>Divine Sense:</strong> Känn av celestials/fiends/odöda (2/Lång Vila).</li>
+                            <li><strong>Lay on Hands:</strong> 10 KP pott. 5 KP botar sjukdom/gift.</li>
+                            <li><strong>Fighting Style (Defense):</strong> +1 AC i rustning.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Mässings-Drakfödd (2024)</h3>
+                        <ul>
+                            <li><strong>Breath Weapon:</strong> Eldskada, 4.5m kon. (Prof/Lång Vila).</li>
+                            <li><strong>Skaderesistens:</strong> Eld.</li>
+                            <li><strong>Draconic Flight (Nivå 5):</strong> Spektrala vingar.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equipment -->
+            <div class="card" style="margin-top: 2rem;">
+                <h2>Utrustning</h2>
+                <p><strong>Buret:</strong> Helrustning (AC 18), Sköld (+2 AC), Långsvärd, Helig Symbol (Zügwern
+                    medaljong).</p>
+                <p><strong>Ryggsäck:</strong> Utforskarpaket, Vinflaska (halvtom), Brev hemifrån, Skrivdon, 10 GM.</p>
+            </div>
+
+            <!-- Backstory -->
+            <div class="card" style="margin-top: 2rem;">
+                <h2>Karaktärsbakgrund</h2>
+                <p><strong>Ursprung:</strong> Zügwern, Alpin Krigarkast. Yngste sonen i familjen Eisenwald.</p>
+                <p><strong>Historia:</strong> En turneringsmästare ("Weinbergsiegern") som vann regionala titlar men
+                    misslyckades nationellt. Skickad till Lisse på ett "diplomatiskt uppdrag" (exil) för att finna ära.
+                </p>
+                <p><strong>Nuvarande Situation:</strong> Arbetar som muskel åt tjuvgillet <em>Råttkungens Hov</em>.
+                    Skriver lögner i brev hem om "hjältedåd" medan han kämpar med verkligheten av kriminellt arbete.</p>
+                <div class="alert alert-warning">
+                    <strong>Rollspelshook:</strong> Kurt har hemlängtan, är naiv gällande "riktig" strid kontra
+                    turneringar, och är djupt kluven inför sitt nuvarande kriminella jobb.
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: SPELLBOOK (NEW) -->
+        <section id="spellbook">
+            <h1>Formelsamling</h1>
+            <div class="card">
+                <div class="spell-controls">
+                    <input type="text" id="spell-search" placeholder="Sök besvärjelse..." class="search-input">
+                    <button id="add-spell-btn" class="btn-primary">+ Lägg till Besvärjelse</button>
+                </div>
+            </div>
+
+            <div id="spell-list" class="spell-grid">
+                <!-- Spells will be injected here via JS -->
+            </div>
+
+            <!-- Add Spell Modal (Hidden by default) -->
+            <div id="spell-modal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Lägg till Ny Besvärjelse</h2>
+                    <form id="new-spell-form">
+                        <input type="text" id="new-spell-name" placeholder="Namn" required>
+                        <input type="text" id="new-spell-level" placeholder="Nivå & Skola" required>
+                        <input type="text" id="new-spell-time" placeholder="Kasttid" required>
+                        <input type="text" id="new-spell-range" placeholder="Räckvidd" required>
+                        <textarea id="new-spell-desc" placeholder="Beskrivning" rows="4" required></textarea>
+                        <button type="submit" class="btn-primary">Spara</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: WORLD CODEX -->
+        <section id="world-codex">
+            <h1>Världskodex</h1>
+
+            <div class="card">
+                <h2>Zügwern (Hemland)</h2>
+                <p>Ett alpint kungadöme av bergsdalar, liknande Österrike/Södra Tyskland. Känt för sin krigarkast-adel,
+                    terrasserade vingårdar och starka militära traditioner.</p>
+                <ul>
+                    <li><strong>Kultur:</strong> Ära, disciplin och vin. Drakfödda är integrerade i adeln.</li>
+                    <li><strong>Turneringar:</strong> Det primära sättet att vinna prestige. Kurt var en regional
+                        stjärna här.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <h2>Lisse (Nuvarande Plats)</h2>
+                <p>Ett tropiskt arkipelag-kungadöme med en kolonial hamnstadskänsla. Styrt av handelshus ("Handelshus")
+                    snarare än blodsadel.</p>
+                <ul>
+                    <li><strong>Klimat:</strong> Hett, fuktigt, tropiskt. Tortyr för någon van vid alpin snö.</li>
+                    <li><strong>Politik:</strong> Rikedom är makt. <em>Handelshusen</em> kontrollerar allt.</li>
+                    <li><strong>Undre Världen:</strong> <em>Råttkungens Hov</em> verkar i skuggorna av distriktet Aigues
+                        Mortes.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <h2>De Döda Gudarna</h2>
+                <p>För 100 år sedan tystnade gudarna. Återupplivningsmagi slutade fungera. Odöda ökade i antal.
+                    Paladiner drar fortfarande kraft från sina eder, men den gudomliga tystnaden är ett hotfullt
+                    mysterium.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: QUEST LOG -->
+        <section id="quest-log">
+            <h1>Uppdragslogg</h1>
+            <div class="card">
+                <p><em>Inga aktiva uppdrag noterade.</em></p>
+            </div>
+
+            <h2 style="margin-top: 2rem;">Avklarade</h2>
+            <div class="card">
+                <p><em>Inga avklarade uppdrag.</em></p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SESSION NOTES -->
+        <section id="session-notes">
+            <h1>Spelmötesanteckningar</h1>
+            <div class="card">
+                <h2>Möte 1 Mall</h2>
+                <p><strong>Datum:</strong> TBD</p>
+                <p><strong>Sammanfattning:</strong> [Plats för anteckningar]</p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PARTY ROSTER -->
+        <section id="party-roster">
+            <h1>Gruppöversikt</h1>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Kurt Eisenwald (Du)</h3>
+                    <p>Mässings-Drakfödd Paladin. Tanken.</p>
+                </div>
+                <div class="card">
+                    <h3>[Medlem 2]</h3>
+                    <p>Druid (Planerad). Wildshape/Utility.</p>
+                </div>
+                <div class="card">
+                    <h3>[Medlem 3]</h3>
+                    <p>Sorcerer (Planerad). Blaster.</p>
+                </div>
+                <div class="card">
+                    <h3>[Medlem 4]</h3>
+                    <p>Bard (Planerad). Face/Support.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: MAPS -->
+        <section id="maps">
+            <h1>Kartor & Referenser</h1>
+
+            <div class="card">
+                <h2>Handelsimperiet Lisse</h2>
+                <p>Den tropiska arkipelagen där kampanjen utspelar sig.</p>
+                <div class="map-container">
+                    <img src="lisse_map.jpg" alt="Karta över Handelsimperiet Lisse" class="map-image">
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <h2>Den Kända Världen</h2>
+                <p>Den norra kontinenten, inklusive Zügwern (Väst) och Habylos (Öst).</p>
+                <div class="map-container">
+                    <img src="world_map.jpg" alt="Karta över den kända världen inklusive Zügwern" class="map-image">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

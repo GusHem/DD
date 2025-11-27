@@ -444,6 +444,44 @@
         .handwritten-caption { font-family: 'Caveat', cursive; color: var(--ink-color); font-size: 1.3rem; margin-top: 5px; text-align: center; display: block; font-weight: 600; }
         .blueprint-text { font-family: 'Caveat', cursive; font-size: 16px; fill: var(--ink-color); font-weight: 700; color: var(--ink-color); }
 
+        /* --- INVISIBLE INK SYSTEM (DARKVISION SECRETS) --- */
+        .invisible-ink-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4; /* Above image, below seal */
+        }
+
+        /* Reveal in Dark Mode */
+        body.dark-mode .invisible-ink-container {
+            opacity: 1;
+        }
+
+        /* Text style for the secret ink */
+        .invisible-text {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff3333; /* Neon red/blood */
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #8b0000; /* Glow effect */
+            transform: rotate(-15deg);
+            mix-blend-mode: screen; /* Makes it look spectral */
+            text-align: center;
+            line-height: 1;
+            border: 3px double #ff3333;
+            padding: 10px 20px;
+            border-radius: 4px;
+            mask-image: url("data:image/svg+xml,%3Csvg width='200' height='100' viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.8'/%3E%3C/svg%3E");
+        }
+
         /* Layouts */
         .journal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .journal-page { display: none; }
@@ -1395,6 +1433,11 @@
                                     <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/flyer.svg" 
                                          alt="Lisse Arena Championship Flyer" 
                                          style="width: 100%; height: auto; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+                                    
+                                    <!-- INVISIBLE INK LAYER: VISIBLE ONLY IN DARKVISION -->
+                                    <div class="invisible-ink-container">
+                                        <div class="invisible-text">LÖGNER</div>
+                                    </div>
                                 </div>
 
                                 <p style="font-family: 'EB Garamond'; font-style: italic;">

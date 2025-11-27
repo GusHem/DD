@@ -103,7 +103,7 @@
             overflow-y: auto;
             z-index: 10;
             position: relative;
-            transition: background-color 0.5s ease;
+            /* REMOVED TRANSITION FOR PERFORMANCE */
         }
 
         .sidebar::before {
@@ -111,6 +111,7 @@
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
             pointer-events: none;
+            /* KEPT: Lightweight loop, low cost */
             animation: leatherShine 10s linear infinite;
         }
 
@@ -133,9 +134,9 @@
             margin: 0 20px 40px 20px;
             background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
             cursor: pointer;
-            transition: all 0.3s;
             position: relative;
             z-index: 2;
+            /* REMOVED HEAVY TRANSITION */
         }
         
         .book-title:hover {
@@ -163,7 +164,6 @@
             text-align: left;
             
             cursor: pointer;
-            transition: all 0.3s ease;
             position: relative;
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
             z-index: 2;
@@ -171,9 +171,11 @@
         
         body.dark-mode .nav-btn { color: #5c6bc0; }
 
+        /* OPTIMIZED: Lightweight transition only */
         .nav-btn:hover {
             color: var(--accent-shine);
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05));
+            transition: background-color 0.15s, color 0.15s;
         }
 
         .nav-icon { 
@@ -190,13 +192,14 @@
             background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent);
             border-left: 4px solid var(--accent-gold);
             text-shadow: 0 0 8px var(--accent-gold);
-            padding-left: 41px; /* Compensate for 4px border */
+            padding-left: 41px; 
         }
 
         .nav-btn::before {
             content: '✦'; font-family: 'Cinzel Decorative', serif;
             position: absolute; left: 20px; top: 50%; transform: translateY(-50%) scale(0);
-            opacity: 0; color: var(--accent-shine); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0; color: var(--accent-shine); 
+            /* REMOVED COMPLEX TRANSITION */
         }
         
         body.dark-mode .nav-btn::before { content: '☾'; color: var(--ink-color); }
@@ -206,7 +209,7 @@
         .dark-mode-toggle {
             margin-top: auto; align-self: center; background: transparent; border: 1px solid var(--accent-gold);
             color: var(--accent-gold); padding: 10px 20px; font-family: 'Cinzel', serif; cursor: pointer;
-            margin-bottom: 20px; transition: all 0.3s; display: flex; align-items: center; gap: 10px; z-index: 2;
+            margin-bottom: 20px; display: flex; align-items: center; gap: 10px; z-index: 2;
         }
         .dark-mode-toggle:hover { box-shadow: 0 0 15px var(--magic-glow); background: rgba(255,255,255,0.05); }
 
@@ -237,8 +240,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden; /* Hide corners if they poke out, but they are absolute 0 */
-            transition: background-color 0.5s ease;
-            animation: parchmentBreath 10s ease-in-out infinite;
+            /* REMOVED TRANSITION */
         }
         
         /* NEW: Inner Scroll Container */
@@ -251,44 +253,25 @@
         }
         .scroll-content::-webkit-scrollbar { display: none; }
         
-        @keyframes parchmentBreath {
-            0%, 100% { background-color: var(--parchment-bg); }
-            50% { background-color: var(--parchment-blend); }
-        }
+        /* REMOVED: @keyframes parchmentBreath - Too heavy for old iPad */
 
         /* Brass Corners */
         .brass-corner-tl, .brass-corner-tr {
             position: absolute; width: 50px; height: 50px; pointer-events: none; opacity: 1;
             border-top: 4px double var(--accent-gold);
             z-index: 5;
-            transition: border-color 0.5s;
-            animation: brassGlow 4s ease-in-out infinite;
+            /* Removed animation: brassGlow */
         }
         .brass-corner-tl { top: 0; left: 0; border-left: 4px double var(--accent-gold); border-radius: 0 0 10px 0; }
         .brass-corner-tr { top: 0; right: 0; border-right: 4px double var(--accent-gold); border-radius: 0 0 0 10px; }
 
-        @keyframes brassGlow {
-            0%, 100% { border-color: var(--accent-gold); box-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
-            50% { border-color: var(--accent-shine); box-shadow: 1px 1px 8px var(--magic-glow); }
-        }
-        
-        body.dark-mode .brass-corner-tl, body.dark-mode .brass-corner-tr { animation: brassGlowDark 4s ease-in-out infinite; }
-        @keyframes brassGlowDark {
-            0%, 100% { border-color: var(--ink-color); box-shadow: 1px 1px 5px var(--magic-glow); }
-            50% { border-color: var(--accent-shine); box-shadow: 1px 1px 12px var(--ink-color); }
-        }
-
-        /* Fade Animation */
-        @keyframes pageFade {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
+        /* REMOVED: @keyframes pageFade */
 
         .section-container {
             display: none; max-width: 900px; margin: 0 auto; padding-bottom: 80px;
             min-height: 80vh; position: relative;
         }
-        .section-container.active { display: block; animation: pageFade 0.4s ease-out; }
+        .section-container.active { display: block; /* Removed animation */ }
 
         /* Typography */
         h1, h2, h3 { font-family: 'Cinzel', serif; color: var(--text-main); margin-top: 0; }
@@ -307,13 +290,7 @@
             text-shadow: 1px 1px 0 rgba(255,255,255,0.1); position: relative; display: inline-block; overflow: hidden;
         }
         
-        .page-title::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, var(--accent-shine), transparent);
-            opacity: 0.3; animation: titleShimmer 8s ease-in-out infinite;
-        }
-        @keyframes titleShimmer { 0%, 90%, 100% { left: -100%; } 45%, 55% { left: 100%; } }
-        body.dark-mode .page-title::after { background: linear-gradient(90deg, transparent, var(--ink-color), transparent); opacity: 0.5; }
+        /* REMOVED: .page-title::after animation */
 
         .page-title::before {
             content: ''; position: absolute; bottom: -5px; left: 10%; width: 80%; height: 2px;
@@ -350,14 +327,15 @@
         .spell-slot {
             width: 30px; height: 30px; border: 2px solid var(--accent-gold); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-            cursor: pointer; transition: all 0.3s; background: transparent; color: var(--accent-gold);
+            cursor: pointer; background: transparent; color: var(--accent-gold);
+            /* Removed transition */
         }
         .spell-slot.available { color: var(--accent-gold); }
         .spell-slot.used { background: var(--accent-gold); color: var(--parchment-bg); }
-        .spell-slot:hover { transform: scale(1.1); box-shadow: 0 0 10px var(--magic-glow); }
+        /* Removed hover scale */
         body.dark-mode .spell-slot.available { color: var(--ink-color); border-color: var(--ink-color); }
         body.dark-mode .spell-slot.used { background: var(--ink-color); }
-        .spell-page { display: none; animation: pageFade 0.5s ease-out; }
+        .spell-page { display: none; }
         .spell-page.active { display: block; }
 
         /* Timeline */
@@ -387,8 +365,8 @@
 
         /* Sketches */
         .sketch-container { margin: 10px 0; text-align: center; position: relative; padding: 10px; background: transparent; border: none; transform: rotate(-0.5deg); }
-        .sketch-container img { mix-blend-mode: var(--image-filter); filter: var(--image-adjust); transition: transform 0.3s ease, filter 0.3s ease; }
-        .sketch-container img:hover { transform: scale(1.02) rotate(0.5deg); }
+        .sketch-container img { mix-blend-mode: var(--image-filter); filter: var(--image-adjust); }
+        /* Removed Hover transform */
 
         /* Map Markers */
         .map-marker {
@@ -432,7 +410,7 @@
 
         /* Layouts */
         .journal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .journal-page { display: none; animation: pageFade 0.5s ease-out; }
+        .journal-page { display: none; }
         .journal-page.active { display: block; }
         .journal-nav { display: flex; justify-content: center; align-items: center; margin: 20px 0 40px 0; font-family: 'Cinzel', serif; color: var(--ink-color); }
         .journal-nav button { background: none; border: none; cursor: pointer; color: var(--ink-color); font-size: 1.2rem; margin: 0 15px; opacity: 0.6; }
@@ -440,8 +418,8 @@
 
         /* Footer Nav */
         .page-controls { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--card-border); font-family: 'Cinzel', serif; }
-        .page-btn { background: none; border: none; color: var(--text-sub); cursor: pointer; font-family: 'Cinzel', serif; font-size: 1.1rem; display: flex; align-items: center; opacity: 0.7; transition: all 0.2s; }
-        .page-btn:hover { opacity: 1; color: var(--accent-gold); transform: scale(1.05); }
+        .page-btn { background: none; border: none; color: var(--text-sub); cursor: pointer; font-family: 'Cinzel', serif; font-size: 1.1rem; display: flex; align-items: center; opacity: 0.7; /* Removed transition */ }
+        .page-btn:hover { opacity: 1; color: var(--accent-gold); }
         .page-btn.disabled { opacity: 0.3; cursor: default; color: #999; }
         .page-num { font-size: 0.9rem; color: #888; font-family: 'Cinzel'; margin-top: 5px; }
 
@@ -455,6 +433,69 @@
         }
         body.dark-mode .note-card { background: rgba(0,0,0,0.2); }
         
+        /* --- SPELL PREP SYSTEM CSS --- */
+        /* Prep Indicator (Star) */
+        .prep-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-sub);
+            opacity: 0.3;
+            user-select: none;
+            z-index: 5;
+            line-height: 1;
+        }
+        .prep-indicator:hover {
+            opacity: 0.8;
+            color: var(--accent-gold);
+            transition: opacity 0.15s;
+        }
+
+        /* Prepared State */
+        .spell-card.prepared {
+            border-left: 4px solid var(--accent-gold) !important;
+            background: rgba(197, 160, 89, 0.1);
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
+        }
+        .spell-card.prepared .prep-indicator {
+            opacity: 1;
+            color: var(--accent-gold);
+            text-shadow: 0 0 5px rgba(197, 160, 89, 0.5);
+        }
+
+        /* Oath and Ritual Badges */
+        .oath-badge, .ritual-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 0.7rem;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(197, 160, 89, 0.2);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+        }
+        .ritual-badge {
+            background: rgba(139, 69, 19, 0.1);
+            color: #8b4513;
+            border-color: #8b4513;
+        }
+        body.dark-mode .ritual-badge { color: #a1887f; border-color: #a1887f; }
+
+        /* Ensure daily spells have relative positioning for indicator */
+        .spell-card { position: relative; }
+        
+        /* Dark mode adjustments */
+        body.dark-mode .spell-card.prepared {
+            background: rgba(197, 160, 89, 0.15);
+            border-left-color: var(--accent-gold) !important;
+        }
+
         /* NY STIL FÖR KURTS KOMMENTARER PÅ SPELLCARDS */
         .kurt-comment {
             font-family: 'Caveat', cursive;
@@ -493,14 +534,12 @@
             padding: 10px 20px;
             cursor: pointer;
             margin-top: 10px;
-            transition: all 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 10px;
         }
         
         .save-btn:hover {
-            transform: scale(1.02);
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
@@ -513,10 +552,9 @@
             border: none;
             cursor: pointer;
             opacity: 0.5;
-            transition: opacity 0.2s;
             font-size: 1.2rem;
         }
-        .delete-note:hover { opacity: 1; transform: scale(1.1); }
+        .delete-note:hover { opacity: 1; }
 
         /* NY MODAL FÖR RADERING (Ersätter confirm()) */
         .modal-overlay {
@@ -560,12 +598,10 @@
             border: none;
             margin: 10px;
             font-size: 1rem;
-            transition: transform 0.2s;
         }
 
         .btn-confirm { background: #8b0000; color: #fff; }
         .btn-cancel { background: transparent; border: 1px solid var(--text-sub); color: var(--text-main); }
-        .modal-btn:hover { transform: scale(1.05); }
 
         /* Thematic Text Area */
         textarea.thematic-input {
@@ -590,10 +626,137 @@
         td { padding: 8px 10px; border-bottom: 1px solid rgba(128,128,128,0.2); text-align: center; }
         td:first-child { text-align: left; font-weight: bold; }
 
+        /* --- NEW COMBAT STATS CSS --- */
+        /* Combat Stats Container */
+        .combat-stats {
+            background: rgba(139, 69, 19, 0.08);
+            border: 2px solid #8b5a2b; /* accent-bronze fallback */
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .combat-stats .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #8b5a2b;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 1px solid #8b5a2b;
+            padding-bottom: 10px;
+        }
+        /* Stat Row Layout */
+        .combat-stat-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .combat-stat-row label {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            width: 70px;
+            color: var(--text-main);
+        }
+        /* +/- Buttons (BIG TOUCH TARGETS) */
+        .stat-btn {
+            width: 48px;
+            height: 48px;
+            border: 2px solid #8b5a2b;
+            background: rgba(139, 69, 19, 0.1);
+            color: #8b5a2b;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            line-height: 1;
+            /* NO transitions - instant feedback */
+        }
+        .stat-btn:active {
+            background: rgba(197, 160, 89, 0.3);
+        }
+        /* Number Input (Also touch-friendly) */
+        .stat-value {
+            width: 70px;
+            height: 48px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            font-family: 'EB Garamond', serif;
+            border: 2px solid var(--accent-gold);
+            background: rgba(197, 160, 89, 0.08);
+            color: var(--text-main);
+            border-radius: 6px;
+        }
+        /* Remove spinner arrows on number input */
+        .stat-value::-webkit-inner-spin-button,
+        .stat-value::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .stat-value {
+            -moz-appearance: textfield;
+        }
+        /* Max HP Display */
+        .stat-max {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            font-family: 'EB Garamond', serif;
+        }
+        /* Hit Dice Row */
+        .hit-dice-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(139, 69, 19, 0.2);
+        }
+        .hit-dice-row label {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .dice-container {
+            display: flex;
+            gap: 8px;
+        }
+        /* Hit Die Buttons */
+        .hit-die {
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--accent-gold);
+        }
+        .hit-die.used {
+            opacity: 0.25;
+            text-decoration: line-through;
+            color: var(--text-sub);
+        }
+        .dice-note {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            font-style: italic;
+            margin-left: auto;
+        }
+        /* Dark Mode Adjustments */
+        body.dark-mode .combat-stats {
+            background: rgba(139, 69, 19, 0.15);
+            border-color: #8b5a2b;
+        }
+        body.dark-mode .stat-btn {
+            background: rgba(139, 69, 19, 0.2);
+        }
+        body.dark-mode .stat-value {
+            background: rgba(197, 160, 89, 0.12);
+        }
+
         /* Responsive */
         @media (min-width: 1200px) {
             .section-content-wrapper { column-count: 2; column-gap: 50px; column-rule: 1px solid rgba(128,128,128,0.2); }
-            .info-card, .stat-grid, .page-header, .journal-grid, .journal-nav, .character-registry, .spell-grid, .notes-wrapper { break-inside: avoid; }
+            .info-card, .stat-grid, .page-header, .journal-grid, .journal-nav, .character-registry, .spell-grid, .notes-wrapper, .combat-stats { break-inside: avoid; }
             .page-header { column-span: all; }
             .journal-grid, .spell-grid { column-count: 1; display: block; }
             .journal-grid > .info-card, .spell-grid > .spell-card { break-inside: avoid; margin-bottom: 30px; }
@@ -716,6 +879,38 @@
                         <table><thead><tr><th>Ability</th><th>Score</th><th>Mod</th><th>Save</th></tr></thead><tbody><tr><td>STR</td><td>17</td><td>+3</td><td>+5 (Prof)</td></tr><tr><td>DEX</td><td>10</td><td>+0</td><td>+0</td></tr><tr><td>CON</td><td>14</td><td>+2</td><td>+2</td></tr><tr><td>INT</td><td>10</td><td>+0</td><td>+0</td></tr><tr><td>WIS</td><td>8</td><td>-1</td><td>-1</td></tr><tr><td>CHA</td><td>14</td><td>+2</td><td>+4 (Prof)</td></tr></tbody></table>
                     </div>
 
+                    <!-- COMBAT TRACKING -->
+                    <div class="combat-stats">
+                        <h3 class="section-title">Stridsläge</h3>
+                        
+                        <!-- HP Tracking -->
+                        <div class="combat-stat-row">
+                            <label>HP:</label>
+                            <button class="stat-btn minus" data-stat="current_hp" aria-label="Minska HP">−</button>
+                            <input type="number" class="stat-value" id="current-hp" value="20" min="0" max="20">
+                            <button class="stat-btn plus" data-stat="current_hp" aria-label="Öka HP">+</button>
+                            <span class="stat-max">/ 20</span>
+                        </div>
+                        
+                        <!-- Temp HP -->
+                        <div class="combat-stat-row">
+                            <label>Temp:</label>
+                            <button class="stat-btn minus" data-stat="temp_hp" aria-label="Minska Temp HP">−</button>
+                            <input type="number" class="stat-value" id="temp-hp" value="0" min="0">
+                            <button class="stat-btn plus" data-stat="temp_hp" aria-label="Öka Temp HP">+</button>
+                        </div>
+                        
+                        <!-- Hit Dice -->
+                        <div class="hit-dice-row">
+                            <label>Slagstärningar:</label>
+                            <div class="dice-container">
+                                <button class="hit-die" data-index="0" aria-label="Slagstärning 1">◉</button>
+                                <button class="hit-die" data-index="1" aria-label="Slagstärning 2">◉</button>
+                            </div>
+                            <span class="dice-note">(2d10 återstår)</span>
+                        </div>
+                    </div>
+
                     <div class="info-card">
                         <h3>Skills & Training</h3>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.95rem; margin-bottom: 15px;">
@@ -808,7 +1003,6 @@
                     <div class="sketch-container" style="position: relative; padding: 20px;">
                         <div class="wax-seal"></div>
                         <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Kurt%20rustning.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Kurt Rustning Skiss" style="width: 100%; height: auto; mix-blend-mode: multiply; filter: sepia(20%) contrast(110%);">
-                        <div style="position: absolute; top: 30%; left: 5%; max-width: 120px; transform: rotate(-5deg);"><p class="blueprint-text" style="font-size: 0.9rem; border-bottom: 1px solid var(--ink-blue);">Rost sprider sig ↘</p></div>
                         <div style="position: absolute; bottom: 25%; right: 10%; max-width: 130px; transform: rotate(3deg);"><p class="blueprint-text" style="font-size: 0.9rem; color: var(--ink-brown);">"Klimatet dödar stålet..."</p></div>
                     </div>
                     <span class="handwritten-caption" style="display:block; margin-top:10px;">Måste hitta en smed snart. Stålet ruttnar som en död fisk.</span>
@@ -1144,25 +1338,26 @@
                     </div>
                     <!-- UPDATED SPELL SLOT DISPLAY TEXT -->
                     <p style="font-family: 'Caveat', cursive; font-size: 1.2rem; color: var(--ink-color); margin-top: 10px;">
-                        "Två formler per dag. Använd dem klokt eller dö dumt."
+                        "Två formler per dag. Välj dina 3 förberedda klokt."
                     </p>
                 </div>
                 
                 <div class="spell-nav" style="display:flex; justify-content:center; align-items:center; margin-bottom:20px; font-family:'Cinzel',serif;">
                     <button onclick="switchSpellPage(-1)" style="background:none; border:none; cursor:pointer; font-size:1.2rem; color:var(--text-main);"><i class="fas fa-chevron-left"></i></button>
-                    <span id="spell-page-indicator" style="margin: 0 20px; font-weight:700;">Blad I: Förberedda</span>
+                    <span id="spell-page-indicator" style="margin: 0 20px; font-weight:700;">Blad I: Ed & Understöd</span>
                     <button onclick="switchSpellPage(1)" style="background:none; border:none; cursor:pointer; font-size:1.2rem; color:var(--text-main);"><i class="fas fa-chevron-right"></i></button>
                 </div>
                 
-                <!-- PAGE 1: PREPARED & OATH -->
+                <!-- PAGE 1: OATH & SUPPORT -->
                 <div id="spell-page-1" class="spell-page active">
                     <div style="text-align: center; margin-bottom: 20px; font-family: 'EB Garamond'; font-style: italic; opacity: 0.8;">
-                        <i class="fas fa-book-reader"></i> Aktiva Formler (Ed + 3 Val)
+                        <i class="fas fa-shield-alt"></i> Grunden i min arsenal
                     </div>
 
                     <!-- Oath Spells (Always Prepared) -->
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
-                        <div class="spell-card info-card" style="border-left: 3px solid var(--accent-gold); background: rgba(197, 160, 89, 0.05);">
+                        <div class="spell-card info-card oath-spell" style="border-left: 3px solid var(--accent-gold); background: rgba(197, 160, 89, 0.05);">
+                            <div class="oath-badge">Edsvuren</div>
                             <h3><i class="fas fa-skull-crossbones"></i> Bane</h3>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">
                                 <span><i class="fas fa-clock"></i> 1 Act</span>
@@ -1170,10 +1365,10 @@
                                 <span><i class="fas fa-hourglass-half"></i> Conc 1 min</span>
                             </div>
                             <p style="font-family: 'EB Garamond', serif;">3 creatures, -1d4 on attacks & saves. (CHA Save).</p>
-                            <div style="text-align:right; font-size:0.75rem; color:var(--accent-gold); font-weight:bold; margin-top:5px;">OATH SPELL</div>
                             <div class="kurt-comment">"I arenan lärde jag mig att försvaga fienden innan första hugget."</div>
                         </div>
-                        <div class="spell-card info-card" style="border-left: 3px solid var(--accent-gold); background: rgba(197, 160, 89, 0.05);">
+                        <div class="spell-card info-card oath-spell" style="border-left: 3px solid var(--accent-gold); background: rgba(197, 160, 89, 0.05);">
+                            <div class="oath-badge">Edsvuren</div>
                             <h3><i class="fas fa-fist-raised"></i> Compelled Duel</h3>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">
                                 <span><i class="fas fa-bolt"></i> 1 BA</span>
@@ -1181,15 +1376,17 @@
                                 <span><i class="fas fa-hourglass-half"></i> Conc 1 min</span>
                             </div>
                             <p style="font-family: 'EB Garamond', serif;">Force 1v1 focus. Disadv attacking others. WIS Save.</p>
-                            <div style="text-align:right; font-size:0.75rem; color:var(--accent-gold); font-weight:bold; margin-top:5px;">OATH SPELL</div>
                             <div class="kurt-comment">"Tvinga fokus. Som Weinberg-Fehde - bara du och din fiende."</div>
                         </div>
                     </div>
 
-                    <!-- Daily Prepared -->
-                    <h4 style="font-family:'Cinzel'; text-align:center; border-bottom:1px solid var(--text-sub); margin-bottom:15px;">Daglig Prep (3 val)</h4>
+                    <!-- Daily Prepared Options: Support -->
+                    <h4 style="font-family:'Cinzel'; text-align:center; border-bottom:1px solid var(--text-sub); margin-bottom:15px;">Understöd & Försvar</h4>
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div class="spell-card info-card" style="border-left: 3px solid #4a3626;">
+                        
+                        <!-- BLESS -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Bless" style="border-left: 3px solid #4a3626;">
+                            <div class="prep-indicator">☆</div>
                             <h3><i class="fas fa-hand-sparkles"></i> Bless</h3>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">
                                 <span><i class="fas fa-clock"></i> 1 Act</span>
@@ -1199,17 +1396,10 @@
                             <p style="font-family: 'EB Garamond', serif;">3 creatures: +1d4 on attacks & saves.</p>
                             <div class="kurt-comment">"Inte gudarnas välsignelse. Bara min vilja att de överlever."</div>
                         </div>
-                        <div class="spell-card info-card" style="border-left: 3px solid #2c4a6b; background: linear-gradient(135deg, rgba(44, 74, 107, 0.03) 0%, transparent 100%);">
-                            <h3><i class="fas fa-shield-virus"></i> Prot. Evil & Good</h3>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">
-                                <span><i class="fas fa-clock"></i> 1 Act</span>
-                                <span><i class="fas fa-hand-paper"></i> Touch</span>
-                                <span><i class="fas fa-hourglass-half"></i> Conc 10 min</span>
-                            </div>
-                            <p style="font-family: 'EB Garamond', serif;">Disadv to hit you (Aberration, Fiend, Undead etc). Immune Charm/Fear.</p>
-                            <div class="kurt-comment">"Tro skyddar inte. Men ed och stål gör det."</div>
-                        </div>
-                        <div class="spell-card info-card" style="grid-column: 1 / -1; border-left: 3px solid #4a3626;">
+
+                        <!-- CURE WOUNDS -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Cure Wounds" style="border-left: 3px solid #4a3626;">
+                            <div class="prep-indicator">☆</div>
                             <h3><i class="fas fa-heartbeat"></i> Cure Wounds</h3>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">
                                 <span><i class="fas fa-clock"></i> 1 Act</span>
@@ -1217,52 +1407,89 @@
                                 <span><i class="fas fa-check"></i> Instant</span>
                             </div>
                             <p style="font-family: 'EB Garamond', serif;">Heal 1d8 + CHA (2). Higher slots: +1d8.</p>
-                            <div class="kurt-comment">"Läkning genom beslutsamhet. Ingen gud behövs - bara vägran att falla."</div>
+                            <div class="kurt-comment">"Läkning genom beslutsamhet. Vägran att falla."</div>
                         </div>
+
+                        <!-- SHIELD OF FAITH -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Shield of Faith" style="border-left: 3px solid #2c4a6b;">
+                            <div class="prep-indicator">☆</div>
+                            <h3><i class="fas fa-shield-alt"></i> Shield of Faith</h3>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">
+                                <span><i class="fas fa-bolt"></i> 1 BA</span>
+                                <span><i class="fas fa-crosshairs"></i> 60 ft</span>
+                                <span><i class="fas fa-hourglass-half"></i> Conc 10 min</span>
+                            </div>
+                            <p style="font-family: 'EB Garamond', serif;">Target gets +2 AC.</p>
+                            <div class="kurt-comment">"+2 AC håller mig vid liv. Eden är min sköld."</div>
+                        </div>
+
+                        <!-- PROT EVIL/GOOD -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Protection from Evil and Good" style="border-left: 3px solid #2c4a6b;">
+                            <div class="prep-indicator">☆</div>
+                            <h3><i class="fas fa-shield-virus"></i> Prot. Evil & Good</h3>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">
+                                <span><i class="fas fa-clock"></i> 1 Act</span>
+                                <span><i class="fas fa-hand-paper"></i> Touch</span>
+                                <span><i class="fas fa-hourglass-half"></i> Conc 10 min</span>
+                            </div>
+                            <p style="font-family: 'EB Garamond', serif;">Disadv to hit you (Fiend/Undead). Immune Charm/Fear.</p>
+                            <div class="kurt-comment">"Äkta ondska får ingen nåd. Och ingen träff."</div>
+                        </div>
+                        
+                        <!-- HEROISM -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Heroism" style="border-left: 3px solid #2c4a6b; grid-column: 1 / -1;">
+                            <div class="prep-indicator">☆</div>
+                            <h3><i class="fas fa-medal"></i> Heroism</h3>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">
+                                <span><i class="fas fa-clock"></i> 1 Act</span>
+                                <span><i class="fas fa-hand-paper"></i> Touch</span>
+                                <span><i class="fas fa-hourglass-half"></i> Conc 1 min</span>
+                            </div>
+                            <p style="font-family: 'EB Garamond', serif;">Immune Fear + CHA Mod Temp HP/turn.</p>
+                            <div class="kurt-comment">"Överlever genom vägran att ge upp. Inte mod - bara envishet."</div>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- PAGE 2: COMBAT (OFFENSE & DEFENSE) -->
+                <!-- PAGE 2: WRATH & COMBAT -->
                 <div id="spell-page-2" class="spell-page">
                     <div style="text-align: center; margin-bottom: 20px; font-family: 'EB Garamond'; font-style: italic; opacity: 0.8;">
-                        <i class="fas fa-swords"></i> Stridsarsenal (Ej Preppade)
+                        <i class="fas fa-swords"></i> Vrede & Offensiv
                     </div>
                     
-                    <h4 style="font-family:'Cinzel'; color:#8b0000; text-align:center; margin-bottom:10px;">Offensiv</h4>
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom:20px;">
-                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #8b0000; background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, transparent 100%);">
+                        
+                        <!-- DIVINE FAVOR -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Divine Favor" style="padding:15px; border-left: 3px solid #8b0000;">
+                            <div class="prep-indicator">☆</div>
                             <h3 style="font-size:1rem;"><i class="fas fa-sun"></i> Divine Favor</h3>
                             <p style="font-size:0.8rem;"><strong>BA, Self, Conc 1 min.</strong> +1d4 Radiant dmg on ALL attacks.</p>
                             <div class="kurt-comment" style="color: #8b0000;">"Varje slag måste räknas när livet hänger på 21 HP."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #8b0000; background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, transparent 100%);">
+
+                        <!-- SEARING SMITE -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Searing Smite" style="padding:15px; border-left: 3px solid #8b0000;">
+                            <div class="prep-indicator">☆</div>
                             <h3 style="font-size:1rem;"><i class="fas fa-fire"></i> Searing Smite</h3>
                             <p style="font-size:0.8rem;"><strong>BA, Self, Conc 1 min.</strong> Hit: +1d6 Fire + Burn (CON save).</p>
                             <div class="kurt-comment" style="color: #8b0000;">"Mässing-eld. Påminner fienden var jag kommer ifrån."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #8b0000; background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, transparent 100%);">
+
+                        <!-- THUNDEROUS SMITE -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Thunderous Smite" style="padding:15px; border-left: 3px solid #8b0000;">
+                            <div class="prep-indicator">☆</div>
                             <h3 style="font-size:1rem;"><i class="fas fa-bolt"></i> Thunderous Smite</h3>
                             <p style="font-size:0.8rem;"><strong>BA, Self, Conc 1 min.</strong> Hit: +2d6 Thunder + Push 10ft (STR save).</p>
                             <div class="kurt-comment" style="color: #8b0000;">"Kraft över finess. Arena-stil - dom ska höra slaget."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #8b0000; background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, transparent 100%);">
+
+                        <!-- WRATHFUL SMITE -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Wrathful Smite" style="padding:15px; border-left: 3px solid #8b0000;">
+                            <div class="prep-indicator">☆</div>
                             <h3 style="font-size:1rem;"><i class="fas fa-brain"></i> Wrathful Smite</h3>
                             <p style="font-size:0.8rem;"><strong>BA, Self, Conc 1 min.</strong> Hit: +1d6 Psychic + Frightened (WIS save end).</p>
                             <div class="kurt-comment" style="color: #8b0000;">"Rädsla är ett vapen. Lärde mig det i överlevnad."</div>
-                        </div>
-                    </div>
-
-                    <h4 style="font-family:'Cinzel'; color:#2c4a6b; text-align:center; margin-bottom:10px;">Defensiv</h4>
-                    <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #2c4a6b; background: linear-gradient(135deg, rgba(44, 74, 107, 0.03) 0%, transparent 100%);">
-                            <h3 style="font-size:1rem;"><i class="fas fa-medal"></i> Heroism</h3>
-                            <p style="font-size:0.8rem;"><strong>1 Act, Touch, Conc 1 min.</strong> Immune Fear + CHA Mod Temp HP/turn.</p>
-                            <div class="kurt-comment" style="color: #2c4a6b;">"Överlever genom vägran att ge upp. Inte mod - bara envishet."</div>
-                        </div>
-                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #2c4a6b; background: linear-gradient(135deg, rgba(44, 74, 107, 0.03) 0%, transparent 100%);">
-                            <h3 style="font-size:1rem;"><i class="fas fa-shield-alt"></i> Shield of Faith</h3>
-                            <p style="font-size:0.8rem;"><strong>BA, 60ft, Conc 10 min.</strong> Target gets +2 AC.</p>
-                            <div class="kurt-comment" style="color: #2c4a6b;">"Eden skyddar mer än rustningen någonsin kunde. +2 AC håller mig vid liv."</div>
                         </div>
                     </div>
                 </div>
@@ -1273,43 +1500,56 @@
                         <i class="fas fa-tools"></i> Verktyg & Ritualer
                     </div>
 
+                    <!-- Daily Utility -->
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom:20px;">
-                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #4a3626;">
+                        
+                        <!-- COMMAND -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Command" style="padding:15px; border-left: 3px solid #4a3626;">
+                            <div class="prep-indicator">☆</div>
                             <h3 style="font-size:1rem;"><i class="fas fa-bullhorn"></i> Command</h3>
                             <p style="font-size:0.8rem;"><strong>1 Act, 60ft.</strong> Order: Halt, Drop, Flee, Grovel. (WIS save).</p>
                             <div class="kurt-comment">"Arena-röst. Ett ord räcker när man talar med auktoritet."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #4a3626;">
+
+                        <!-- DETECT EVIL/GOOD -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Detect Evil and Good" style="padding:15px; border-left: 3px solid #4a3626;">
+                            <div class="prep-indicator">☆</div>
                             <h3 style="font-size:1rem;"><i class="fas fa-eye"></i> Detect Evil/Good</h3>
                             <p style="font-size:0.8rem;"><strong>1 Act, Self, Conc 10 min.</strong> Sense undead/fiends etc within 30ft.</p>
                             <div class="kurt-comment">"Äkta ondska lyser annorlunda än desperata överlevare."</div>
                         </div>
+
+                        <!-- PURIFY FOOD/DRINK -->
+                        <div class="spell-card info-card daily-spell" data-spell-name="Purify Food and Drink" style="padding:15px; border-left: 3px solid #4a3626; grid-column: 1/-1;">
+                            <div class="prep-indicator">☆</div>
+                            <h3 style="font-size:1rem;">Purify Food & Drink</h3>
+                            <p style="font-size:0.8rem;"><strong>1 Act, 10ft, Instant.</strong> Remove poison/disease from food.</p>
+                            <div class="kurt-comment">"Nödvändigt i Aigues Mortes. Allt ruttnar här."</div>
+                        </div>
                     </div>
 
-                    <h4 style="font-family:'Cinzel'; color:var(--ink-color); text-align:center; margin-bottom:10px;">🔮 Ritualer (Ingen Slot krävs)</h4>
-                    <p style="text-align:center; font-size:0.8rem; margin-bottom:10px; font-style:italic;">Kan kastas utan att förberedas om du lägger till 10 minuter.</p>
+                    <h4 style="font-family:'Cinzel'; color:var(--ink-color); text-align:center; margin-bottom:10px;">🔮 Ritualer (Alltid Tillgängliga)</h4>
+                    <p style="text-align:center; font-size:0.8rem; margin-bottom:10px; font-style:italic;">Kräver ingen preparation. Tar +10 minuter att kasta.</p>
                     
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div class="spell-card info-card" style="padding:15px; border: 1px double var(--ink-color);">
+                        <div class="spell-card info-card ritual-spell" style="padding:15px; border: 1px double var(--ink-color);">
+                            <div class="ritual-badge">Ritual</div>
                             <h3 style="font-size:1rem;">Detect Magic</h3>
                             <p style="font-size:0.8rem;">See magical auras within 30ft.</p>
                             <div class="kurt-comment">"Magin lyser som rost på stål. Svår att missa."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px; border: 1px double var(--ink-color);">
+                        <div class="spell-card info-card ritual-spell" style="padding:15px; border: 1px double var(--ink-color);">
+                            <div class="ritual-badge">Ritual</div>
                             <h3 style="font-size:1rem;">Detect Poison/Disease</h3>
                             <p style="font-size:0.8rem;">Identify within 30ft.</p>
                             <div class="kurt-comment">"Överlevnad 101. Lita aldrig på mat du inte sett tillagas."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px; grid-column: 1 / -1; border: 1px double var(--ink-color);">
-                            <h3 style="font-size:1rem;">Purify Food & Drink</h3>
-                            <p style="font-size:0.8rem;">Remove poison/disease from food (10ft).</p>
-                            <div class="kurt-comment">"Nödvändigt i Aigues Mortes. Allt ruttnar här."</div>
-                        </div>
-                        <div class="spell-card info-card" style="padding:15px; grid-column: 1 / -1; border: 1px double var(--ink-color);">
+                        <div class="spell-card info-card ritual-spell" style="padding:15px; grid-column: 1 / -1; border: 1px double var(--ink-color);">
+                            <div class="ritual-badge">Ritual</div>
                             <h3 style="font-size:1rem;"><i class="fas fa-church"></i> Ceremony (1h Cast)</h3>
                             <ul style="font-size:0.8rem; padding-left:20px; margin:5px 0;">
                                 <li><strong>Funeral:</strong> No undead for 7 days. <em style="font-family:'Caveat'; color:var(--ink-color);">"Döden är bekant. Ritualen ger respekt."</em></li>
-                                <li><strong>Wedding:</strong> +2 AC (7 days within 30ft). <em style="font-family:'Caveat'; color:var(--ink-color);">"Ironiskt för en som flyr förbindelser."</em></li>
+                                <li><strong>Wedding:</strong> +2 AC (7 days). <em style="font-family:'Caveat'; color:var(--ink-color);">"Ironiskt för en som flyr förbindelser."</em></li>
                                 <li><strong>Bless Water:</strong> Create Holy Water. <em style="font-family:'Caveat'; color:var(--ink-color);">"Vattnet blir heligt när jag säger det."</em></li>
                                 <li><strong>Atonement:</strong> Restore alignment. <em style="font-family:'Caveat'; color:var(--ink-color);">"Kan eden rätta det rosten förstört?"</em></li>
                             </ul>
@@ -1540,8 +1780,9 @@
             document.body.classList.toggle('dark-mode');
         }
 
-        // Main Section Navigation
+        // Main Section Navigation - INSTANT SWITCH for Performance
         function showSection(sectionId, btn) {
+            // Instant class toggle - no timers, no fade effects
             document.querySelectorAll('.section-container').forEach(el => {
                 el.classList.remove('active');
             });
@@ -1549,10 +1790,11 @@
             const target = document.getElementById('sec-' + sectionId);
             if (target) {
                 target.classList.add('active');
-                // UPDATE: Scroll the inner container, not the frame
-                document.querySelector('.scroll-content').scrollTo({ top: 0, behavior: 'smooth' });
+                // Scroll reset instant
+                document.querySelector('.scroll-content').scrollTo({ top: 0, behavior: 'auto' });
             }
 
+            // Update nav buttons
             document.querySelectorAll('.nav-btn').forEach(el => {
                 el.classList.remove('active-btn');
             });
@@ -1565,15 +1807,10 @@
 
         // Journal Internal Navigation
         let currentJournalPage = 1;
-        const totalJournalPages = 6; // UPDATED: Now 6 pages
+        const totalJournalPages = 6; 
 
         function switchJournalPage(pageNum) {
             let targetPage = currentJournalPage + pageNum;
-            
-            // Handle arrow clicks (passed as 1 or -1) vs direct jumps
-            // If the argument is small (like 1 or -1), treat as relative move
-            // But the button calls use direct switching logic below based on adding/subtracting
-            // Let's stick to the existing simple logic but fix the bounds:
             
             if (targetPage < 1) targetPage = totalJournalPages;
             if (targetPage > totalJournalPages) targetPage = 1; 
@@ -1733,6 +1970,205 @@
             
             container.innerHTML = html;
         }
+
+        // --- SPELL PREP SYSTEM JS ---
+        function getPreparedSpells() {
+            const saved = localStorage.getItem('kurt_prepared_spells');
+            // Default spells if nothing saved
+            return saved ? JSON.parse(saved) : ['Bless', 'Cure Wounds', 'Shield of Faith'];
+        }
+
+        function toggleSpellPrep(spellName) {
+            const prepared = getPreparedSpells();
+            const index = prepared.indexOf(spellName);
+            
+            if (index > -1) {
+                // Remove from prepared
+                prepared.splice(index, 1);
+            } else {
+                // Add to prepared (if under limit)
+                if (prepared.length < 3) {
+                    prepared.push(spellName);
+                } else {
+                    // Kurt's voice: brutal honesty
+                    console.log("Tre formler. Inte mer. Du är inte en trollkarl.");
+                    return; 
+                }
+            }
+            
+            localStorage.setItem('kurt_prepared_spells', JSON.stringify(prepared));
+            updateSpellDisplay();
+        }
+
+        function updateSpellDisplay() {
+            const prepared = getPreparedSpells();
+            
+            document.querySelectorAll('.spell-card.daily-spell').forEach(card => {
+                const spellName = card.dataset.spellName;
+                const indicator = card.querySelector('.prep-indicator');
+                
+                if (prepared.includes(spellName)) {
+                    card.classList.add('prepared');
+                    if(indicator) indicator.textContent = '⭐';
+                } else {
+                    card.classList.remove('prepared');
+                    if(indicator) indicator.textContent = '☆';
+                }
+            });
+        }
+
+        function initSpellPrep() {
+            // Add click handlers to indicators
+            document.querySelectorAll('.prep-indicator').forEach(indicator => {
+                indicator.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Don't trigger other card clicks
+                    const card = e.target.closest('.spell-card');
+                    const spellName = card.dataset.spellName;
+                    
+                    if (spellName) {
+                        toggleSpellPrep(spellName);
+                    }
+                });
+            });
+            
+            // Initial render
+            updateSpellDisplay();
+        }
+
+        // ===== COMBAT STATS TRACKING =====
+        // Get combat stats from localStorage
+        function getCombatStats() {
+            const saved = localStorage.getItem('kurt_combat_stats');
+            return saved ? JSON.parse(saved) : {
+                current_hp: 20,
+                max_hp: 20,
+                temp_hp: 0,
+                hit_dice_used: 0,
+                death_saves_success: 0,
+                death_saves_failure: 0
+            };
+        }
+
+        // Save to localStorage
+        function saveCombatStats(stats) {
+            localStorage.setItem('kurt_combat_stats', JSON.stringify(stats));
+        }
+
+        // Update display from saved stats
+        function updateCombatDisplay() {
+            const stats = getCombatStats();
+            
+            // Update HP inputs
+            const currentHpInput = document.getElementById('current-hp');
+            const tempHpInput = document.getElementById('temp-hp');
+            
+            if (currentHpInput) currentHpInput.value = stats.current_hp;
+            if (tempHpInput) tempHpInput.value = stats.temp_hp;
+            
+            // Update hit dice visual state
+            document.querySelectorAll('.hit-die').forEach((die, index) => {
+                if (index < stats.hit_dice_used) {
+                    die.classList.add('used');
+                    die.textContent = '○'; // Empty circle
+                } else {
+                    die.classList.remove('used');
+                    die.textContent = '◉'; // Filled circle
+                }
+            });
+            
+            // Update dice note text
+            const remaining = 2 - stats.hit_dice_used;
+            const diceNote = document.querySelector('.dice-note');
+            if (diceNote) {
+                diceNote.textContent = `(${remaining}d10 återstår)`;
+            }
+        }
+
+        // Initialize combat tracking
+        function initCombatTracking() {
+            // Initial display update
+            updateCombatDisplay();
+            
+            // +/- Button handlers
+            document.querySelectorAll('.stat-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const stats = getCombatStats();
+                    const statName = btn.dataset.stat;
+                    const isMinus = btn.classList.contains('minus');
+                    
+                    if (isMinus) {
+                        stats[statName] = Math.max(0, stats[statName] - 1);
+                    } else {
+                        // Plus button
+                        const max = statName === 'current_hp' ? stats.max_hp : 999;
+                        stats[statName] = Math.min(max, stats[statName] + 1);
+                    }
+                    
+                    saveCombatStats(stats);
+                    updateCombatDisplay();
+                });
+            });
+            
+            // Direct input handlers
+            document.querySelectorAll('.stat-value').forEach(input => {
+                input.addEventListener('change', () => {
+                    const stats = getCombatStats();
+                    const statName = input.id.replace('-', '_'); // 'current-hp' → 'current_hp'
+                    
+                    let newValue = parseInt(input.value);
+                    if (isNaN(newValue)) newValue = 0;
+                    
+                    // Clamp to valid range
+                    if (statName === 'current_hp') {
+                        stats[statName] = Math.max(0, Math.min(stats.max_hp, newValue));
+                    } else {
+                        stats[statName] = Math.max(0, newValue);
+                    }
+                    
+                    saveCombatStats(stats);
+                    updateCombatDisplay();
+                });
+                
+                // Also handle on blur (when user clicks away)
+                input.addEventListener('blur', () => {
+                    updateCombatDisplay(); // Sync display with saved value
+                });
+            });
+            
+            // Hit dice toggle
+            document.querySelectorAll('.hit-die').forEach((die, index) => {
+                die.addEventListener('click', () => {
+                    const stats = getCombatStats();
+                    
+                    // Toggle this die
+                    if (die.classList.contains('used')) {
+                        // Un-use it (regaining during long rest)
+                        stats.hit_dice_used = Math.max(0, stats.hit_dice_used - 1);
+                    } else {
+                        // Use it (spending hit die for healing)
+                        stats.hit_dice_used = Math.min(2, stats.hit_dice_used + 1); // Max 2 at level 2
+                    }
+                    
+                    saveCombatStats(stats);
+                    updateCombatDisplay();
+                });
+            });
+        }
+
+        // Add to DOMContentLoaded
+        const existingOnLoad = window.onload;
+        window.onload = function() {
+            if (existingOnLoad) existingOnLoad();
+            // Trigger image observers
+        };
+        
+        // Append to existing DOMContentLoaded listener logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... existing listeners ...
+            initSpellPrep();
+            initCombatTracking();
+        });
+
     </script>
 </body>
 </html>

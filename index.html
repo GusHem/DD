@@ -132,11 +132,15 @@
             border-left: none; border-right: none;
             padding: 20px 10px;
             margin: 0 20px 40px 20px;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+            
+            /* FIX: Solid background to mask the sidebar lines behind it */
+            background-color: var(--spine-color);
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23leather)' opacity='0.3'/%3E%3C/svg%3E");
+            
             cursor: pointer;
+            transition: all 0.3s;
             position: relative;
             z-index: 2;
-            /* REMOVED HEAVY TRANSITION */
         }
         
         .book-title:hover {

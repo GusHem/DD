@@ -370,8 +370,20 @@
 
         /* Sketches */
         .sketch-container { margin: 10px 0; text-align: center; position: relative; padding: 10px; background: transparent; border: none; transform: rotate(-0.5deg); }
-        .sketch-container img { mix-blend-mode: var(--image-filter); filter: var(--image-adjust); }
-        /* Removed Hover transform */
+        /* UPDATED: Added transition for smooth filter change */
+        .sketch-container img { 
+            mix-blend-mode: var(--image-filter); 
+            filter: var(--image-adjust); 
+            transition: filter 0.5s ease, mix-blend-mode 0.5s ease;
+        }
+        
+        /* HERO IMAGE DARK MODE HANDLING */
+        .hero-image-container svg {
+            transition: filter 0.5s ease;
+        }
+        body.dark-mode .hero-image-container svg {
+            filter: invert(1) hue-rotate(180deg) contrast(1.1) drop-shadow(0 0 5px rgba(255,255,255,0.2)) !important;
+        }
 
         /* Map Markers */
         .map-marker {
@@ -958,7 +970,8 @@
             <!-- HERO PAGE -->
             <section id="sec-hero" class="section-container active" style="text-align: center; padding-top: 20px;">
                 <div class="hero-image-container" style="max-width: 800px; margin: 0 auto;">
-                    <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; filter: sepia(20%) drop-shadow(0 5px 15px rgba(0,0,0,0.3));">
+                    <!-- REMOVED INLINE FILTER: Now handled by CSS class for dark mode support -->
+                    <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px;">
                         <rect width="600" height="400" fill="#f4e8d0"/>
                         <rect x="20" y="20" width="560" height="360" fill="none" stroke="#8b5a2b" stroke-width="3"/>
                         <rect x="30" y="30" width="540" height="340" fill="none" stroke="#b8860b" stroke-width="2"/>
@@ -1155,7 +1168,8 @@
                     <h3>Rustningens Tillstånd</h3>
                     <div class="sketch-container" style="position: relative; padding: 20px;">
                         <div class="wax-seal"></div>
-                        <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Kurt%20rustning.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Kurt Rustning Skiss" style="width: 100%; height: auto; mix-blend-mode: multiply; filter: sepia(20%) contrast(110%);">
+                        <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER: Now using CSS variables -->
+                        <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Kurt%20rustning.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Kurt Rustning Skiss" style="width: 100%; height: auto;">
                         <div style="position: absolute; bottom: 25%; right: 10%; max-width: 130px; transform: rotate(3deg);"><p class="blueprint-text" style="font-size: 0.9rem; color: var(--ink-brown);">"Klimatet dödar stålet..."</p></div>
                     </div>
                     <span class="handwritten-caption" style="display:block; margin-top:10px;">Måste hitta en smed snart. Stålet ruttnar som en död fisk.</span>
@@ -1166,9 +1180,10 @@
                     <h3>Sköldens Skick</h3>
                     <div class="sketch-container" style="position: relative; padding: 20px;">
                         <div class="wax-seal"></div>
+                        <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                         <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/sko%CC%88ld.svg" 
                              alt="Bucklig Sköld" 
-                             style="width: 100%; height: auto; mix-blend-mode: multiply; filter: sepia(20%) contrast(110%);">
+                             style="width: 100%; height: auto;">
                         <div style="position: absolute; top: 10%; right: 5%; max-width: 100px; transform: rotate(5deg);"><p class="blueprint-text" style="font-size: 0.9rem; color: #8b0000;">Sprickor!</p></div>
                     </div>
                     <span class="handwritten-caption" style="display:block; margin-top:10px;">Funnen vid Ankaret (8sp). Måste repareras.</span>
@@ -1180,9 +1195,10 @@
                     <p style="text-align: center; margin-bottom: 15px;">Köpt från Zügwern-handlare, vecka 3. Samma stil som hemma, men inte mitt originalsvärd.</p>
                     <div class="sketch-container">
                         <div class="wax-seal"></div>
+                        <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                         <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/zugwernsva%CC%88rd.svg"
                              alt="Zügwern Sword"
-                             style="width: 100%; height: auto; mix-blend-mode: var(--image-filter); filter: var(--image-adjust);">
+                             style="width: 100%; height: auto;">
                     </div>
                     <span class="handwritten-caption">Alpint hantverk. Känns som hemma. Men mässingen kommer också rosta här...</span>
                 </div>
@@ -1193,9 +1209,10 @@
                     <p style="font-style: italic; text-align: center; margin-bottom: 15px;">Turneringspris efter första segern. Såldes i vecka 2 för 15 silvermynt.</p>
                     <div class="sketch-container">
                         <div class="wax-seal"></div>
+                        <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                         <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/tunresva%CC%88rd.svg"
                              alt="Tournament Prize Sword"
-                             style="width: 100%; height: auto; mix-blend-mode: var(--image-filter); filter: var(--image-adjust);">
+                             style="width: 100%; height: auto;">
                     </div>
                     <span class="handwritten-caption" style="color: #8b4513;">
                         Detta är minnet av svärdet. Inte själva svärdet. Sålde min ära för mat.
@@ -1224,7 +1241,8 @@
                         <h3>Inlägg 1: Weinberg-arenan</h3>
                         <div class="sketch-container" style="padding: 10px;">
                             <div class="wax-seal"></div>
-                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Arena.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Arena" style="width: 100%; height: auto; mix-blend-mode: multiply;">
+                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
+                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Arena.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Arena" style="width: 100%; height: auto;">
                         </div>
                         <span class="handwritten-caption">Där jag vann mina första segrar.</span>
                     </div>
@@ -1236,7 +1254,8 @@
                         <h3>Inlägg 2: Safehouse</h3>
                         <div class="sketch-container" style="padding: 10px;">
                             <div class="wax-seal"></div>
-                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Hideout.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Safehouse" style="width: 100%; height: auto; mix-blend-mode: multiply;">
+                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
+                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Hideout.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Safehouse" style="width: 100%; height: auto;">
                         </div>
                         <span class="handwritten-caption">Inte mycket för världen, men det är torrt.</span>
                     </div>
@@ -1248,7 +1267,8 @@
                         <h3>Fig 3: Aigues Mortes Pålhus</h3>
                         <div class="sketch-container" style="padding: 10px;">
                             <div class="wax-seal"></div>
-                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Hus.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Pålhus" style="width: 100%; height: auto; mix-blend-mode: multiply;">
+                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
+                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Hus.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Pålhus" style="width: 100%; height: auto;">
                         </div>
                         <span class="handwritten-caption">Arkitektur av nödvändighet. Marken här bär ingenting, inte ens löften.</span>
                     </div>
@@ -1260,7 +1280,8 @@
                         <h3>Inlägg 4: Vecka 1</h3>
                         <div class="sketch-container" style="padding: 10px;">
                             <div class="wax-seal"></div>
-                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/coinbag.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Tom Börs" style="width: 100%; height: auto; mix-blend-mode: multiply;">
+                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
+                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/coinbag.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Tom Börs" style="width: 100%; height: auto;">
                         </div>
                         <span class="handwritten-caption">Tog en risk. Det lönade sig inte.</span>
                         <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 10px; border-top: 1px dashed rgba(0,0,0,0.2); padding-top: 5px;">
@@ -1275,7 +1296,8 @@
                         <h3>Inlägg 5: Råttkungen</h3>
                         <div class="sketch-container" style="padding: 10px;">
                             <div class="wax-seal"></div>
-                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/ratking.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Råttkungen" style="width: 100%; height: auto; mix-blend-mode: multiply;">
+                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
+                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/ratking.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Råttkungen" style="width: 100%; height: auto;">
                         </div>
                         <span class="handwritten-caption">Arbete är arbete. Guld luktar inte.</span>
                     </div>
@@ -1287,9 +1309,10 @@
                         <h3>Inlägg 6: Första Segern</h3>
                         <div class="sketch-container" style="padding: 10px;">
                             <div class="wax-seal"></div>
+                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                             <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/turnevinst.svg" 
                                  alt="Tournament Victory" 
-                                 style="width: 100%; height: auto; mix-blend-mode: var(--image-filter); filter: var(--image-adjust);">
+                                 style="width: 100%; height: auto;">
                         </div>
                         <span class="handwritten-caption">
                             Minnet värmer när nätterna blir kalla.
@@ -1333,9 +1356,10 @@
                                 <!-- REPLACED TEXT BOX WITH FLYER IMAGE -->
                                 <div class="sketch-container" style="padding: 10px; margin: 15px 0; transform: rotate(1deg);">
                                     <div class="wax-seal"></div>
+                                    <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                                     <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/flyer.svg" 
                                          alt="Lisse Arena Championship Flyer" 
-                                         style="width: 100%; height: auto; mix-blend-mode: multiply; filter: sepia(30%) contrast(110%); box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
+                                         style="width: 100%; height: auto; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
                                 </div>
 
                                 <p style="font-family: 'EB Garamond'; font-style: italic;">
@@ -1392,10 +1416,10 @@
                                     <h3 style="text-align: center;"><i class="fas fa-book-open"></i> Symbolik & Koppling</h3>
                                     <div class="sketch-container">
                                         <div class="wax-seal"></div>
+                                        <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                                         <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Eisenwald%20medaljong.svg"
                                              alt="Eisenwald Medallion"
-                                             style="width: 100%; max-width: 400px; height: auto; margin: 0 auto; display: block;
-                                                    mix-blend-mode: var(--image-filter); filter: var(--image-adjust);">
+                                             style="width: 100%; max-width: 400px; height: auto; margin: 0 auto; display: block;">
                                     </div>
                                     <p style="font-family: 'Caveat', cursive; font-size: 1.2rem; color: var(--ink-color);
                                               margin-top: 15px; text-align: center; font-weight: 700;">
@@ -1410,9 +1434,10 @@
                                     </h3>
                                     <div class="sketch-container">
                                         <div class="wax-seal"></div>
+                                        <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                                         <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/mittenla%CC%88nk.svg"
                                              alt="Siegerkette Close-up"
-                                             style="width: 100%; height: auto; mix-blend-mode: var(--image-filter); filter: var(--image-adjust);">
+                                             style="width: 100%; height: auto;">
                                     </div>
                                     <span class="handwritten-caption" style="color: #8b0000; font-weight: 700;">
                                         Sprickan växer varje dag. Hur länge innan mittenlänken går sönder helt?
@@ -1424,9 +1449,10 @@
                                     <h3 style="text-align: center;"><i class="fas fa-exclamation-triangle"></i> Tillstånd Efter 3 Månader</h3>
                                     <div class="sketch-container">
                                         <div class="wax-seal"></div>
+                                        <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                                         <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/vinranke-ritning.svg"
                                              alt="Degradation Diagram"
-                                             style="width: 100%; height: auto; mix-blend-mode: var(--image-filter); filter: var(--image-adjust);">
+                                             style="width: 100%; height: auto;">
                                     </div>
                                     <span class="handwritten-caption">Silvret dör. Mittenlänken sprickt.</span>
                                 </div>
@@ -1759,9 +1785,10 @@
                             <!-- Full Sketch of Kaspar -->
                             <div class="sketch-container" style="margin: 20px 0; border-top: 1px dashed var(--text-sub); padding-top: 20px;">
                                 <div class="wax-seal"></div>
+                                <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                                 <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Kaspar%20Falkenschalg.svg" 
                                      alt="Kaspar Falkenschlag Full Sketch" 
-                                     style="width: 100%; height: auto; mix-blend-mode: var(--image-filter); filter: var(--image-adjust);">
+                                     style="width: 100%; height: auto;">
                                 <span class="handwritten-caption" style="color: #8b0000;">Ritad ur minnet. Jag glömmer inte.</span>
                             </div>
 
@@ -1801,6 +1828,8 @@
                 <div class="section-content-wrapper">
                     <header class="page-header"><h1 class="page-title">Gruppen</h1><div class="page-subtitle">Allierade & Följeslagare</div></header>
                     <div class="stat-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                        
+                        <!-- KURT -->
                         <div class="info-card">
                             <h3>Kurt Eisenwald</h3>
                             <p style="font-family:'EB Garamond'; color:var(--text-main); font-size:1rem; text-align:center; margin-top:10px;">
@@ -1808,29 +1837,35 @@
                                 <strong>Ålder:</strong> 24 (Tränad sen 16)<br>
                                 <strong>Ursprung:</strong> Zügwern
                             </p>
-                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.2rem; text-align:center; margin-top:10px; font-style:italic;">
-                                "Arenan hade regler. Domare. Heder. Här i Lisse hugger de en i ryggen för ett kopparmynt. Jag är stark, men jag har mycket att lära om hur den 'riktiga' världen fungerar."
+                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.2rem; text-align:center; margin-top:10px; font-style:italic; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1);">
+                                "Råttkungen kallade mig 'soldat'. Jag nickade bara. Sa inte att min enda erfarenhet är uppvisningsmatcher med trubbiga vapen. Nu ska jag stå längst fram? Okej. Andas. Låt dem inte se att händerna skakar. Fake it 'til you make it, Kurt."
                             </p>
                         </div>
-                        <div class="info-card" style="opacity: 0.6;">
+                        
+                        <!-- DRUID -->
+                        <div class="info-card" style="opacity: 0.8;">
                             <h3>[Namn Okänt]</h3>
-                            <p style="text-align: center;"><strong>Roll:</strong> [Klass/Roll]</p>
-                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px;">
-                                "Ännu en vilsen själ i Råttkungens nät."
+                            <p style="text-align: center;"><strong>Rykte:</strong> Druid</p>
+                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1);">
+                                "En druid? Någon som... pratar med mossa? I Zügwern var det bara sagor. Vi ska ut i träsket. Hoppas hen vet var man kan sätta fötterna utan att sjunka. För jag har ingen aning."
                             </p>
                         </div>
-                        <div class="info-card" style="opacity: 0.6;">
+
+                        <!-- SORCERER -->
+                        <div class="info-card" style="opacity: 0.8;">
                             <h3>[Namn Okänt]</h3>
-                            <p style="text-align: center;"><strong>Roll:</strong> [Klass/Roll]</p>
-                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px;">
-                                "Får se om de håller måttet när stålet dras."
+                            <p style="text-align: center;"><strong>Rykte:</strong> Sorcerer</p>
+                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1);">
+                                "Magi i blodet. Jag fick träna svärdteknik varje dag i åtta år för att bli halvbra. De föddes tydligen med eld i händerna. Känner mig... liten. Tänk om jag bara är i vägen för dem?"
                             </p>
                         </div>
-                        <div class="info-card" style="opacity: 0.6;">
+
+                        <!-- BARD -->
+                        <div class="info-card" style="opacity: 0.8;">
                             <h3>[Namn Okänt]</h3>
-                            <p style="text-align: center;"><strong>Roll:</strong> [Klass/Roll]</p>
-                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px;">
-                                "Hoppas de inte snarkar."
+                            <p style="text-align: center;"><strong>Rykte:</strong> Bard</p>
+                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1);">
+                                "En musiker? Är det här ett skämt? Eller... nej, vänta. Kanske kan hen prata. Jag satte oss i fängelse sist jag öppnade munnen på krogen. Om hen sköter pratet så sköter jag... att stå ivägen för smällar. Det låter som en bra deal."
                             </p>
                         </div>
                     </div>
@@ -1872,16 +1907,17 @@
             <!-- SECTION 6: MAPS -->
         <section id="sec-maps" class="section-container theme-maps">
             <div class="section-content-wrapper">
-                <header class="page-header"><h1 class="page-title">Kartor & Referens</h1><div class="page-subtitle">Kartografi över den Kända Världen</div></header>
+                <header class="page-header"><h1 class="page-title">Kartor & Referens</h1><div class="page-subtitle">Kartografi över den Kända Wärlden</div></header>
                 
                 <!-- WORLD MAP CARD -->
                 <div class="info-card">
-                    <h3>Den Kända Världen</h3>
+                    <h3>Den Kända Wärlden</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
                         <div style="text-align: center; grid-column: 1 / -1;">
                             <div class="sketch-container" style="padding: 5px; margin: 0; transform: rotate(-1deg);">
                                 <div class="wax-seal"></div>
-                                <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Karta%20varden.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Världskarta" style="width: 100%; height: auto; mix-blend-mode: multiply;">
+                                <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
+                                <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Karta%20varden.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Världskarta" style="width: 100%; height: auto;">
                                 
                                 <!-- MARKER: Zügwern (Adjusted: Further inland/right and down) -->
                                 <div class="map-marker" style="top: 72%; left: 28%;">
@@ -1916,10 +1952,11 @@
                     <div class="sketch-container" style="padding: 10px;">
                         <div class="wax-seal"></div>
                         <!-- Full Firebase URL with User Provided Token -->
+                        <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
                         <img data-src="https://firebasestorage.googleapis.com/v0/b/nordsym-funnel.firebasestorage.app/o/Ska%CC%88rmavbild%202025-11-27%20kl.%2015.00.08.png?alt=media&token=7f1e955d-3d3a-43f6-ad5b-687faee00793" 
                              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-style='italic' fill='%235d4037'%3ELaddar karta...%3C/text%3E%3C/svg%3E"
                              alt="Detaljkarta Lisse" 
-                             style="width: 100%; height: auto; mix-blend-mode: multiply; filter: contrast(110%) sepia(30%); box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                             style="width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
                         
                         <!-- MARKER: Aigues Mortes (Bottom Left Island) -->
                         <div class="map-marker" style="top: 70%; left: 15%;">

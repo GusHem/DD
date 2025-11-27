@@ -445,6 +445,18 @@
         }
         body.dark-mode .note-card { background: rgba(0,0,0,0.2); }
         
+        /* NY STIL FÖR KURTS KOMMENTARER PÅ SPELLCARDS */
+        .kurt-comment {
+            font-family: 'Caveat', cursive;
+            font-size: 1.1rem;
+            color: var(--ink-color);
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(0,0,0,0.2);
+            font-style: italic;
+            font-weight: 600;
+        }
+
         .note-date {
             font-family: 'Cinzel', serif;
             font-size: 0.8rem;
@@ -492,8 +504,58 @@
             cursor: pointer;
             opacity: 0.5;
             transition: opacity 0.2s;
+            font-size: 1.2rem;
         }
-        .delete-note:hover { opacity: 1; }
+        .delete-note:hover { opacity: 1; transform: scale(1.1); }
+
+        /* NY MODAL FÖR RADERING (Ersätter confirm()) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; 
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(2px);
+        }
+        
+        .modal-box {
+            background: var(--parchment-bg);
+            border: 4px double var(--accent-gold);
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            color: #8b0000;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--text-sub);
+            padding-bottom: 10px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            border: none;
+            margin: 10px;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-confirm { background: #8b0000; color: #fff; }
+        .btn-cancel { background: transparent; border: 1px solid var(--text-sub); color: var(--text-main); }
+        .modal-btn:hover { transform: scale(1.05); }
 
         /* Thematic Text Area */
         textarea.thematic-input {
@@ -1017,7 +1079,7 @@
 
             <!-- SECTION: TROLLFORMLER (UPDATED: 2024 PHB FULL LIST) -->
             <section id="sec-spells" class="section-container theme-spell">
-                <header class="page-header"><h1 class="page-title">Trollformler</h1><div class="page-subtitle">Paladin (Level 1) • 2024 Regler</div></header>
+                <header class="page-header"><h1 class="page-title">Trollformler</h1><div class="page-subtitle">Paladin (Level 2) • 2024 Regler</div></header>
                 
                 <div class="spell-slots-display">
                     <div style="font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--text-sub);"><strong>Besvärjelsespalter:</strong></div>
@@ -1030,6 +1092,10 @@
                             </div>
                         </div>
                     </div>
+                    <!-- UPDATED SPELL SLOT DISPLAY TEXT -->
+                    <p style="font-family: 'Caveat', cursive; font-size: 1.2rem; color: var(--ink-color); margin-top: 10px;">
+                        "Två formler per dag. Använd dem klokt eller dö dumt."
+                    </p>
                 </div>
                 
                 <div class="spell-nav" style="display:flex; justify-content:center; align-items:center; margin-bottom:20px; font-family:'Cinzel',serif;">
@@ -1051,32 +1117,37 @@
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;"><span>⏱ 1 Act</span><span>📍 30 ft</span><span>⏳ Conc 1m</span></div>
                             <p style="font-family: 'EB Garamond', serif;">3 creatures, -1d4 on attacks & saves. (CHA Save).</p>
                             <div style="text-align:right; font-size:0.75rem; color:var(--accent-gold); font-weight:bold; margin-top:5px;">OATH SPELL</div>
+                            <div class="kurt-comment">"I arenan lärde jag mig att försvaga fienden innan första hugget."</div>
                         </div>
                         <div class="spell-card info-card" style="border-left: 3px solid var(--accent-gold); background: rgba(197, 160, 89, 0.05);">
                             <h3><i class="fas fa-fist-raised"></i> Compelled Duel</h3>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;"><span>⏱ 1 BA</span><span>📍 30 ft</span><span>⏳ Conc 1m</span></div>
                             <p style="font-family: 'EB Garamond', serif;">Force 1v1 focus. Disadv attacking others. WIS Save.</p>
                             <div style="text-align:right; font-size:0.75rem; color:var(--accent-gold); font-weight:bold; margin-top:5px;">OATH SPELL</div>
+                            <div class="kurt-comment">"Tvinga fokus. Som Weinberg-Fehde - bara du och din fiende."</div>
                         </div>
                     </div>
 
                     <!-- Daily Prepared -->
                     <h4 style="font-family:'Cinzel'; text-align:center; border-bottom:1px solid var(--text-sub); margin-bottom:15px;">Daglig Prep (3 val)</h4>
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div class="spell-card info-card">
+                        <div class="spell-card info-card" style="border-left: 3px solid #4a3626;">
                             <h3><i class="fas fa-hand-sparkles"></i> Bless</h3>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;"><span>⏱ 1 Act</span><span>📍 30 ft</span><span>⏳ Conc 1m</span></div>
                             <p style="font-family: 'EB Garamond', serif;">3 creatures: +1d4 on attacks & saves.</p>
+                            <div class="kurt-comment">"Inte gudarnas välsignelse. Bara min vilja att de överlever."</div>
                         </div>
-                        <div class="spell-card info-card">
+                        <div class="spell-card info-card" style="border-left: 3px solid #2c4a6b; background: linear-gradient(135deg, rgba(44, 74, 107, 0.03) 0%, transparent 100%);">
                             <h3><i class="fas fa-shield-virus"></i> Prot. Evil & Good</h3>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;"><span>⏱ 1 Act</span><span>📍 Touch</span><span>⏳ Conc 10m</span></div>
                             <p style="font-family: 'EB Garamond', serif;">Disadv to hit you (Aberration, Fiend, Undead etc). Immune Charm/Fear.</p>
+                            <div class="kurt-comment">"Tro skyddar inte. Men ed och stål gör det."</div>
                         </div>
-                        <div class="spell-card info-card" style="grid-column: 1 / -1;">
+                        <div class="spell-card info-card" style="grid-column: 1 / -1; border-left: 3px solid #4a3626;">
                             <h3><i class="fas fa-heartbeat"></i> Cure Wounds</h3>
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;"><span>⏱ 1 Act</span><span>📍 Touch</span><span>⏳ Instant</span></div>
                             <p style="font-family: 'EB Garamond', serif;">Heal 1d8 + CHA (2). Higher slots: +1d8.</p>
+                            <div class="kurt-comment">"Läkning genom beslutsamhet. Ingen gud behövs - bara vägran att falla."</div>
                         </div>
                     </div>
                 </div>
@@ -1089,33 +1160,39 @@
                     
                     <h4 style="font-family:'Cinzel'; color:#8b0000; text-align:center; margin-bottom:10px;">Offensiv</h4>
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom:20px;">
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #8b0000; background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, transparent 100%);">
                             <h3 style="font-size:1rem;"><i class="fas fa-sun"></i> Divine Favor</h3>
                             <p style="font-size:0.8rem;"><strong>BA, Self, Conc 1m.</strong> +1d4 Radiant dmg on ALL attacks.</p>
+                            <div class="kurt-comment" style="color: #8b0000;">"Varje slag måste räknas när livet hänger på 21 KP."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #8b0000; background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, transparent 100%);">
                             <h3 style="font-size:1rem;"><i class="fas fa-fire"></i> Searing Smite</h3>
                             <p style="font-size:0.8rem;"><strong>BA, Self, Conc 1m.</strong> Hit: +1d6 Fire + Burn (CON save).</p>
+                            <div class="kurt-comment" style="color: #8b0000;">"Mässing-eld. Påminner fienden var jag kommer ifrån."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #8b0000; background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, transparent 100%);">
                             <h3 style="font-size:1rem;"><i class="fas fa-bolt"></i> Thunderous Smite</h3>
                             <p style="font-size:0.8rem;"><strong>BA, Self, Conc 1m.</strong> Hit: +2d6 Thunder + Push 10ft (STR save).</p>
+                            <div class="kurt-comment" style="color: #8b0000;">"Kraft över finess. Arena-stil - dom ska höra slaget."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #8b0000; background: linear-gradient(135deg, rgba(139, 0, 0, 0.03) 0%, transparent 100%);">
                             <h3 style="font-size:1rem;"><i class="fas fa-brain"></i> Wrathful Smite</h3>
                             <p style="font-size:0.8rem;"><strong>BA, Self, Conc 1m.</strong> Hit: +1d6 Psychic + Frightened (WIS save end).</p>
+                            <div class="kurt-comment" style="color: #8b0000;">"Rädsla är ett vapen. Lärde mig det i överlevnad."</div>
                         </div>
                     </div>
 
                     <h4 style="font-family:'Cinzel'; color:#2c4a6b; text-align:center; margin-bottom:10px;">Defensiv</h4>
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #2c4a6b; background: linear-gradient(135deg, rgba(44, 74, 107, 0.03) 0%, transparent 100%);">
                             <h3 style="font-size:1rem;"><i class="fas fa-medal"></i> Heroism</h3>
                             <p style="font-size:0.8rem;"><strong>1 Act, Touch, Conc 1m.</strong> Immune Fear + CHA Mod Temp HP/turn.</p>
+                            <div class="kurt-comment" style="color: #2c4a6b;">"Överlever genom vägran att ge upp. Inte mod - bara envishet."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #2c4a6b; background: linear-gradient(135deg, rgba(44, 74, 107, 0.03) 0%, transparent 100%);">
                             <h3 style="font-size:1rem;"><i class="fas fa-shield-alt"></i> Shield of Faith</h3>
                             <p style="font-size:0.8rem;"><strong>BA, 60ft, Conc 10m.</strong> Target gets +2 AC.</p>
+                            <div class="kurt-comment" style="color: #2c4a6b;">"Eden skyddar mer än rustningen någonsin kunde. +2 RK håller mig vid liv."</div>
                         </div>
                     </div>
                 </div>
@@ -1127,13 +1204,15 @@
                     </div>
 
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom:20px;">
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #4a3626;">
                             <h3 style="font-size:1rem;"><i class="fas fa-bullhorn"></i> Command</h3>
                             <p style="font-size:0.8rem;"><strong>1 Act, 60ft.</strong> Order: Halt, Drop, Flee, Grovel. (WIS save).</p>
+                            <div class="kurt-comment">"Arena-röst. Ett ord räcker när man talar med auktoritet."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border-left: 3px solid #4a3626;">
                             <h3 style="font-size:1rem;"><i class="fas fa-eye"></i> Detect Evil/Good</h3>
                             <p style="font-size:0.8rem;"><strong>1 Act, Self, Conc 10m.</strong> Sense undead/fiends etc within 30ft.</p>
+                            <div class="kurt-comment">"Äkta ondska lyser annorlunda än desperata överlevare."</div>
                         </div>
                     </div>
 
@@ -1141,25 +1220,28 @@
                     <p style="text-align:center; font-size:0.8rem; margin-bottom:10px; font-style:italic;">Kan kastas utan att förberedas om du lägger till 10 minuter.</p>
                     
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border: 1px double var(--ink-color);">
                             <h3 style="font-size:1rem;">Detect Magic</h3>
                             <p style="font-size:0.8rem;">See magical auras within 30ft.</p>
+                            <div class="kurt-comment">"Magin lyser som rost på stål. Svår att missa."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px;">
+                        <div class="spell-card info-card" style="padding:15px; border: 1px double var(--ink-color);">
                             <h3 style="font-size:1rem;">Detect Poison/Disease</h3>
                             <p style="font-size:0.8rem;">Identify within 30ft.</p>
+                            <div class="kurt-comment">"Överlevnad 101. Lita aldrig på mat du inte sett tillagas."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px; grid-column: 1 / -1;">
+                        <div class="spell-card info-card" style="padding:15px; grid-column: 1 / -1; border: 1px double var(--ink-color);">
                             <h3 style="font-size:1rem;">Purify Food & Drink</h3>
                             <p style="font-size:0.8rem;">Remove poison/disease from food (10ft).</p>
+                            <div class="kurt-comment">"Nödvändigt i Aigues Mortes. Allt ruttnar här."</div>
                         </div>
-                        <div class="spell-card info-card" style="padding:15px; grid-column: 1 / -1; border:1px double var(--accent-gold);">
+                        <div class="spell-card info-card" style="padding:15px; grid-column: 1 / -1; border: 1px double var(--ink-color);">
                             <h3 style="font-size:1rem;"><i class="fas fa-church"></i> Ceremony (1h Cast)</h3>
                             <ul style="font-size:0.8rem; padding-left:20px; margin:5px 0;">
-                                <li><strong>Funeral:</strong> No undead for 7 days.</li>
-                                <li><strong>Wedding:</strong> +2 AC (7 days within 30ft).</li>
-                                <li><strong>Bless Water:</strong> Create Holy Water.</li>
-                                <li><strong>Atonement:</strong> Restore alignment.</li>
+                                <li><strong>Funeral:</strong> No undead for 7 days. <em style="font-family:'Caveat'; color:var(--ink-color);">"Döden är bekant. Ritualen ger respekt."</em></li>
+                                <li><strong>Wedding:</strong> +2 AC (7 days within 30ft). <em style="font-family:'Caveat'; color:var(--ink-color);">"Ironiskt för en som flyr förbindelser."</em></li>
+                                <li><strong>Bless Water:</strong> Create Holy Water. <em style="font-family:'Caveat'; color:var(--ink-color);">"Vattnet blir heligt när jag säger det."</em></li>
+                                <li><strong>Atonement:</strong> Restore alignment. <em style="font-family:'Caveat'; color:var(--ink-color);">"Kan eden rätta det rosten förstört?"</em></li>
                             </ul>
                         </div>
                     </div>
@@ -1351,27 +1433,27 @@
                         <!-- MARKER: Oursinne (Central West Island) -->
                         <div class="map-marker" style="top: 48%; left: 32%;">
                             <span class="marker-x">X</span>
-                            <span class="marker-label">Oursinne</span>
-                        </div>
-                    </div>
-                    <span class="handwritten-caption">Här ruttnar själar i solskenet.</span>
-
-                    <!-- Lisse Locations Log -->
-                    <div style="margin-top: 20px; border-top: 1px solid rgba(139,90,43,0.3); padding-top: 15px;">
-                        <h4 style="font-family: 'Cinzel'; color: var(--text-sub); margin-bottom: 10px;">Städer & Platser</h4>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; font-size: 0.95rem;">
-                            <div><i class="fas fa-skull" style="color:var(--theme-quest)"></i> <strong>Aigues Mortes</strong><br><span style="font-size:0.8em; opacity:0.8;">Nuvarande Plåga</span></div>
-                            <div><i class="fas fa-coins" style="color:var(--theme-maps)"></i> <strong>Oursinne</strong><br><span style="font-size:0.8em; opacity:0.8;">Handelsstad</span></div>
-                            <div style="grid-column: 1 / -1; margin-top: 5px;"><i class="fas fa-ship" style="color:#888;"></i> <strong>Port Dorré</strong><br><span style="font-size:0.8em; opacity:0.8;">Viktig hamnstad i nordväst.</span></div>
-                        </div>
-                    </div>
-                </div>
-
+        <!-- Session Notes Widget -->
+        <div class="session-notes-widget">
+            <button class="session-btn" onclick="toggleSessionNotes()"><i class="fas fa-pen"></i></button>
+            <div id="session-notes-panel">
+                <h4 style="font-family: 'Cinzel'; margin-top: 0; border-bottom: 1px solid #5c3d2e;">Snabba Anteckningar</h4>
+                <textarea id="quick-notes" placeholder="Skriv ner något snabbt..."></textarea>
+                <button onclick="toggleSessionNotes()" style="margin-top: 10px; background: var(--accent-gold); border: none; padding: 5px 10px; cursor: pointer; font-family: 'Cinzel'; width: 100%;">Stäng</button>
             </div>
-            <div class="page-controls"><button class="page-btn" onclick="showSection('notes')"><i class="fas fa-chevron-left"></i> Föregående</button><span class="page-num">— X —</span><button class="page-btn disabled">Sista Sidan</button></div>
-        </section>
-        
-        </div> <!-- End .scroll-content -->
+        </div>
+
+        <!-- Custom Delete Modal -->
+        <div id="delete-modal" class="modal-overlay">
+            <div class="modal-box">
+                <div class="modal-title"><i class="fas fa-fire-alt"></i> Bränna Upp?</div>
+                <p style="font-family: 'EB Garamond'; font-size: 1.2rem; margin-bottom: 20px;">
+                    Är du säker på att du vill radera denna anteckning för alltid?
+                </p>
+                <button class="modal-btn btn-cancel" onclick="closeDeleteModal()">Behåll</button>
+                <button class="modal-btn btn-confirm" onclick="confirmDeleteNote()">Radera</button>
+            </div>
+        </div>
 
     </main>
 
@@ -1510,13 +1592,9 @@
             if (!content) return;
 
             const notes = getNotes();
-            const now = new Date();
-            const timestamp = now.toLocaleDateString('sv-SE', { 
-                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' 
-            });
-
+            // BORTTAGET: Datumgenerering
+            
             notes.unshift({
-                date: timestamp.charAt(0).toUpperCase() + timestamp.slice(1),
                 text: content
             });
 
@@ -1525,12 +1603,26 @@
             renderNotes();
         }
 
+        // Variabel för att hålla koll på vad vi ska radera
+        let noteToDeleteIndex = null;
+
         function deleteNote(index) {
-            if(confirm('Är du säker på att du vill radera denna anteckning?')) {
+            noteToDeleteIndex = index;
+            document.getElementById('delete-modal').style.display = 'flex';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').style.display = 'none';
+            noteToDeleteIndex = null;
+        }
+
+        function confirmDeleteNote() {
+            if (noteToDeleteIndex !== null) {
                 const notes = getNotes();
-                notes.splice(index, 1);
+                notes.splice(noteToDeleteIndex, 1);
                 localStorage.setItem('kurt_notes_list', JSON.stringify(notes));
                 renderNotes();
+                closeDeleteModal();
             }
         }
 
@@ -1549,8 +1641,8 @@
                 html += `
                     <div class="note-card">
                         <button class="delete-note" onclick="deleteNote(${index})"><i class="fas fa-times"></i></button>
-                        <span class="note-date">${note.date}</span>
-                        <div class="note-content">${note.text}</div>
+                        <!-- Datum borttaget från visning -->
+                        <div class="note-content" style="padding-top:10px;">${note.text}</div>
                     </div>
                 `;
             });

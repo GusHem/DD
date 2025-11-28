@@ -590,6 +590,16 @@
             font-weight: 600;
         }
 
+        /* Class Feature Card Style */
+        .class-feature {
+            border: 2px solid var(--accent-gold) !important;
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.15);
+        }
+        .class-feature h3 {
+            color: var(--accent-gold) !important;
+            border-bottom-color: var(--accent-gold) !important;
+        }
+
         .note-date {
             font-family: 'Cinzel', serif;
             font-size: 0.8rem;
@@ -1746,6 +1756,22 @@
                     
                     <div class="spell-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom:20px;">
                         
+                        <!-- DIVINE SMITE (CLASS FEATURE) - HEDERSPLATS -->
+                        <div class="spell-card info-card class-feature" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(197, 160, 89, 0.1) 0%, transparent 100%);">
+                            <div class="oath-badge" style="background: var(--accent-gold); color: var(--spine-color); border: none; font-weight: bold;">Paladin Feature</div>
+                            <h3><i class="fas fa-gavel"></i> Divine Smite</h3>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-main); margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid rgba(197, 160, 89, 0.3); padding-bottom: 5px;">
+                                <span><i class="fas fa-bolt"></i> Bonus Action (Vid Träff)</span>
+                                <span><i class="fas fa-bomb"></i> 2d8 Radiant</span>
+                            </div>
+                            <p style="font-family: 'EB Garamond', serif; font-size: 1rem;">
+                                När du träffar med en närstridsattack, bränn en <strong>Spell Slot</strong> för att göra extra <strong>2d8 Radiant Damage</strong> (+1d8 per slot-nivå över 1).
+                            </p>
+                            <div class="kurt-comment" style="color: var(--accent-gold); border-color: rgba(197, 160, 89, 0.4);">
+                                "Detta är inte magi. Det är ren vrede kanaliserad genom stål. Det enda språk odöda och kättare förstår. Kostar kraft, men avslutar strider."
+                            </div>
+                        </div>
+
                         <!-- DIVINE FAVOR -->
                         <div class="spell-card info-card daily-spell" data-spell-name="Divine Favor" style="padding:15px; border-left: 3px solid #8b0000;">
                             <div class="prep-indicator">☆</div>

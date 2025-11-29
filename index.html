@@ -866,25 +866,47 @@
         <!-- Scrollable Content Wrapper -->
         <div class="scroll-content">
 
-            <!-- HERO PAGE -->
+            <!-- HERO PAGE (UPDATED: HTML Layout with Image) -->
             <section id="sec-hero" class="section-container active" style="text-align: center; padding-top: 20px;">
-                <div class="hero-image-container" style="max-width: 800px; margin: 0 auto;">
-                    <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px;">
-                        <rect width="600" height="400" fill="#f4e8d0"/>
-                        <rect x="20" y="20" width="560" height="360" fill="none" stroke="#8b5a2b" stroke-width="3"/>
-                        <rect x="30" y="30" width="540" height="340" fill="none" stroke="#b8860b" stroke-width="2"/>
-                        <text x="300" y="120" font-family="Cinzel Decorative, serif" font-size="48" fill="#3d2817" text-anchor="middle" font-weight="bold">KAMPANJKODEX</text>
-                        <text x="300" y="180" font-family="Cinzel, serif" font-size="32" fill="#5c3d2e" text-anchor="middle">Kurt Eisenwald</text>
-                        <text x="300" y="220" font-family="EB Garamond, serif" font-size="20" fill="#4a3626" text-anchor="middle" font-style="italic">"Weinbergsiegern"</text>
-                        <path d="M 150 250 L 450 250" stroke="#b8860b" stroke-width="2" fill="none"/>
-                        <circle cx="300" cy="250" r="8" fill="#b8860b"/>
-                        <text x="300" y="290" font-family="EB Garamond, serif" font-size="18" fill="#1a1a1a" text-anchor="middle">Nivå 2 Paladin • Hämnarens Ed</text>
-                        <text x="300" y="320" font-family="Special Elite, cursive" font-size="14" fill="#4a3626" text-anchor="middle">Plats: Aigues Mortes • Tid: ÅR 100072 EGE</text>
-                        <g transform="translate(300, 350)" opacity="0.3">
-                            <circle cx="0" cy="-10" r="15" fill="#8b5a2b"/>
-                            <path d="M -8 -5 L -12 5 M 8 -5 L 12 5" stroke="#8b5a2b" stroke-width="3" fill="none"/>
-                        </g>
-                    </svg>
+                <div class="hero-image-container" style="max-width: 600px; margin: 0 auto;">
+                    
+                    <!-- BOOK COVER CONTAINER -->
+                    <div class="book-cover" style="
+                        background-color: #f4e8d0; 
+                        border: 3px solid #8b5a2b; 
+                        outline: 2px solid #b8860b; 
+                        outline-offset: -10px; 
+                        padding: 40px 20px; 
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                        position: relative;
+                    ">
+                        <!-- Decorative Corners (CSS) -->
+                        <div style="position: absolute; top: 15px; left: 15px; width: 20px; height: 20px; border-top: 2px solid #8b5a2b; border-left: 2px solid #8b5a2b;"></div>
+                        <div style="position: absolute; top: 15px; right: 15px; width: 20px; height: 20px; border-top: 2px solid #8b5a2b; border-right: 2px solid #8b5a2b;"></div>
+                        <div style="position: absolute; bottom: 15px; left: 15px; width: 20px; height: 20px; border-bottom: 2px solid #8b5a2b; border-left: 2px solid #8b5a2b;"></div>
+                        <div style="position: absolute; bottom: 15px; right: 15px; width: 20px; height: 20px; border-bottom: 2px solid #8b5a2b; border-right: 2px solid #8b5a2b;"></div>
+
+                        <!-- Titles -->
+                        <h1 style="font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; color: #3d2817; margin: 0 0 10px 0; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">KAMPANJKODEX</h1>
+                        <h2 style="font-family: 'Cinzel', serif; font-size: 1.8rem; color: #5c3d2e; margin: 0 0 5px 0;">Kurt Eisenwald</h2>
+                        <p style="font-family: 'EB Garamond', serif; font-size: 1.2rem; color: #4a3626; font-style: italic; margin-bottom: 25px;">"Weinbergsiegern"</p>
+                        
+                        <!-- MAIN IMAGE (Kurt Landing in Lisse) -->
+                        <div class="sketch-container" style="margin: 20px auto; max-width: 80%;">
+                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER for clean display -->
+                            <img src="https://raw.githubusercontent.com/nordsym/DD/refs/heads/main/kurtlandarilisse.svg" 
+                                 alt="Kurt anländer till Lisse" 
+                                 style="width: 100%; height: auto; display: block; border-bottom: 1px solid rgba(139, 90, 43, 0.3); padding-bottom: 10px;">
+                        </div>
+
+                        <!-- Info Footer -->
+                        <div style="margin-top: 20px;">
+                            <div style="height: 1px; background: #b8860b; width: 60%; margin: 0 auto 15px auto;"></div>
+                            <p style="font-family: 'EB Garamond', serif; font-size: 1.1rem; color: #1a1a1a; margin: 5px 0;">Nivå 2 Paladin • Hämnarens Ed</p>
+                            <p style="font-family: 'Special Elite', cursive; font-size: 0.9rem; color: #4a3626; margin: 5px 0;">Plats: Aigues Mortes • Tid: ÅR 100072 EGE</p>
+                        </div>
+                    </div>
+
                     <button class="page-btn" onclick="showSection('char')" style="margin: 40px auto; font-size: 1.5rem;">
                         Öppna boken <i class="fas fa-chevron-right"></i>
                     </button>

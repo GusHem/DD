@@ -215,6 +215,20 @@
 
         .nav-btn.active-btn::before { transform: translateY(-50%) scale(1.2); opacity: 1; text-shadow: 0 0 10px var(--accent-shine); }
 
+        /* NAV GROUP HEADERS (NEW) */
+        .nav-group-header {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 20px 20px 5px 20px;
+            opacity: 0.8;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+            margin: 10px 15px 5px 15px;
+            pointer-events: none; /* Just a label */
+        }
+
         .dark-mode-toggle {
             margin-top: auto; align-self: center; background: transparent; border: 1px solid var(--accent-gold);
             color: var(--accent-gold); padding: 10px 20px; font-family: 'Cinzel', serif; cursor: pointer;
@@ -800,6 +814,11 @@
                 align-items: center;
             }
 
+            /* Hide Group Headers on Mobile to save space */
+            .nav-group-header {
+                display: none; 
+            }
+
             .nav-icon {
                 font-size: 1.5rem !important; /* Larger icons */
                 margin: 0 !important;
@@ -862,36 +881,43 @@
     <nav class="sidebar">
         <div class="book-title" onclick="showSection('hero')">Kampanjkodex</div>
         
+        <!-- GROUP 1: KRIGAREN -->
+        <div class="nav-group-header">Krigaren</div>
         <button class="nav-btn" id="btn-char" onclick="showSection('char')">
             <span class="nav-icon"><i class="fas fa-user-shield"></i></span> Karaktär
         </button>
         <button class="nav-btn" id="btn-armor" onclick="showSection('armor')">
             <span class="nav-icon"><i class="fas fa-vest-patches"></i></span> Rustning
         </button>
-        <!-- CHANGED TEXT TO SKISSBOK -->
-        <button class="nav-btn" id="btn-journal" onclick="showSection('journal')">
-            <span class="nav-icon"><i class="fas fa-pen-nib"></i></span> Skissbok
-        </button>
-        <button class="nav-btn" id="btn-world" onclick="showSection('world')">
-            <span class="nav-icon"><i class="fas fa-globe-europe"></i></span> Wärlden
-        </button>
-        <button class="nav-btn" id="btn-quest" onclick="showSection('quest')">
-            <span class="nav-icon"><i class="fas fa-scroll"></i></span> Uppdrag
-        </button>
         <button class="nav-btn" id="btn-spells" onclick="showSection('spells')">
             <span class="nav-icon"><i class="fas fa-magic"></i></span> Trollformler
-        </button>
-        <button class="nav-btn" id="btn-personer" onclick="showSection('personer')">
-            <span class="nav-icon"><i class="fas fa-address-book"></i></span> Personer
         </button>
         <button class="nav-btn" id="btn-party" onclick="showSection('party')">
             <span class="nav-icon"><i class="fas fa-users"></i></span> Gruppen
         </button>
-        <button class="nav-btn" id="btn-notes" onclick="showSection('notes')">
-            <span class="nav-icon"><i class="fas fa-feather-alt"></i></span> Anteckningar
+
+        <!-- GROUP 2: VÄRLDEN -->
+        <div class="nav-group-header">Världen</div>
+        <button class="nav-btn" id="btn-quest" onclick="showSection('quest')">
+            <span class="nav-icon"><i class="fas fa-scroll"></i></span> Uppdrag
+        </button>
+        <button class="nav-btn" id="btn-world" onclick="showSection('world')">
+            <span class="nav-icon"><i class="fas fa-globe-europe"></i></span> Wärlden
         </button>
         <button class="nav-btn" id="btn-maps" onclick="showSection('maps')">
             <span class="nav-icon"><i class="fas fa-map-marked-alt"></i></span> Kartor
+        </button>
+        <button class="nav-btn" id="btn-personer" onclick="showSection('personer')">
+            <span class="nav-icon"><i class="fas fa-address-book"></i></span> Personer
+        </button>
+
+        <!-- GROUP 3: ARKIVET -->
+        <div class="nav-group-header">Arkivet</div>
+        <button class="nav-btn" id="btn-journal" onclick="showSection('journal')">
+            <span class="nav-icon"><i class="fas fa-pen-nib"></i></span> Skissbok
+        </button>
+        <button class="nav-btn" id="btn-notes" onclick="showSection('notes')">
+            <span class="nav-icon"><i class="fas fa-feather-alt"></i></span> Anteckningar
         </button>
 
         <!-- Darkvision Toggle -->
@@ -1351,16 +1377,6 @@
                         <span class="handwritten-caption">Där... där var jag någon.</span>
                     </div>
 
-                    <!-- ENTRY 2 -->
-                    <div class="journal-card">
-                        <h3>Safehouse</h3>
-                        <div class="sketch-container">
-                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
-                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/Hideout.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Safehouse" style="width: 100%; height: auto;">
-                        </div>
-                        <span class="handwritten-caption">Det är torrt. <strong>Natürlich.</strong></span>
-                    </div>
-
                     <!-- ENTRY 3 -->
                     <div class="journal-card">
                         <h3>Aigues Mortes Pålhus</h3>
@@ -1371,14 +1387,16 @@
                         <span class="handwritten-caption">Marken bär ingenting.</span>
                     </div>
 
-                    <!-- ENTRY 4 -->
+                    <!-- NEW ENTRY: MORNING RITUAL -->
                     <div class="journal-card">
-                        <h3>Vecka 1: Förlusten</h3>
+                        <h3>Morgonritual</h3>
                         <div class="sketch-container">
-                            <!-- REMOVED INLINE MIX-BLEND-MODE & FILTER -->
-                            <img data-src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/coinbag.svg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3C/svg%3E" alt="Tom Börs" style="width: 100%; height: auto;">
+                            <img data-src="https://firebasestorage.googleapis.com/v0/b/nordsym-funnel.firebasestorage.app/o/kurtpa%CC%8Akna%CC%88.svg?alt=media&token=f8cf13a7-58bb-43d5-820d-d2315c405b67" 
+                                 alt="Kurt ber vid gryningen" 
+                                 style="width: 100%; height: auto;">
                         </div>
-                        <span class="handwritten-caption">Lita aldrig på vackra ord.</span>
+                        <!-- UPDATED CAPTION: Since the image already says "Rökelsen döljer stanken..." -->
+                        <span class="handwritten-caption">Farfars rökelse. Det enda här ute som inte luktar död.</span>
                     </div>
                     
                     <!-- ENTRY 5 -->

@@ -99,10 +99,10 @@
         .sidebar {
             width: 280px;
             background-color: var(--spine-color);
+            /* UPDATED: Removed repeating-linear-gradient (horizontal gold lines) */
             background-image: 
                 linear-gradient(90deg, transparent 5%, rgba(0,0,0,0.5) 5%, rgba(0,0,0,0.5) 6%, transparent 6%),
-                linear-gradient(90deg, transparent 94%, rgba(0,0,0,0.5) 94%, rgba(0,0,0,0.5) 95%, transparent 95%),
-                repeating-linear-gradient(0deg, transparent, transparent 150px, var(--accent-gold) 150px, var(--accent-gold) 152px, transparent 154px);
+                linear-gradient(90deg, transparent 94%, rgba(0,0,0,0.5) 94%, rgba(0,0,0,0.5) 95%, transparent 95%);
             
             border-right: 6px ridge var(--spine-border);
             box-shadow: inset -5px 0 20px rgba(0,0,0,0.9), 5px 0 15px rgba(0,0,0,0.5);
@@ -671,6 +671,129 @@
         body.dark-mode .stat-btn { background: rgba(139, 69, 19, 0.2); }
         body.dark-mode .stat-value { background: rgba(197, 160, 89, 0.12); }
 
+        /* --- LEDGER (KASSABOK) STYLES --- */
+        .ledger-sheet {
+            background: #fdfbf7;
+            background-image: 
+                linear-gradient(#e1dcd5 1px, transparent 1px),
+                linear-gradient(90deg, #e1dcd5 1px, transparent 1px);
+            background-size: 100% 2.5rem, 100% 100%; /* Horizontal lines sized to text */
+            border: 1px solid #d3c09a;
+            /* UPDATED: Added top border to simulate thick paper stack */
+            border-top: 5px solid #c5a059;
+            padding: 40px 30px; /* Mer padding för "papperskänsla" */
+            box-shadow: 
+                0 1px 1px rgba(0,0,0,0.15), 
+                0 10px 0 -5px #f4e4bc, 
+                0 10px 1px -4px rgba(0,0,0,0.15), 
+                0 20px 0 -10px #e6d6b0, 
+                0 20px 1px -9px rgba(0,0,0,0.15);
+            font-family: 'Caveat', cursive;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        body.dark-mode .ledger-sheet {
+            background: #1a1a2e;
+            background-image: linear-gradient(#2a2a4c 1px, transparent 1px);
+            border-color: #2a2a4c;
+            box-shadow: none;
+        }
+
+        /* NEW HEADER STYLE FOR LEDGER */
+        .ledger-header {
+            text-align: center;
+            border-bottom: 3px double var(--ink-color);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+        }
+
+        .ledger-title-stamp {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2rem;
+            color: var(--ink-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+        }
+
+        .ledger-summary-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 15px;
+            font-family: 'Special Elite', monospace; /* Typewriter/Stamp style */
+        }
+
+        .ledger-summary-item {
+            border: 2px solid var(--ink-color);
+            padding: 5px 15px;
+            border-radius: 4px;
+            transform: rotate(-1deg); /* Slight organic rotation */
+        }
+        
+        .ledger-summary-item:nth-child(2) {
+            transform: rotate(1deg);
+        }
+
+        .ledger-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            font-family: 'Cinzel', serif;
+            margin-bottom: 2px;
+        }
+
+        /* Table updates */
+        .ledger-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.2rem;
+            color: var(--ink-color);
+        }
+
+        .ledger-table th {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            border-bottom: 3px double var(--text-sub);
+            border-right: 1px solid rgba(0,0,0,0.1);
+            padding: 5px 10px;
+            text-align: left;
+            vertical-align: bottom;
+        }
+
+        .ledger-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.1); /* Thin guidelline */
+            border-right: 2px solid rgba(0,0,0,0.1); /* Column divider */
+            vertical-align: middle;
+        }
+
+        .ledger-table td:last-child, .ledger-table th:last-child {
+            border-right: none;
+        }
+
+        /* Handwritten Inputs */
+        .ledger-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px dashed var(--ink-color);
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            color: var(--ink-color);
+            width: 100%;
+            padding: 5px;
+            outline: none;
+        }
+        .ledger-input::placeholder {
+            color: rgba(0,0,0,0.3);
+            font-family: 'EB Garamond';
+            font-style: italic;
+        }
+
         /* Responsive */
         @media (min-width: 1200px) {
             .section-content-wrapper { column-count: 2; column-gap: 50px; column-rule: 1px solid rgba(128,128,128,0.2); }
@@ -915,9 +1038,15 @@
         <button class="nav-btn" id="btn-personer" onclick="showSection('personer')">
             <span class="nav-icon"><i class="fas fa-address-book"></i></span> Personer
         </button>
+        <button class="nav-btn" id="btn-faktioner" onclick="showSection('faktioner')">
+            <span class="nav-icon"><i class="fas fa-sitemap"></i></span> Faktioner
+        </button>
 
         <!-- GROUP 3: ARKIVET -->
         <div class="nav-group-header">Arkivet</div>
+        <button class="nav-btn" id="btn-ledger" onclick="showSection('ledger')">
+            <span class="nav-icon"><i class="fas fa-book"></i></span> Kassabok
+        </button>
         <button class="nav-btn" id="btn-journal" onclick="showSection('journal')">
             <span class="nav-icon"><i class="fas fa-pen-nib"></i></span> Skissbok
         </button>
@@ -927,7 +1056,7 @@
 
         <!-- Darkvision Toggle -->
         <button class="dark-mode-toggle" onclick="toggleDarkMode()">
-            <i class="fas fa-eye"></i> Darkvision
+            <i class="fas fa-dragon"></i> Darkvision
         </button>
     </nav>
 
@@ -1011,295 +1140,340 @@
 
                     <!-- COMBAT TRACKING -->
                     <div class="combat-stats">
-                        <h3 class="section-title">Stridsläge</h3>
-                        
-                        <!-- HP Tracking -->
-                        <div class="combat-stat-row">
-                            <label>HP:</label>
-                            <button class="stat-btn minus" data-stat="current_hp" aria-label="Minska HP">−</button>
-                            <input type="number" class="stat-value" id="current-hp" value="18" min="0" max="18">
-                            <button class="stat-btn plus" data-stat="current_hp" aria-label="Öka HP">+</button>
-                            <span class="stat-max">/ 18</span>
-                        </div>
-                        
-                        <!-- Temp HP -->
-                        <div class="combat-stat-row">
-                            <label>Temp:</label>
-                            <button class="stat-btn minus" data-stat="temp_hp" aria-label="Minska Temp HP">−</button>
-                            <input type="number" class="stat-value" id="temp-hp" value="0" min="0">
-                            <button class="stat-btn plus" data-stat="temp_hp" aria-label="Öka Temp HP">+</button>
-                        </div>
-                        
-                        <!-- Hit Dice -->
-                        <div class="hit-dice-row">
-                            <label>Slagstärningar:</label>
-                            <div class="dice-container">
-                                <button class="hit-die" data-index="0" aria-label="Slagstärning 1">◉</button>
-                                <button class="hit-die" data-index="1" aria-label="Slagstärning 2">◉</button>
-                            </div>
-                            <span class="dice-note">(2d10 återstår)</span>
-                        </div>
-
-                        <!-- LAY ON HANDS (REDESIGNED: CLASS FEATURE STYLE) -->
-                        <div class="info-card class-feature" style="margin-top: 25px; margin-bottom: 5px; background: linear-gradient(135deg, rgba(197, 160, 89, 0.1) 0%, transparent 100%);">
-                            <div class="oath-badge" style="background: var(--accent-gold); color: var(--spine-color); border: none; font-weight: bold;">Paladin Feature</div>
-                            <h3 style="color: var(--accent-gold) !important; border-bottom-color: var(--accent-gold) !important; margin-bottom: 10px;">
-                                <i class="fas fa-hand-holding-heart"></i> Helande Händer
-                            </h3>
+                        <details open>
+                            <summary style="cursor: pointer; list-style: none;">
+                                <h3 class="section-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; border-bottom: none;">
+                                    Stridsläge <i class="fas fa-chevron-down" style="font-size: 0.8rem; opacity: 0.7;"></i>
+                                </h3>
+                            </summary>
                             
-                            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin: 15px 0;">
-                                <button class="stat-btn minus" data-stat="lay_on_hands" aria-label="Minska Pool" style="width: 44px; height: 44px; font-size: 1.2rem; border-color: var(--accent-gold); color: var(--accent-gold);">−</button>
-                                <input type="number" class="stat-value" id="lay-on-hands" value="10" min="0" max="10" style="width: 70px; height: 44px; font-size: 1.5rem; border-color: var(--accent-gold); color: var(--text-main); font-weight: bold;">
-                                <button class="stat-btn plus" data-stat="lay_on_hands" aria-label="Öka Pool" style="width: 44px; height: 44px; font-size: 1.2rem; border-color: var(--accent-gold); color: var(--accent-gold);">+</button>
-                                <span class="stat-max" style="font-family: 'Cinzel'; font-weight: bold; color: var(--accent-gold); font-size: 1.1rem;">/ 10 HP</span>
+                            <div style="margin-top: 15px; border-top: 1px solid #8b5a2b; padding-top: 15px;">
+                                <!-- HP Tracking -->
+                                <div class="combat-stat-row">
+                                    <label>HP:</label>
+                                    <button class="stat-btn minus" data-stat="current_hp" aria-label="Minska HP">−</button>
+                                    <input type="number" class="stat-value" id="current-hp" value="18" min="0" max="18">
+                                    <button class="stat-btn plus" data-stat="current_hp" aria-label="Öka HP">+</button>
+                                    <span class="stat-max">/ 18</span>
+                                </div>
+                                
+                                <!-- Temp HP -->
+                                <div class="combat-stat-row">
+                                    <label>Temp:</label>
+                                    <button class="stat-btn minus" data-stat="temp_hp" aria-label="Minska Temp HP">−</button>
+                                    <input type="number" class="stat-value" id="temp-hp" value="0" min="0">
+                                    <button class="stat-btn plus" data-stat="temp_hp" aria-label="Öka Temp HP">+</button>
+                                </div>
+                                
+                                <!-- Hit Dice -->
+                                <div class="hit-dice-row">
+                                    <label>Slagstärningar:</label>
+                                    <div class="dice-container">
+                                        <button class="hit-die" data-index="0" aria-label="Slagstärning 1">◉</button>
+                                        <button class="hit-die" data-index="1" aria-label="Slagstärning 2">◉</button>
+                                    </div>
+                                    <span class="dice-note">(2d10 återstår)</span>
+                                </div>
+
+                                <!-- LAY ON HANDS (REDESIGNED: CLASS FEATURE STYLE) -->
+                                <div class="info-card class-feature" style="margin-top: 25px; margin-bottom: 5px; background: linear-gradient(135deg, rgba(197, 160, 89, 0.1) 0%, transparent 100%);">
+                                    <div class="oath-badge" style="background: var(--accent-gold); color: var(--spine-color); border: none; font-weight: bold;">Paladin Feature</div>
+                                    <h3 style="color: var(--accent-gold) !important; border-bottom-color: var(--accent-gold) !important; margin-bottom: 10px;">
+                                        <i class="fas fa-hand-holding-heart"></i> Helande Händer
+                                    </h3>
+                                    
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin: 15px 0;">
+                                        <button class="stat-btn minus" data-stat="lay_on_hands" aria-label="Minska Pool" style="width: 44px; height: 44px; font-size: 1.2rem; border-color: var(--accent-gold); color: var(--accent-gold);">−</button>
+                                        <input type="number" class="stat-value" id="lay-on-hands" value="10" min="0" max="10" style="width: 70px; height: 44px; font-size: 1.5rem; border-color: var(--accent-gold); color: var(--text-main); font-weight: bold;">
+                                        <button class="stat-btn plus" data-stat="lay_on_hands" aria-label="Öka Pool" style="width: 44px; height: 44px; font-size: 1.2rem; border-color: var(--accent-gold); color: var(--accent-gold);">+</button>
+                                        <span class="stat-max" style="font-family: 'Cinzel'; font-weight: bold; color: var(--accent-gold); font-size: 1.1rem;">/ 10 HP</span>
+                                    </div>
+
+                                    <p style="text-align: center; font-family: 'EB Garamond'; font-size: 0.9rem; margin-bottom: 5px;">
+                                        <strong>Action:</strong> Beröring. Spendera 1 poäng = 1 HP. Spendera 5 poäng = Bota sjukdom/gift.
+                                    </p>
+                                    
+                                    <div class="kurt-comment" style="color: var(--accent-gold); border-color: rgba(197, 160, 89, 0.4);">
+                                        "Mina händer ärrr gjorda för svärdet. Men ibland... ibland måste man laga det man slagit sönder. Eller det andra slagit sönder."
+                                    </div>
+                                </div>
+
+                                <!-- CONDITIONS & EXHAUSTION -->
+                                <div class="conditions-section">
+                                    <!-- Exhaustion Tracker -->
+                                    <div class="exhaustion-row">
+                                        <label style="font-family: 'Cinzel'; font-weight: 600; width: auto;">Utmattning:</label>
+                                        <button class="stat-btn minus" onclick="updateExhaustion(-1)" style="width: 30px; height: 30px; font-size: 1.2rem;">−</button>
+                                        <span id="exhaustion-display" class="exhaustion-level">Nivå 0</span>
+                                        <button class="stat-btn plus" onclick="updateExhaustion(1)" style="width: 30px; height: 30px; font-size: 1.2rem;">+</button>
+                                    </div>
+
+                                    <!-- Conditions Grid -->
+                                    <label style="font-family: 'Cinzel'; font-weight: 600; display: block; margin-bottom: 8px;">Tillstånd:</label>
+                                    <div class="conditions-grid" id="conditions-container">
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Blinded')">Blinded</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Charmed')">Charmed</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Deafened')">Deafened</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Frightened')">Frightened</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Grappled')">Grappled</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Incapacitated')">Incapacitated</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Invisible')">Invisible</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Paralyzed')">Paralyzed</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Petrified')">Petrified</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Poisoned')">Poisoned</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Prone')">Prone</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Restrained')">Restrained</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Stunned')">Stunned</button>
+                                        <button class="condition-btn" onclick="toggleCondition(this, 'Unconscious')">Unconscious</button>
+                                    </div>
+
+                                    <!-- LONG REST BUTTON (NEW) -->
+                                    <button class="long-rest-btn" onclick="openRestModal()" 
+                                            style="background: #2c4a6b; color: #f0e68c; border: 2px solid #1a3c5e; 
+                                                font-family: 'Cinzel', serif; font-weight: bold; padding: 15px 30px; 
+                                                cursor: pointer; margin-top: 25px; width: 100%; 
+                                                transition: all 0.2s; min-height: 44px; touch-action: manipulation;
+                                                display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                        <i class="fas fa-moon"></i> Lång Vila (8h)
+                                    </button>
+                                </div>
                             </div>
-
-                            <p style="text-align: center; font-family: 'EB Garamond'; font-size: 0.9rem; margin-bottom: 5px;">
-                                <strong>Action:</strong> Beröring. Spendera 1 poäng = 1 HP. Spendera 5 poäng = Bota sjukdom/gift.
-                            </p>
-                            
-                            <div class="kurt-comment" style="color: var(--accent-gold); border-color: rgba(197, 160, 89, 0.4);">
-                                "Mina händer ärrr gjorda för svärdet. Men ibland... ibland måste man laga det man slagit sönder. Eller det andra slagit sönder."
-                            </div>
-                        </div>
-
-                        <!-- CONDITIONS & EXHAUSTION -->
-                        <div class="conditions-section">
-                            <!-- Exhaustion Tracker -->
-                            <div class="exhaustion-row">
-                                <label style="font-family: 'Cinzel'; font-weight: 600; width: auto;">Utmattning:</label>
-                                <button class="stat-btn minus" onclick="updateExhaustion(-1)" style="width: 30px; height: 30px; font-size: 1.2rem;">−</button>
-                                <span id="exhaustion-display" class="exhaustion-level">Nivå 0</span>
-                                <button class="stat-btn plus" onclick="updateExhaustion(1)" style="width: 30px; height: 30px; font-size: 1.2rem;">+</button>
-                            </div>
-
-                            <!-- Conditions Grid -->
-                            <label style="font-family: 'Cinzel'; font-weight: 600; display: block; margin-bottom: 8px;">Tillstånd:</label>
-                            <div class="conditions-grid" id="conditions-container">
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Blinded')">Blinded</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Charmed')">Charmed</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Deafened')">Deafened</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Frightened')">Frightened</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Grappled')">Grappled</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Incapacitated')">Incapacitated</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Invisible')">Invisible</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Paralyzed')">Paralyzed</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Petrified')">Petrified</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Poisoned')">Poisoned</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Prone')">Prone</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Restrained')">Restrained</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Stunned')">Stunned</button>
-                                <button class="condition-btn" onclick="toggleCondition(this, 'Unconscious')">Unconscious</button>
-                            </div>
-
-                            <!-- LONG REST BUTTON (NEW) -->
-                            <button class="long-rest-btn" onclick="openRestModal()" 
-                                    style="background: #2c4a6b; color: #f0e68c; border: 2px solid #1a3c5e; 
-                                           font-family: 'Cinzel', serif; font-weight: bold; padding: 15px 30px; 
-                                           cursor: pointer; margin-top: 25px; width: 100%; 
-                                           transition: all 0.2s; min-height: 44px; touch-action: manipulation;
-                                           display: flex; align-items: center; justify-content: center; gap: 10px;">
-                                <i class="fas fa-moon"></i> Lång Vila (8h)
-                            </button>
-                        </div>
-
+                        </details>
                     </div>
 
                     <div class="info-card">
-                        <h3>Färdigheter & Träning</h3>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px;">
+                        <details open>
+                            <summary style="cursor: pointer; list-style: none;">
+                                <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; border-bottom: none;">
+                                    Färdigheter & Träning <i class="fas fa-chevron-down" style="font-size: 0.8rem; opacity: 0.7;"></i>
+                                </h3>
+                            </summary>
                             
-                            <!-- Intimidation (Avskräckande Fysik) -->
-                            <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 4px; border-left: 3px solid var(--accent-gold);">
-                                <div style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--text-sub); display:flex; justify-content:space-between;">
-                                    <span>Intimidation (Soldat)</span>
-                                    <span>+4</span>
+                            <div style="margin-top: 15px; border-top: 1px solid rgba(100,100,100,0.2); padding-top: 15px;">
+                                <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px;">
+                                    
+                                    <!-- Intimidation (Avskräckande Fysik) -->
+                                    <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 4px; border-left: 3px solid var(--accent-gold);">
+                                        <div style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--text-sub); display:flex; justify-content:space-between;">
+                                            <span>Intimidation (Soldat)</span>
+                                            <span>+4</span>
+                                        </div>
+                                        <div style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-top:5px; font-weight:bold;">Avskräckande Fysik</div>
+                                        <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 5px; line-height: 1.3;">
+                                            "I Lisse? Ingen vet vem jag ärrr. Men de ser vad jag är. En drake. I stål. Värdshusvärdar ger mig rum. Gratis. <strong>Natürlich.</strong> Varförrr? För att ingen vågar bråka med berget i hörnet. Jag är deras tystnad. Jag är deras lugn. Det... är betalningen."
+                                        </p>
+                                    </div>
+
+                                    <!-- Athletics -->
+                                    <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 4px; border-left: 3px solid var(--text-sub);">
+                                        <div style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--text-sub); display:flex; justify-content:space-between;">
+                                            <span>Athletics (Soldat)</span>
+                                            <span>+6</span>
+                                        </div>
+                                        <div style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-top:5px; font-weight:bold;">Arenans Muskelminne</div>
+                                        <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 5px; line-height: 1.3;">
+                                            "Zügwerns berg kräver styrka. Arenan kräver mer. Att kasta en motståndare i sanden är inte teknik. Det är vilja. Och muskler som minns tyngden av seger."
+                                        </p>
+                                    </div>
+
+                                    <!-- Religion (UPDATED) -->
+                                    <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 4px; border-left: 3px solid var(--text-sub);">
+                                        <div style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--text-sub); display:flex; justify-content:space-between;">
+                                            <span>Religion (Paladin)</span>
+                                            <span>+2</span>
+                                        </div>
+                                        <div style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-top:5px; font-weight:bold;">Riten Överlever</div>
+                                        <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 5px; line-height: 1.3;">
+                                            "Farfars rökelse. Prästskruden. Liturgin jag minns. Gudarna som skulle lyssna? Försvunna. Men ritualerna... de fungerar ändå. Som skelett utan kött. Jag förstår ceremonin. Inte för deras skull. För min. Eden är allt som finns kvar."
+                                        </p>
+                                    </div>
+
+                                    <!-- Persuasion (UPDATED) -->
+                                    <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 4px; border-left: 3px solid var(--text-sub);">
+                                        <div style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--text-sub); display:flex; justify-content:space-between;">
+                                            <span>Persuasion (Paladin)</span>
+                                            <span>+4</span>
+                                        </div>
+                                        <div style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-top:5px; font-weight:bold;">Tyngdens Trovärdighet</div>
+                                        <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 5px; line-height: 1.3;">
+                                            "Drake. Rustning. Folk lyssnar. Inte för att jag är charmerande - för att jag tar plats. När jag säger något, sant eller inte, rösten bär. Arenan lärde mig timing. När man ropar. När man viskar. Det... funkar här också."
+                                        </p>
+                                    </div>
+
                                 </div>
-                                <div style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-top:5px; font-weight:bold;">Avskräckande Fysik</div>
-                                <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 5px; line-height: 1.3;">
-                                    "I Lisse? Ingen vet vem jag ärrr. Men de ser vad jag är. En drake. I stål. Värdshusvärdar ger mig rum. Gratis. <strong>Natürlich.</strong> Varförrr? För att ingen vågar bråka med berget i hörnet. Jag är deras tystnad. Jag är deras lugn. Det... är betalningen."
-                                </p>
-                            </div>
 
-                            <!-- Athletics -->
-                            <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 4px; border-left: 3px solid var(--text-sub);">
-                                <div style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--text-sub); display:flex; justify-content:space-between;">
-                                    <span>Athletics (Soldat)</span>
-                                    <span>+6</span>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.9rem;">
+                                    <div>
+                                        <div style="font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(0,0,0,0.1);">Fighting Style</div>
+                                        <strong>Defense:</strong> +1 AC (tot 19)
+                                    </div>
+                                    <div>
+                                        <div style="font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(0,0,0,0.1);">Tools</div>
+                                        <strong>Gambling Set:</strong> Tärningar.
+                                    </div>
                                 </div>
-                                <div style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-top:5px; font-weight:bold;">Arenans Muskelminne</div>
-                                <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 5px; line-height: 1.3;">
-                                    "Zügwerns berg kräver styrka. Arenan kräver mer. Att kasta en motståndare i sanden är inte teknik. Det är vilja. Och muskler som minns tyngden av seger."
-                                </p>
                             </div>
-
-                            <!-- Religion (UPDATED) -->
-                            <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 4px; border-left: 3px solid var(--text-sub);">
-                                <div style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--text-sub); display:flex; justify-content:space-between;">
-                                    <span>Religion (Paladin)</span>
-                                    <span>+2</span>
-                                </div>
-                                <div style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-top:5px; font-weight:bold;">Riten Överlever</div>
-                                <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 5px; line-height: 1.3;">
-                                    "Farfars rökelse. Prästskruden. Liturgin jag minns. Gudarna som skulle lyssna? Försvunna. Men ritualerna... de fungerar ändå. Som skelett utan kött. Jag förstår ceremonin. Inte för deras skull. För min. Eden är allt som finns kvar."
-                                </p>
-                            </div>
-
-                            <!-- Persuasion (UPDATED) -->
-                            <div style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: 4px; border-left: 3px solid var(--text-sub);">
-                                <div style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--text-sub); display:flex; justify-content:space-between;">
-                                    <span>Persuasion (Paladin)</span>
-                                    <span>+4</span>
-                                </div>
-                                <div style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-top:5px; font-weight:bold;">Tyngdens Trovärdighet</div>
-                                <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-color); margin-top: 5px; line-height: 1.3;">
-                                    "Drake. Rustning. Folk lyssnar. Inte för att jag är charmerande - för att jag tar plats. När jag säger något, sant eller inte, rösten bär. Arenan lärde mig timing. När man ropar. När man viskar. Det... funkar här också."
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.9rem;">
-                            <div>
-                                <div style="font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(0,0,0,0.1);">Fighting Style</div>
-                                <strong>Defense:</strong> +1 AC (tot 19)
-                            </div>
-                            <div>
-                                <div style="font-family: 'Cinzel', serif; border-bottom: 1px solid rgba(0,0,0,0.1);">Tools</div>
-                                <strong>Gambling Set:</strong> Tärningar.
-                            </div>
-                        </div>
-
+                        </details>
                     </div>
                     
                     <!-- OATH OF VENGEANCE (RESTORED) -->
                     <div class="info-card" style="border-left: 4px solid var(--theme-quest);">
-                        <h3><i class="fas fa-scroll"></i> Hämnarens Ed</h3>
-                        <!-- UPDATED: New Oath Text -->
-                        <p style="font-style: italic; text-align: center; margin-bottom: 20px; font-family: 'Caveat', cursive; font-size: 1.3rem; color: var(--ink-blue);">
-                            Världen är en turnering utan regler. Jag svär att ge den några. Skydda publiken. Bekämpa det som är fel. Hämnas på svek. Vinn tillbaka publiken!
-                        </p>
-                        
                         <details open>
-                            <summary style="font-family: 'Cinzel'; font-weight: 600; cursor: pointer;">Edens Budord (Enligt Kurt)</summary>
-                            <ul style="margin-top: 15px; padding-left: 0; list-style: none; font-size: 0.95rem;">
-                                
-                                <li style="margin-bottom: 15px; border-left: 3px solid var(--text-sub); padding-left: 10px;">
-                                    <strong style="color: var(--text-sub); font-family: 'Cinzel';">Bekämpa den Större Ondskan</strong><br>
-                                    <span style="font-family: 'EB Garamond'; font-style: italic;">"Fäll Mästaren Först."</span>
-                                    <p style="margin: 5px 0 0 0; color: var(--ink-color); font-family: 'Caveat'; font-size: 1.1rem;">
-                                        "Prioritera alltid det största hotet. Låt småskurkar gå om det krävs för att fälla tyrannen. I arenan hugger man huvudet av ormen, man oroar sig inte för svansen."
-                                    </p>
-                                </li>
-
-                                <li style="margin-bottom: 15px; border-left: 3px solid var(--text-sub); padding-left: 10px;">
-                                    <strong style="color: var(--text-sub); font-family: 'Cinzel';">Publiken Är Helig</strong><br>
-                                    <!-- NO SUBTITLE -->
-                                    <p style="margin: 5px 0 0 0; color: var(--ink-color); font-family: 'Caveat'; font-size: 1.1rem;">
-                                        "I arenan blödde riddare. Aldrig publiken. Det var regeln. Här? Folk som inte håller vapen, som inte valde striden... de är publiken. Du rör dem inte. Gör du det ändå? Då är du värre än fienden."
-                                    </p>
-                                </li>
-
-                                <li style="margin-bottom: 15px; border-left: 3px solid var(--text-sub); padding-left: 10px;">
-                                    <strong style="color: var(--text-sub); font-family: 'Cinzel';">Turneringen Hade Gränser</strong><br>
-                                    <!-- NO SUBTITLE -->
-                                    <p style="margin: 5px 0 0 0; color: var(--ink-color); font-family: 'Caveat'; font-size: 1.1rem;">
-                                        "I Weinberg-Fehde visste alla risken. Alla valde att vara där. I Lisse? Folk bara lever sina liv. Om jag drar problem till dem, om de skadas på grund av mig... då är det mitt ansvar att rätta till."
-                                    </p>
-                                </li>
-
-                                <li style="margin-bottom: 15px; border-left: 3px solid var(--text-sub); padding-left: 10px;">
-                                    <strong style="color: var(--text-sub); font-family: 'Cinzel';">Publiken Glömmer Inte</strong><br>
-                                    <!-- NO SUBTITLE -->
-                                    <p style="margin: 5px 0 0 0; color: var(--ink-color); font-family: 'Caveat'; font-size: 1.1rem;">
-                                        "I arenan kunde man vinna fult. Men publiken var brutala. Såg de feghet, hänsynslöshet... tystnad. Ingen ära kvar. Bara en tom ring. Folk minns. Krossar jag oskyldiga för min seger... vad står jag där med sen?"
-                                    </p>
-                                </li>
-
-                            </ul>
-                        </details>
-                        
-                        <details style="margin-top: 15px;">
-                            <summary style="font-family: 'Cinzel'; font-size: 0.9rem; cursor: pointer;">Level 3 Preview (Nästa Nivå)</summary>
-                            <ul style="margin-top: 10px; font-size: 0.95rem;">
-                                <li><strong>Channel Divinity:</strong> Vow of Enmity (Advantage på attacker mot en fiende, 1 min) eller Abjure Enemies.</li>
-                                <li><strong>Spell Slots:</strong> Ökar till 3 st (Nivå 1).</li>
-                                <li><strong>Alltid Förberedd:</strong> Hunter's Mark (Nu utan Concentration om du fokuserar skadan!).</li>
-                                <li><strong>Lay on Hands:</strong> Ökar till 15 HP.</li>
-                            </ul>
-                        </details>
-                    </div>
-
-                    <div class="info-card">
-                        <h3>Strid & Handlingar</h3>
-                        <!-- UPDATED: 2024 Rules -->
-                        <p><strong><i class="fas fa-gavel"></i> Divine Smite:</strong> <em>Bonus Action after melee hit.</em> Expend spell slot for +2d8 Radiant damage (+1d8 per slot level above 1st, max 5d8).</p>
-                        <p style="margin-left: 15px; font-size: 0.9rem; color: var(--accent-gold);"><strong>Gratis Smite:</strong> En gång per Long Rest utan att spendera en Spell Slot.</p>
-                        <p><strong><i class="fas fa-dragon"></i> Breath Weapon:</strong> 15ft Cone / 30ft Line, 2d10 Fire Damage, DC 12 DEX save. Uses: 2/Long Rest (Prof bonus)</p>
-                        
-                        <div style="margin-top: 15px;">
-                            <h4 style="font-family: 'Cinzel'; font-size: 1rem; color: var(--accent-gold); border-bottom: 1px solid var(--accent-gold); display: inline-block;">Weapon Mastery (2024)</h4>
-                            <table style="margin-top: 5px;">
-                                <tr><th>Vapen</th><th>Mastery</th><th>Effekt</th></tr>
-                                <tr><td><strong>Longsword</strong></td><td>SAP</td><td>Fienden får <strong>Disadvantage</strong> på nästa attackroll.</td></tr>
-                                <tr><td><strong>Javelin</strong></td><td>SLOW</td><td>Fiendens speed minskar med <strong>10 ft</strong> vid träff.</td></tr>
-                            </table>
-                        </div>
-                        
-                        <h4 style="font-family: 'Cinzel'; font-size: 1rem; margin-top: 15px;">Attacker</h4>
-                        <table>
-                            <tr><th>Vapen</th><th>To Hit</th><th>Skada</th><th>Notes</th></tr>
-                            <tr><td>Longsword</td><td>+6</td><td>1d8+4 Slash</td><td>Versatile (1d10+4), Sap</td></tr>
-                            <tr><td>Javelin</td><td>+6</td><td>1d6+4 Piercing</td><td>Range 30/120, Slow</td></tr>
-                        </table>
-                    </div>
-
-                    <div class="info-card">
-                        <h3>Utrustning</h3>
-                        <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
-                            <li><i class="fas fa-tshirt"></i> Rostig Ringbrynja</li>
-                            <li><i class="fas fa-shield-alt"></i> Bucklig Sköld</li>
-                            <li><i class="fas fa-khanda"></i> Långsvärd (Zügwern)</li>
-                            <li><i class="fas fa-bullseye"></i> 6x Javelins</li>
-                            <li style="color: var(--accent-gold); font-weight: bold; grid-column: 1 / -1; border: 1px dashed var(--accent-gold); padding: 5px; text-align: center;">
-                                <i class="fas fa-coins"></i> 59 Guldmynt
-                                <span style="display: block; font-size: 0.8em; font-weight: normal; font-style: italic; color: var(--text-sub); margin-top: 3px;">
-                                    "En bra början. Men målet är 1500 G. En Helrustning som tål träsket."
-                                </span>
-                            </li>
+                            <summary style="cursor: pointer; list-style: none;">
+                                <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; border-bottom: none;">
+                                    <span><i class="fas fa-scroll"></i> Hämnarens Ed</span> 
+                                    <i class="fas fa-chevron-down" style="font-size: 0.8rem; opacity: 0.7;"></i>
+                                </h3>
+                            </summary>
                             
-                            <!-- PRIEST PACK EXPANDED -->
-                            <li style="grid-column: 1 / -1; background: rgba(0,0,0,0.03); border: 1px dashed var(--text-sub); padding: 5px; border-radius: 4px;">
-                                <details>
-                                    <summary style="font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-                                        <span><i class="fas fa-hiking"></i> Prästens Packning (Farfars)</span>
-                                        <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i>
-                                    </summary>
-                                    <div style="margin-top: 8px; font-size: 0.85rem; font-weight: normal; font-family: 'EB Garamond'; color: var(--text-sub);">
-                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
-                                            <span>• Ryggsäck & Filt</span>
-                                            <span>• 10 Ljus</span>
-                                            <span>• Tändstål</span>
-                                            <span>• Allmoselåda</span>
-                                            <span>• 2 Rökelseblock</span>
-                                            <span>• Rökelsekar</span>
-                                            <span>• Prästskrud</span>
-                                            <span>• 2 Dagar Mat</span>
-                                            <span>• Vattenskinn</span>
-                                        </div>
-                                        <p style="margin-top: 5px; font-style: italic; opacity: 0.8;">"Skruden passar inte över rustningen. Men rökelsen... den behövs."</p>
-                                    </div>
-                                </details>
-                            </li>
+                            <div style="margin-top: 15px; border-top: 1px solid rgba(100,100,100,0.2); padding-top: 15px;">
+                                <!-- UPDATED: New Oath Text -->
+                                <p style="font-style: italic; text-align: center; margin-bottom: 20px; font-family: 'Caveat', cursive; font-size: 1.3rem; color: var(--ink-blue);">
+                                    Världen är en turnering utan regler. Jag svär att ge den några. Skydda publiken. Bekämpa det som är fel. Hämnas på svek. Vinn tillbaka publiken!
+                                </p>
+                                
+                                <details open>
+                                    <summary style="font-family: 'Cinzel'; font-weight: 600; cursor: pointer;">Edens Budord (Enligt Kurt)</summary>
+                                    <ul style="margin-top: 15px; padding-left: 0; list-style: none; font-size: 0.95rem;">
+                                        
+                                        <li style="margin-bottom: 15px; border-left: 3px solid var(--text-sub); padding-left: 10px;">
+                                            <strong style="color: var(--text-sub); font-family: 'Cinzel';">Bekämpa den Större Ondskan</strong><br>
+                                            <span style="font-family: 'EB Garamond'; font-style: italic;">"Fäll Mästaren Först."</span>
+                                            <p style="margin: 5px 0 0 0; color: var(--ink-color); font-family: 'Caveat'; font-size: 1.1rem;">
+                                                "Prioritera alltid det största hotet. Låt småskurkar gå om det krävs för att fälla tyrannen. I arenan hugger man huvudet av ormen, man oroar sig inte för svansen."
+                                            </p>
+                                        </li>
 
-                            <!-- UPDATED: Clarified Siegerkette = Vinrankan -->
-                            <li style="grid-column: 1 / -1;"><i class="fas fa-link"></i> <strong>Siegerkette (Vinrankan)</strong><br><span style="font-size:0.85em; opacity:0.8; font-style:italic;">Tre segerringar runt fästet. Min Heliga Symbol.</span></li>
-                        </ul>
-                        <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-blue); text-align: center; margin-top: 10px;">
-                            "Utrustningen? Sett bättre dagar. Men stålet är Zügwernskt. Och farfars packning... den luktar fortfarande hemma."
-                        </p>
+                                        <li style="margin-bottom: 15px; border-left: 3px solid var(--text-sub); padding-left: 10px;">
+                                            <strong style="color: var(--text-sub); font-family: 'Cinzel';">Publiken Är Helig</strong><br>
+                                            <!-- NO SUBTITLE -->
+                                            <p style="margin: 5px 0 0 0; color: var(--ink-color); font-family: 'Caveat'; font-size: 1.1rem;">
+                                                "I arenan blödde riddare. Aldrig publiken. Det var regeln. Här? Folk som inte håller vapen, som inte valde striden... de är publiken. Du rör dem inte. Gör du det ändå? Då är du värre än fienden."
+                                            </p>
+                                        </li>
+
+                                        <li style="margin-bottom: 15px; border-left: 3px solid var(--text-sub); padding-left: 10px;">
+                                            <strong style="color: var(--text-sub); font-family: 'Cinzel';">Turneringen Hade Gränser</strong><br>
+                                            <!-- NO SUBTITLE -->
+                                            <p style="margin: 5px 0 0 0; color: var(--ink-color); font-family: 'Caveat'; font-size: 1.1rem;">
+                                                "I Weinberg-Fehde visste alla risken. Alla valde att vara där. I Lisse? Folk bara lever sina liv. Om jag drar problem till dem, om de skadas på grund av mig... då är det mitt ansvar att rätta till."
+                                            </p>
+                                        </li>
+
+                                        <li style="margin-bottom: 15px; border-left: 3px solid var(--text-sub); padding-left: 10px;">
+                                            <strong style="color: var(--text-sub); font-family: 'Cinzel';">Publiken Glömmer Inte</strong><br>
+                                            <!-- NO SUBTITLE -->
+                                            <p style="margin: 5px 0 0 0; color: var(--ink-color); font-family: 'Caveat'; font-size: 1.1rem;">
+                                                "I arenan kunde man vinna fult. Men publiken var brutala. Såg de feghet, hänsynslöshet... tystnad. Ingen ära kvar. Bara en tom ring. Folk minns. Krossar jag oskyldiga för min seger... vad står jag där med sen?"
+                                            </p>
+                                        </li>
+
+                                    </ul>
+                                </details>
+                                
+                                <details style="margin-top: 15px;">
+                                    <summary style="font-family: 'Cinzel'; font-size: 0.9rem; cursor: pointer;">Level 3 Preview (Nästa Nivå)</summary>
+                                    <ul style="margin-top: 10px; font-size: 0.95rem;">
+                                        <li><strong>Channel Divinity:</strong> Vow of Enmity (Advantage på attacker mot en fiende, 1 min) eller Abjure Enemies.</li>
+                                        <li><strong>Spell Slots:</strong> Ökar till 3 st (Nivå 1).</li>
+                                        <li><strong>Alltid Förberedd:</strong> Hunter's Mark (Nu utan Concentration om du fokuserar skadan!).</li>
+                                        <li><strong>Lay on Hands:</strong> Ökar till 15 HP.</li>
+                                    </ul>
+                                </details>
+                            </div>
+                        </details>
                     </div>
+
+                    <div class="info-card">
+                        <details open>
+                            <summary style="cursor: pointer; list-style: none;">
+                                <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; border-bottom: none;">
+                                    Strid & Handlingar <i class="fas fa-chevron-down" style="font-size: 0.8rem; opacity: 0.7;"></i>
+                                </h3>
+                            </summary>
+                            
+                            <div style="margin-top: 15px; border-top: 1px solid rgba(100,100,100,0.2); padding-top: 15px;">
+                                <!-- UPDATED: 2024 Rules -->
+                                <p><strong><i class="fas fa-gavel"></i> Divine Smite:</strong> <em>Bonus Action after melee hit.</em> Expend spell slot for +2d8 Radiant damage (+1d8 per slot level above 1st, max 5d8).</p>
+                                <p style="margin-left: 15px; font-size: 0.9rem; color: var(--accent-gold);"><strong>Gratis Smite:</strong> En gång per Long Rest utan att spendera en Spell Slot.</p>
+                                <p><strong><i class="fas fa-dragon"></i> Breath Weapon:</strong> 15ft Cone / 30ft Line, 2d10 Fire Damage, DC 12 DEX save. Uses: 2/Long Rest (Prof bonus)</p>
+                                
+                                <div style="margin-top: 15px;">
+                                    <h4 style="font-family: 'Cinzel'; font-size: 1rem; color: var(--accent-gold); border-bottom: 1px solid var(--accent-gold); display: inline-block;">Weapon Mastery (2024)</h4>
+                                    <table style="margin-top: 5px;">
+                                        <tr><th>Vapen</th><th>Mastery</th><th>Effekt</th></tr>
+                                        <tr><td><strong>Longsword</strong></td><td>SAP</td><td>Fienden får <strong>Disadvantage</strong> på nästa attackroll.</td></tr>
+                                        <tr><td><strong>Javelin</strong></td><td>SLOW</td><td>Fiendens speed minskar med <strong>10 ft</strong> vid träff.</td></tr>
+                                    </table>
+                                </div>
+                                
+                                <h4 style="font-family: 'Cinzel'; font-size: 1rem; margin-top: 15px;">Attacker</h4>
+                                <table>
+                                    <tr><th>Vapen</th><th>To Hit</th><th>Skada</th><th>Notes</th></tr>
+                                    <tr><td>Longsword</td><td>+6</td><td>1d8+4 Slash</td><td>Versatile (1d10+4), Sap</td></tr>
+                                    <tr><td>Javelin</td><td>+6</td><td>1d6+4 Piercing</td><td>Range 30/120, Slow</td></tr>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="info-card">
+                        <details open>
+                            <summary style="cursor: pointer; list-style: none;">
+                                <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; border-bottom: none;">
+                                    Utrustning <i class="fas fa-chevron-down" style="font-size: 0.8rem; opacity: 0.7;"></i>
+                                </h3>
+                            </summary>
+                            
+                            <div style="margin-top: 15px; border-top: 1px solid rgba(100,100,100,0.2); padding-top: 15px;">
+                                <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                                    <li><i class="fas fa-tshirt"></i> Rostig Ringbrynja</li>
+                                    <li><i class="fas fa-shield-alt"></i> Bucklig Sköld</li>
+                                    <li><i class="fas fa-khanda"></i> Långsvärd (Zügwern)</li>
+                                    <li><i class="fas fa-bullseye"></i> 6x Javelins</li>
+                                    <li style="color: var(--accent-gold); font-weight: bold; grid-column: 1 / -1; border: 1px dashed var(--accent-gold); padding: 5px; text-align: center;">
+                                        <i class="fas fa-coins"></i> 59 Guldmynt
+                                        <span style="display: block; font-size: 0.8em; font-weight: normal; font-style: italic; color: var(--text-sub); margin-top: 3px;">
+                                            "En bra början. Men målet är 1500 G. En Helrustning som tål träsket."
+                                        </span>
+                                    </li>
+                                    
+                                    <!-- PRIEST PACK EXPANDED -->
+                                    <li style="grid-column: 1 / -1; background: rgba(0,0,0,0.03); border: 1px dashed var(--text-sub); padding: 5px; border-radius: 4px;">
+                                        <details>
+                                            <summary style="font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+                                                <span><i class="fas fa-hiking"></i> Prästens Packning (Farfars)</span>
+                                                <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i>
+                                            </summary>
+                                            <div style="margin-top: 8px; font-size: 0.85rem; font-weight: normal; font-family: 'EB Garamond'; color: var(--text-sub);">
+                                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+                                                    <span>• Ryggsäck & Filt</span>
+                                                    <span>• 10 Ljus</span>
+                                                    <span>• Tändstål</span>
+                                                    <span>• Allmoselåda</span>
+                                                    <span>• 2 Rökelseblock</span>
+                                                    <span>• Rökelsekar</span>
+                                                    <span>• Prästskrud</span>
+                                                    <span>• 2 Dagar Mat</span>
+                                                    <span>• Vattenskinn</span>
+                                                </div>
+                                                <p style="margin-top: 5px; font-style: italic; opacity: 0.8;">"Skruden passar inte över rustningen. Men rökelsen... den behövs."</p>
+                                            </div>
+                                        </details>
+                                    </li>
+
+                                    <!-- UPDATED: Clarified Siegerkette = Vinrankan -->
+                                    <li style="grid-column: 1 / -1;"><i class="fas fa-link"></i> <strong>Siegerkette (Vinrankan)</strong><br><span style="font-size:0.85em; opacity:0.8; font-style:italic;">Tre segerringar runt fästet. Min Heliga Symbol.</span></li>
+                                </ul>
+                                <p style="font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink-blue); text-align: center; margin-top: 10px;">
+                                    "Utrustningen? Sett bättre dagar. Men stålet är Zügwernskt. Och farfars packning... den luktar fortfarande hemma."
+                                </p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- REMOVED: OLD ECONOMY CARD -->
+
                 </div>
                 <div class="page-controls">
                     <button class="page-btn disabled"><i class="fas fa-chevron-left"></i> Föregående</button>
@@ -1685,17 +1859,97 @@
                                 </li>
                             </ul>
                         </details>
+
+                        <!-- SESSION 1: AMBEROLJAN (NEW INSERTION) -->
+                        <details open style="border-left: 3px solid #7c3030;">
+                            <summary><h3><i class="fas fa-dice-d20"></i> Amberoljan & Kongregationen</h3></summary>
+                            <div style="padding: 10px 10px 10px 25px; border-left: 1px solid var(--text-sub);">
+                                <ul class="timeline-events">
+                                    <li>
+                                        <span class="timeline-date">Dag 1 - Briefing</span>
+                                        <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Uppdraget</strong></span>
+                                        <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 8px;">
+                                            Germille (humanoid fiskman) gav order: Stjäl 3 tunnor Amberolja från Lager 10. En Tournesol-riddare hämtar dem imorgon. Belöning: 1000gp (200 i förskott, 800 vid leverans). Vi frågade vad som händer om vi hittar färre – det verkade inte vara världens största problem.
+                                        </p>
+                                        <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem;">
+                                            "Fisk som talar. Hmpf. Men guldet är äkta. 1000 guld. 200 förskott. 800 vid leverans. Kanske mindre om det är färre tunnor, men ingen katastrof."
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <span class="timeline-date">Dag 1 - Förberedelser</span>
+                                        <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Maximilliam & Goblins</strong></span>
+                                        <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 8px;">
+                                            Besökte förfalskaren Maximilliam för ett falskt Tournesol-brev. Utanför dörren: 5 goblins som krävde pengar tillbaka för en dålig människokostym (de ville stå på varandra). Det slutade i våld. 1 död, 4 flydde.
+                                        </p>
+                                        <p style="font-family: 'Caveat'; color: #8b0000; font-size: 1.1rem;">
+                                            "En goblin dog. De andra flydde. Jag ville bara... passera."
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <span class="timeline-date">Dag 1 - Insidemannen</span>
+                                        <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Helmut und Lyckta</strong></span>
+                                        <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 8px;">
+                                            Lager 10 vaktas av Helmut und Lyckta, ett vaktbolag från Zügwern. Jag imponerade på dem med min turnerträning och blev anställd som reservvakt (5gp). Billo såg till att den ordinarie vakten blev "sjuk", så jag blev inkallad att vakta just det lager vi skulle tömma.
+                                        </p>
+                                        <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem;">
+                                            "Perfekt täckmantel. Jag vaktade dörren... och öppnade den åt mina vänner. Zügwernskt stål skyddade stölden."
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <span class="timeline-date">Dag 1 - Heist</span>
+                                        <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Lager 10</strong></span>
+                                        <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 8px;">
+                                            Med min hjälp kom gruppen in i Lager 10 smidigt. Utförandet var perfekt, men vi fann bara 2 tunnor. Den tredje var redan stulen.
+                                        </p>
+                                        <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem;">
+                                            "Jag höll vakt medan de rullade ut tunnorna. Två tunnor säkrade. En saknas. Vem stal den första?"
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <span class="timeline-date">Dag 1 - Kryptkongregationen</span>
+                                        <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Mötet i Skuggan</strong></span>
+                                        <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 8px;">
+                                            På väg bort mötte vi en man i skuggorna. Svartmålad kropp, med ett vitt skelettansikte målat direkt på huden. När han dök upp höll han ett tystande finger mot läpparna. Det såg kusligt ut. Han krävde tunnorna för "Kryptkongregationen". Billo lyckades charma honom och han försvann.
+                                        </p>
+                                        <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem;">
+                                            "Målat skelettansikte. Finger mot läpparna. Tyst. Billo charmade honom. Han gick iväg. Som... ingenting."
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <span class="timeline-date">Dag 1 - Avslut</span>
+                                        <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Status: 2 av 3</strong></span>
+                                        <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 8px;">
+                                            Rapporterade "misstänkt skelettman" till vaktchefen för att täcka våra spår. Vi har säkrat 2 tunnor.
+                                        </p>
+                                        <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem;">
+                                            "Första natten som 'brottsling'. Två tunnor säkrade. Undra vad Tournesol säger när dom ska hämta sina tunnor imorgon?"
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </details>
                         
                         <details open><summary><h3><i class="fas fa-hourglass-half"></i> Nuläge</h3></summary>
                             <ul class="timeline-events">
                                 <li>
                                     <span class="timeline-date">Nutid</span>
-                                    <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Uppdrag #1: Första Stöten</strong></span>
+                                    <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Nästa Steg</strong></span>
                                     <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 8px;">
-                                        Order från Råttkungens Hov. Det enda vi vet är nyckelorden: <strong>Amberoljan</strong> och <strong>Kongregationen</strong>.
+                                        Vi har 2 tunnor Amberolja. Den tredje är där ute. Tournesol-riddaren kommer imorgon. Vi måste hitta den sista tunnan eller förhandla.
                                     </p>
                                     <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem;">
-                                        "Är Kongregationen fienden? Är oljan målet? Oklart. Jag gillar inte att gå in i dimman utan karta, men jag håller stålet redo för vad som än väntar."
+                                        "Vem har den tredje? Skelettmannen? Eller någon annan spelare?"
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <span class="timeline-date">Denna Vecka (Lördag)</span>
+                                    <span class="timeline-desc" style="display: block; margin-bottom: 5px;"><strong>Bennifers Födelsedagsfest</strong></span>
+                                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 8px;">
+                                        På lördag. Billo nämnde det till goblins under konfrontationen utanför Maximilliams dörr. Tydligen är jag också bjuden. Vem Bennifer är? Ingen aning. Varför jag blev bjuden? Ännu mindre aning. Germille, fiskmannen som gav oss uppdraget, var också bjuden.
+                                    </p>
+                                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem;">
+                                        "Vem är Bennifer? Varför blev jag bjuden? Och fiskmannen ska dit? Fester... var aldrig min grej. Men kanske... information? Eller bara mat."
                                     </p>
                                 </li>
                             </ul>
@@ -1988,7 +2242,7 @@
                         </div>
                         <div class="person-body">
                             <p class="person-description" style="border-left-color: #f0e68c; color: #3a5a40;">
-                                <em>"Solrosriddare. Tournesol-symbolen på hans halberd var som en fläck. En gul fläck på min vita ära. Han var i Zügwern av skäl jag inte förstod, men nu är han i Lisse. Han *tillhör* dem nu."</em>
+                                <em>"Solrosriddare. Tournesol-symbolen på hans halberd var som en fläck. En gul fläck på min vita ära. Han var i Zügwern av skäl jag inte förstod, men nu är han i Lisse."</em>
                             </p>
                             
                             <!-- Full Sketch of Kaspar -->
@@ -2005,6 +2259,29 @@
                                 <p><strong>Status:</strong> Segrare i Zügwern</p>
                                 <!-- UPDATED RELATION: Changed "Exil" to "Resa/Revansch" -->
                                 <p><strong>Relation:</strong> Målet för min resa. Jag är härrr för att möta honom igen. Han har min heder. Jag ska ta tillbaka den.</p>
+                            </div>
+
+                            <!-- NY INTEL FRÅN MAXIMILLIAM -->
+                            <div style="border-top: 1px solid rgba(139,90,43,0.3); padding-top: 15px; margin-top: 15px;">
+                                <h4 style="font-family: 'Cinzel'; font-size: 0.95rem; color: var(--text-sub); margin-bottom: 10px;">
+                                    Ny Intel (Maximilliam)
+                                </h4>
+                                
+                                <div class="person-meta" style="background: rgba(197,160,89,0.05); padding: 10px; border-radius: 4px;">
+                                    <p><strong>Tournesol Handelshus:</strong></p>
+                                    <ul style="font-size: 0.85rem; padding-left: 20px; margin: 5px 0; list-style-type: disc;">
+                                        <li>Kaspar arbetar för Tournesol (mäktigt i Lisse)</li>
+                                        <li>Maskerat som "grönsakshandlare"</li>
+                                        <li>Egen fästning i staden</li>
+                                    </ul>
+                                    
+                                    <p style="margin-top: 10px;"><strong>Position:</strong> Löjtnant-level riddare + maktägare</p>
+                                    <p><strong>Status:</strong> Background check pågår (3 dagar)</p>
+                                </div>
+                                
+                                <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--text-sub);">
+                                    "Han är inte bara riddare. Han äger mark. Folk. Makt. Detta... blir svårare än jag trodde. Turneringen var en sak. Men nu? Han har fästning. Armé? Revansch kanske... kostar mer än jag tänkte."
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -2024,21 +2301,108 @@
                         </div>
                     </div>
 
-                    <!-- NEW: Arlo Card -->
+                    <!-- GERMILLE CARD -->
                     <div class="person-card">
                         <div class="person-header">
-                            <div class="person-portrait"><div class="silhouette-portrait"><i class="fas fa-music"></i></div></div>
+                            <div class="person-portrait"><div class="silhouette-portrait"><i class="fas fa-fish"></i></div></div>
                             <div class="person-info">
-                                <h3>Arlo</h3>
-                                <span class="relationship-badge employer" style="background: #5a4570;">Allierad</span>
-                                <p class="person-title">Bard från Zügwern</p>
+                                <h3>Germille</h3>
+                                <span class="relationship-badge" style="background: #4a7c59; color: white;">Råttkungens Hov</span>
+                                <p class="person-title">Fiskman Kontakt</p>
+                            </div>
+                        </div>
+                        <div class="person-body">
+                            <p class="person-description" style="border-left-color: #4a7c59; color: #4a7c59;">
+                                Humanoid fisk som talar. Representerar Råttkungens hov som mellanhänder. Gav oss Amberolja-uppdraget. Luktar... precis som man förväntar sig att en fiskman luktar. Rökelse hjälpte inte.
+                            </p>
+                            <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 10px; padding: 5px 10px; border-left: 2px solid var(--ink-color);">
+                                "Fisk som talar. Hmpf. Men guldet är äkta. 1000 guld. 200 förskott. 800 vid leverans. AV ALLA TRE TUNNOR."
+                            </p>
+                            <div class="person-meta">
+                                <p><strong>Roll:</strong> Mellanhänder för Råttkungens hov</p>
+                                <p><strong>Kontakt:</strong> Safehouse (källaren under taverna)</p>
+                                <p><strong>Uppdrag:</strong> Amberolja-stölden (3 tunnor från Lager 13)</p>
+                                <p><strong>Payment:</strong> 1000gp (200 förskott ✅, 800 vid leverans av alla 3 tunnor)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAXIMILLIAM CARD -->
+                    <div class="person-card">
+                        <div class="person-header">
+                            <div class="person-portrait"><div class="silhouette-portrait"><i class="fas fa-scroll"></i></div></div>
+                            <div class="person-info">
+                                <h3>Maximilliam</h3>
+                                <span class="relationship-badge" style="background: #5a4570; color: white;">Förfalskare</span>
+                                <p class="person-title">Dokumentspecialist</p>
                             </div>
                         </div>
                         <div class="person-body">
                             <p class="person-description" style="border-left-color: #5a4570; color: #5a4570;">
-                                <em>"En bard från Zügwern. Vad är oddsen? Vi sitter i världens ände, i ett träsk som luktar som en gammal stövel, och vem dyker upp med en pung guld för att betala min borgen? En landsman."</em>
+                                Förfalskare som räddades från 5 arga goblins utanför sin dörr. Skapade falskt Tournesol-brev åt oss för 10gp. Känner till staden och dess maktstrukturer väl. Utför för närvarande bakgrundskontroll på Kaspar Falkenschlag.
                             </p>
-                            <div class="person-meta"><p><strong>Relation:</strong> Party-medlem</p></div>
+                            <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 10px; padding: 5px 10px; border-left: 2px solid var(--ink-color);">
+                                "Räddade honom från goblins. Nu skapar han falska dokument åt mig. Moraliskt... grått. Men effektivt."
+                            </p>
+                            <div class="person-meta">
+                                <p><strong>Service:</strong> Dokumentförfalskning (10gp för Tournesol-brev)</p>
+                                <p><strong>Intel:</strong> Tournesol = mäktigt handelshus i Lisse ("grönsakshandlare")</p>
+                                <p><strong>Intel:</strong> Kaspar Falkenschlag = Löjtnant-nivå, egen fästning i staden</p>
+                                <p><strong>Status:</strong> Utför background check på Kaspar (3 dagar, 10gp betalt)</p>
+                                <p><strong>Relation:</strong> Tacksam efter goblin-räddning</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VOODOO-SKELETTMAN CARD -->
+                    <div class="person-card" style="border-color: #8b0000; background: linear-gradient(180deg, rgba(139, 0, 0, 0.05) 0%, transparent 100%);">
+                        <div class="person-header">
+                            <div class="person-portrait" style="border-color: #8b0000;"><div class="silhouette-portrait" style="color: #8b0000;"><i class="fas fa-skull"></i></div></div>
+                            <div class="person-info">
+                                <h3>[Namn Okänt]</h3>
+                                <span class="relationship-badge" style="background: #2c2c2c; color: white;">Kryptkongregationen</span>
+                                <p class="person-title">Voodoo-Agent</p>
+                            </div>
+                        </div>
+                        <div class="person-body">
+                            <p class="person-description" style="border-left-color: #8b0000; color: #8b0000;">
+                                Svartmålad kropp. Det vita skelettansiktet var målat direkt på huden för att förtydliga. När han dök upp ur skuggorna höll han upp ett tystande finger mot läpparna. Såg kusligt ut. Representerar "Kryptkongregationen".
+                            </p>
+                            <p style="font-family: 'Caveat'; color: #8b0000; font-size: 1.1rem; margin-top: 10px; padding: 5px 10px; border-left: 2px solid #8b0000;">
+                                "Målat skelettansikte. Finger mot läpparna. Ur skuggorna. Krävde tunnorna. Billo charmade honom. Försvann som... rök. Magi är ovärdsig. Men effektiv."
+                            </p>
+                            <div class="person-meta">
+                                <p><strong>Grupp:</strong> Kryptkongregationen (kloaker, underground operations)</p>
+                                <p><strong>Relation:</strong> Konkurrent till Råttkungens hov?</p>
+                                <p><strong>Metod:</strong> Stealth, intimidation</p>
+                                <p><strong>Resolution:</strong> Charmad av Billo, försvann utan konflikt</p>
+                                <p><strong>Fara:</strong> Okänd men potentiellt hög</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEBADO CARD -->
+                    <div class="person-card">
+                        <div class="person-header">
+                            <div class="person-portrait"><div class="silhouette-portrait"><i class="fas fa-cat"></i></div></div>
+                            <div class="person-info">
+                                <h3>Sebado</h3>
+                                <span class="relationship-badge" style="background: #e67e22; color: white;">Kättarmusslan</span>
+                                <p class="person-title">Katten på Tavernan</p>
+                            </div>
+                        </div>
+                        <div class="person-body">
+                            <p class="person-description" style="border-left-color: #e67e22; color: #e67e22;">
+                                En stor, ärrad katt som äger tavernan Kättarmusslan. Verkar ha mer auktoritet än värdshusvärden. Sitter ofta på den högsta tunnan och dömer gästerna.
+                            </p>
+                            <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 10px; padding: 5px 10px; border-left: 2px solid var(--ink-color);">
+                                "Katter ljuger inte. De bryr sig bara inte. Sebado... han har respekt. Han flyttar sig inte för någon. Inte ens för en paladin."
+                            </p>
+                            <div class="person-meta">
+                                <p><strong>Plats:</strong> Kättarmusslan (Stamhaket)</p>
+                                <p><strong>Roll:</strong> Maskot & Inofficiell Vakt</p>
+                                <p><strong>Status:</strong> Välmatad</p>
+                            </div>
                         </div>
                     </div>
 
@@ -2055,46 +2419,110 @@
             <section id="sec-party" class="section-container theme-party">
                 <div class="section-content-wrapper">
                     <header class="page-header"><h1 class="page-title">Gruppen</h1><div class="page-subtitle">Allierade & Följeslagare</div></header>
-                    <div class="stat-grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                    
+                    <p style="font-family: 'EB Garamond'; font-size: 1rem; line-height: 1.7; margin-bottom: 20px;">
+                        Tre själar sammanförda av ödet i Lisse. En bard från mitt förflutna. En gnome med mekanisk magi. En druid från träsken. Vi har inget namn ännu. Men vi har ett uppdrag. Och... varandra. Tror jag.
+                    </p>
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-bottom: 30px;">
+                        "Gruppen. Inget namn. Bara tre främlingar som stal tunnor tillsammans. Början på något? Eller bara... tillfälligt?"
+                    </p>
+
+                    <div class="character-registry">
                         
-                        <!-- KURT -->
-                        <div class="info-card">
-                            <h3>Kurt Eisenwald</h3>
-                            <p style="font-family:'EB Garamond'; color:var(--text-main); font-size:1rem; text-align:center; margin-top:10px;">
-                                <strong>Roll:</strong> Paladin • Frontkämpe<br>
-                                <strong>Ålder:</strong> 24 (Tränad sen 16)<br>
-                                <strong>Ursprung:</strong> Zügwern
-                            </p>
-                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.2rem; text-align:center; margin-top:10px; font-style:italic; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1);">
-                                "Sändebudet kallade mig 'soldat'. Jag nickade bara. Sa inte att min erfarenhet är arenan. Inte krig. Men jag vann tre år i rad. Av en anledning. Stål är stål. Ingen darrning. Ingen tvekan. Jag må vara ny i t-rr-äsket. Men jag vet hur man slåss. Dags att visa dem."
-                            </p>
-                        </div>
-                        
-                        <!-- DRUID -->
-                        <div class="info-card" style="opacity: 0.8;">
-                            <h3>[Namn Okänt]</h3>
-                            <p style="text-align: center;"><strong>Rykte:</strong> Druid</p>
-                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1);">
-                                "Druid. Talar med mossa. Hmpf. I dalen var det sagorrr. Men härrr... i t-rr-äsket? Om hen vet var marken bär... bra. Min rustning sjunker."
-                            </p>
+                        <!-- Arlo Card -->
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-portrait"><div class="silhouette-portrait"><i class="fas fa-music"></i></div></div>
+                                <div class="person-info">
+                                    <h3>Arlo</h3>
+                                    <span class="relationship-badge employer" style="background: #5a4570;">Allierad</span>
+                                    <p class="person-title">Bard från Zügwern</p>
+                                </div>
+                            </div>
+                            <div class="person-body">
+                                <p class="person-description" style="border-left-color: #5a4570; color: #5a4570;">
+                                    <em>"En bard från Zügwern. Vad är oddsen? Vi sitter i världens ände, i ett träsk som luktar som en gammal stövel, och vem dyker upp med en pung guld för att betala min borgen? En landsman."</em>
+                                </p>
+                                <div class="person-meta"><p><strong>Relation:</strong> Party-medlem</p></div>
+
+                                <div style="border-top: 1px solid rgba(139,90,43,0.3); padding-top: 15px; margin-top: 15px;">
+                                    <h4 style="font-family: 'Cinzel'; font-size: 0.95rem; color: var(--text-sub); margin-bottom: 10px;">
+                                        Backstory Discovered
+                                    </h4>
+                                    <div style="font-size: 0.9rem; line-height: 1.6;">
+                                        <p><strong>Ålder:</strong> ~60 år</p>
+                                        <p><strong>Vibe:</strong> Keith Richards / Iggy Pop - gammal rockstjärna</p>
+                                        <p><strong>Kropp:</strong> Läderaktig hud, ont i knä och rygg (dekis)</p>
+                                        <p><strong>Rykte:</strong> Skandalomsusad Rasputin-typ, stora dagar bakom sig</p>
+                                    </div>
+                                    <div style="background: rgba(197,160,89,0.08); padding: 12px; margin-top: 12px; border-left: 3px solid var(--accent-gold);">
+                                        <p style="font-size: 0.9rem; margin-bottom: 8px;">
+                                            <strong>Zügwern Connection:</strong>
+                                        </p>
+                                        <ul style="font-size: 0.85rem; padding-left: 20px; line-height: 1.7;">
+                                            <li>Tidigare kungligt hov i Zügwern</li>
+                                            <li>Vän med prinsen</li>
+                                            <li>Uppträdde på Weinberg-Fehde många gånger</li>
+                                            <li>Kurt såg honom som barn (~8-10 år, från publiken)</li>
+                                            <li>20 år sedan - Kurt känner igen namnet men inte personen</li>
+                                        </ul>
+                                    </div>
+                                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--text-sub);">
+                                        "En bard från Zügwern. Vad är oddsen? Arlo... namnet... ja. Farfar nämnde honom. 'Sångaren vid hovet.' Jag var liten. Minns bara att publiken jublade när han kom in i arenan. Nu betalar han min borgen. Livet är konstigt."
+                                    </p>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- SORCERER -->
-                        <div class="info-card" style="opacity: 0.8;">
-                            <h3>[Namn Okänt]</h3>
-                            <p style="text-align: center;"><strong>Rykte:</strong> Sorcerer</p>
-                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1);">
-                                "Magi i blodet. Född med eld. Jag? Jag blödde för min teknik. Åtta årrr. Känner mig... liten? Nej. Bara... tung. Eld är bra. Bränn dem."
-                            </p>
+                        <!-- Billo Card -->
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-portrait"><div class="silhouette-portrait"><i class="fas fa-hat-wizard"></i></div></div>
+                                <div class="person-info">
+                                    <h3>Bollivander "Billo"</h3>
+                                    <span class="relationship-badge employer" style="background: #5a4570;">Party Member</span>
+                                    <p class="person-title">Gnome Sorcerer</p>
+                                </div>
+                            </div>
+                            <div class="person-body">
+                                <p class="person-description" style="border-left-color: #5a4570; color: #5a4570;">
+                                    Garden gnome-stil med munkfrisyr (slät topp, krans runtom). Kläder dekorerade med mekaniska motiv - kugghjul, växlar i tyget. Hans familiar "Kling" är en mekanisk trollslända med grodaktiga ben som sitter på hans axel. Den skiftar mellan 2D och 3D genom någon slags magisk animation.
+                                </p>
+                                <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 10px; padding: 5px 10px; border-left: 2px solid var(--ink-color);">
+                                    "Gnomen med metallsländan. 'Kling.' Konstigt namn för konstigt djur. Men Billo... han charmade skelettmannen. Magi jag inte förstår. Men respekterar."
+                                </p>
+                                <div class="person-meta">
+                                    <p><strong>Klass:</strong> Sorcerer</p>
+                                    <p><strong>Familiar:</strong> Kling (mekanisk trollslända)</p>
+                                    <p><strong>Notable:</strong> Bjöd Kurt till "Bennifers födelsedagsfest"</p>
+                                    <p><strong>Combat Style:</strong> Charm magic, förgiftning</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- BARD (ARLO) -->
-                        <div class="info-card">
-                            <h3>Arlo</h3>
-                            <p style="text-align: center;"><strong>Roll:</strong> Bard • Zügwern</p>
-                            <p style="font-family:'Caveat'; color:var(--ink-blue); font-size:1.1rem; text-align:center; margin-top:10px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.1);">
-                                "Betalade min väg ut ur cellen. Säger sig vara från hemma. Dialekten stämmer. Han har en plan, eller åtminstone ett gig. Jag litar på guldet han lade upp. Tills vidare."
-                            </p>
+                        <!-- Mardi Card (Placeholder) -->
+                        <div class="person-card" style="opacity: 0.7; border: 2px dashed var(--text-sub);">
+                            <div class="person-header">
+                                <div class="person-portrait"><div class="silhouette-portrait"><i class="fas fa-leaf"></i></div></div>
+                                <div class="person-info">
+                                    <h3>Mardi</h3>
+                                    <span class="relationship-badge employer" style="background: #5a4570;">Party Member</span>
+                                    <p class="person-title">Druid från Lisse Träsk</p>
+                                </div>
+                            </div>
+                            <div class="person-body">
+                                <p class="person-description" style="border-left-color: #5a4570; color: #5a4570;">
+                                    Native i Lisse träsk. [EJ TRÄFFAD ÄN]
+                                </p>
+                                <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 10px; padding: 5px 10px; border-left: 2px solid var(--ink-color);">
+                                    "Träskdruiden. Hört talas om. Inte träffat. Kanske lika bra. Naturen och jag... komplicerat."
+                                </p>
+                                <div class="person-meta">
+                                    <p><strong>Klass:</strong> Druid</p>
+                                    <p><strong>Ursprung:</strong> Lisse träsk (native)</p>
+                                    <p><strong>Status:</strong> Ej träffad ännu</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2234,12 +2662,365 @@
                     </div>
 
                 </div>
+
+                <!-- AIGUES MORTES DISTRIKT-ÖVERSIKT -->
+                <div class="info-card">
+                    <h3><i class="fas fa-map-signs"></i> Aigues Mortes - Stadsdistrikt</h3>
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem; margin-bottom: 15px;">
+                        Halvön Aigues Mortes. Murar runt hela udden. Fem distrikt, var och en med sin karaktär. Jag bor i det fattigaste. Naturligtvis.
+                    </p>
+
+                    <!-- Map Placeholder -->
+                    <div class="sketch-container" style="margin-bottom: 20px;">
+                        <div class="wax-seal"></div>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='transparent' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-style='italic' fill='%235d4037'%3EKarta kommer...%3C/text%3E%3C/svg%3E"
+                             alt="Aigues Mortes Fem Distrikt"
+                             style="width: 100%; height: auto; opacity: 0.3; border: 1px dashed var(--text-sub);">
+                        <p style="text-align: center; font-style: italic; font-size: 0.85rem; margin-top: 10px;">
+                            [Karta kommer - Kurts skiss över distrikten]
+                        </p>
+                    </div>
+
+                    <!-- District Grid -->
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                        
+                        <!-- Distrikt 1: Andra Hamndistriktet (HIGHLIGHTED) -->
+                        <div style="border: 2px solid var(--accent-gold); background: rgba(197, 160, 89, 0.15); padding: 15px; border-radius: 4px; position: relative;">
+                            <div style="position: absolute; top: -10px; right: 10px; background: var(--accent-gold); color: var(--spine-color); font-family: 'Cinzel'; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px;">VI BOR HÄR</div>
+                            <h4 style="font-family: 'Cinzel'; margin: 0 0 5px 0; color: var(--text-main);"><i class="fas fa-anchor"></i> Andra Hamndistriktet (Söder)</h4>
+                            <p style="font-family: 'EB Garamond'; font-size: 0.9rem; margin-bottom: 8px;">
+                                Fattigkvarter. Hamnen där ingen rik person går. Fisklukten aldrig lämnar kläderna. Lager 13 ligger här - vårt mål. Vårt hem ligger här också - källare under taverna.
+                            </p>
+                            <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1rem; margin: 0;">
+                                "Mitt kvarter. Luktar fisk och desperation. Men hyran är... gratis? Tack byråkratin."
+                            </p>
+                        </div>
+
+                        <!-- Distrikt 2: Första Hamndistriktet -->
+                        <div style="border: 1px solid var(--card-border); background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 4px;">
+                            <h4 style="font-family: 'Cinzel'; margin: 0 0 5px 0; color: var(--text-sub);"><i class="fas fa-ship"></i> Första Hamndistriktet (Väster)</h4>
+                            <p style="font-family: 'EB Garamond'; font-size: 0.9rem; margin-bottom: 8px;">
+                                Fint kvarter. Handelsmän med rena händer. Stora hus. Stora lagerfönster. Folk som äger tunnorna vi stjäl.
+                            </p>
+                            <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1rem; margin: 0;">
+                                "Här bor folk som äger tunnorna. Vi... stjäl dem."
+                            </p>
+                        </div>
+
+                        <!-- Distrikt 3: Tempel Distriktet -->
+                        <div style="border: 1px solid var(--card-border); padding: 15px; border-radius: 4px;">
+                            <h4 style="font-family: 'Cinzel'; margin: 0 0 5px 0; color: var(--text-sub);"><i class="fas fa-church"></i> Tempel Distriktet (Centrum-nedre)</h4>
+                            <p style="font-family: 'EB Garamond'; font-size: 0.9rem;">
+                                Religiöst centrum. Kyrkor. Prästerna. Jag undviker området. De ställer frågor jag inte vill svara på.
+                            </p>
+                        </div>
+
+                        <!-- Distrikt 4: Purifikations Distriktet -->
+                        <div style="border: 1px solid var(--card-border); padding: 15px; border-radius: 4px;">
+                            <h4 style="font-family: 'Cinzel'; margin: 0 0 5px 0; color: var(--text-sub);"><i class="fas fa-flask"></i> Purifikations Distriktet (Centrum-övre)</h4>
+                            <p style="font-family: 'EB Garamond'; font-size: 0.9rem;">
+                                Vattenrening? Hantverkare? Oklart ännu. Staden behöver rent vatten. Detta är tydligen var det händer.
+                            </p>
+                        </div>
+
+                        <!-- Distrikt 5: Halveirken -->
+                        <div style="border: 1px solid var(--card-border); padding: 15px; border-radius: 4px;">
+                            <h4 style="font-family: 'Cinzel'; margin: 0 0 5px 0; color: var(--text-sub);"><i class="fas fa-moon"></i> Halveirken (Norr)</h4>
+                            <p style="font-family: 'EB Garamond'; font-size: 0.9rem;">
+                                Inne vid muren. Norr-sektionen. Vad som finns där? Ingen har sagt. Ingen har bjudit in. Mysteriet kvarstår.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SAFEHOUSE -->
+                <div class="info-card">
+                    <h3><i class="fas fa-home"></i> Safehouse (Hemmet)</h3>
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem;">
+                        Källare under Kättarmusslan taverna. Tre bäddar. Ingen fönster. Fuktigt. Luktar mögel och gamla fat. Men... tekniskt sett bostadsyta. Mutad byråkrat såg till att platsen "försvann" ur stadsplaneringen. Ingen skatt. Ingen hyra. Ingen existens.
+                    </p>
+                    <div class="person-meta" style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+                        <p><strong>Location:</strong> Andra Hamndistriktet (under taverna)</p>
+                        <p><strong>Boende:</strong> Billo, Arlo, Mardi</p>
+                        <p><strong>Status:</strong> Oregistrerad i stadens system</p>
+                        <p><strong>Kontakt:</strong> Germille besöker för uppdrag</p>
+                    </div>
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--text-sub);">
+                        "Kryptan. Under marken. Fukten värre än Zügwerns vinkällare. Men... ingen hyra. Byråkratin här är köpbar. Gut."
+                    </p>
+                </div>
+
+                <!-- KÄTTARMUSSLAN -->
+                <div class="info-card">
+                    <h3><i class="fas fa-beer"></i> Kättarmusslan</h3>
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem;">
+                        Taverna vägg i vägg med vårt safehouse. Ägs av hobgoblin-kvinna (namn ännu okänt). Musslor. Mycket musslor. Luktar hav och sprit. Sebado katten väntar vid köksdörren på skaldjur som faller.
+                    </p>
+                    <div class="person-meta" style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+                        <p><strong>Location:</strong> Andra Hamndistriktet</p>
+                        <p><strong>Ägare:</strong> Kvinnlig hobgoblin (namn okänt)</p>
+                        <p><strong>Specialitet:</strong> Skaldjur, musslor</p>
+                        <p><strong>Notable:</strong> Sebado (katten) bor här</p>
+                    </div>
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--text-sub);">
+                        "Musslor. Luktar hav och sprit. Sebado har bättre liv än jag. Vaktar mat. Jag vaktar... vad?"
+                    </p>
+                </div>
+
+                <!-- LAGER 13 -->
+                <div class="info-card">
+                    <h3><i class="fas fa-warehouse"></i> Lager 10</h3>
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem;">
+                        Målet. Amberolja-lagret i Andra Hamndistriktet. Jag stod vakt vid dörren medan gruppen tömde det. Vi förväntade tre tunnor. Bara två fanns. Någon var före oss.
+                    </p>
+                    <div class="person-meta" style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+                        <p><strong>Location:</strong> Andra Hamndistriktet</p>
+                        <p><strong>Innehåll:</strong> Amberolja (2/3 tunnor kvar när vi kom)</p>
+                        <p><strong>Mission:</strong> Session 1 heist-mål (Insats via Kurt)</p>
+                        <p><strong>Status:</strong> 2 tunnor stulna av oss, 1 tunna redan borta</p>
+                    </div>
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--text-sub);">
+                        "Jag vaktade lagret jag själv rånade. Ironin är... påtaglig."
+                    </p>
+                </div>
+
+                <!-- HELMUT UND LYCKTA -->
+                <div class="info-card">
+                    <h3><i class="fas fa-shield-alt"></i> Helmut und Lyckta</h3>
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem;">
+                        Vaktbolag från Zügwern. Professionellt. Disciplinerat. Känner igen stålet. De anställde mig som reservvakt för Lager 10. Fem guld per natt. De vet inte att jag släppte in tjuvarna.
+                    </p>
+                    <div class="person-meta" style="margin-top: 15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+                        <p><strong>Origin:</strong> Zügwern (Kurts hemland)</p>
+                        <p><strong>Service:</strong> Professionell bevakning</p>
+                        <p><strong>Location:</strong> Lager 10, Andra Hamndistriktet</p>
+                        <p><strong>Kurt's role:</strong> Reservvakt (5gp/natt) & Insider</p>
+                        <p><strong>Ironi:</strong> Betalade mig för att bli bestulna</p>
+                    </div>
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--text-sub);">
+                        "Hemlandets stål. De litade på mig. Jag svek kontraktet för uppdraget. Turneringen hade regler. Lisse har inga."
+                    </p>
+                </div>
             </div>
             
             <div class="page-controls">
                 <button class="page-btn" onclick="showSection('notes')"><i class="fas fa-chevron-left"></i> Föregående</button>
                 <span class="page-num">— X —</span>
-                <button class="page-btn disabled">Slut på boken</button>
+                <button class="page-btn" onclick="showSection('faktioner')">Nästa Sida <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- SECTION 7: FAKTIONER -->
+        <section id="sec-faktioner" class="section-container theme-world">
+            <div class="section-content-wrapper">
+                <header class="page-header">
+                    <h1 class="page-title">Faktioner</h1>
+                    <div class="page-subtitle">Makten i Aigues Mortes</div>
+                </header>
+
+                <p style="font-family: 'EB Garamond'; font-size: 1rem; line-height: 1.7; margin-bottom: 20px;">
+                    Staden har mer än fem distrikt. Den har maktnätverk. Organisationer. Gäng. Handelshus. Alla vill något. Alla har fiender. Jag lär mig kartorna. Både gatorna och makten.
+                </p>
+                <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-bottom: 30px;">
+                    "Turneringen var enkel. En fiende. En arena. Här? Flera kungar. Flera arenor. Reglerna oklara."
+                </p>
+
+                <!-- RÅTTKUNGENS HOV -->
+                <div class="info-card" style="border-left: 4px solid #4a7c59; margin-bottom: 25px;">
+                    <h3><i class="fas fa-crown"></i> Råttkungens Hov</h3>
+                    <span class="relationship-badge" style="background: #4a7c59;">Arbetsgivare</span>
+                    
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem; line-height: 1.7; margin: 15px 0;">
+                        Kriminell organisation i Aigues Mortes. Opererar från skuggorna. Germille är kontakten - fiskmännen från kloakerna. Gav oss Amberolja-uppdraget. Betalar väl men kräver alla tre tunnorna. Vi har två. Problem.
+                    </p>
+                    
+                    <div class="person-meta">
+                        <p><strong>Maktstruktur:</strong></p>
+                        <ul style="font-size: 0.85rem; padding-left: 20px; margin: 5px 0;">
+                            <li>Råttkungen (aldrig sett)</li>
+                            <li>Mellanhänder som Germille</li>
+                            <li>Opererar i Andra Hamndistriktet</li>
+                        </ul>
+                        
+                        <p style="margin-top: 10px;"><strong>Relation:</strong> Arbetsgivare (200gp betalt, 800gp pending)</p>
+                        <p><strong>Medlemmar:</strong> Germille (se Personer)</p>
+                    </div>
+                    
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 15px; border-top: 1px dashed var(--text-sub); padding-top: 15px;">
+                        "Råttkungen. Namnet säger allt. Kloakernas kung. Vi jobbar för honom nu. Guldet luktar inte sämre än fisken."
+                    </p>
+                </div>
+
+                <!-- KRYPTKONGREGATIONEN -->
+                <div class="info-card" style="border-left: 4px solid #2c2c2c; margin-bottom: 25px;">
+                    <h3><i class="fas fa-skull"></i> Kryptkongregationen</h3>
+                    <span class="relationship-badge" style="background: #2c2c2c;">Konkurrent</span>
+                    
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem; line-height: 1.7; margin: 15px 0;">
+                        Rival-gäng i kloakerna. Skelettmålning. Ritualer jag inte känner igen. Inte kristna. Något äldre. Mörkare. De krävde våra tunnor. Billo charmade deras agent. Men de är fortfarande där nere. Väntande.
+                    </p>
+                    
+                    <div class="person-meta">
+                        <p><strong>Maktstruktur:</strong></p>
+                        <ul style="font-size: 0.85rem; padding-left: 20px; margin: 5px 0;">
+                            <li>Okänd ledare</li>
+                            <li>Agents med skelettmålning</li>
+                            <li>Opererar underground (kloaker)</li>
+                        </ul>
+                        
+                        <p style="margin-top: 10px;"><strong>Relation:</strong> Konkurrent/Potentiellt Hot</p>
+                        <p><strong>Medlemmar:</strong> Skelettman agent (se Personer)</p>
+                    </div>
+                    
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 15px; border-top: 1px dashed var(--text-sub); padding-top: 15px;">
+                        "Kloakernas andra kungar. Skelett och skuggor. De ville våra tunnor. Nästa gång kanske charm-magin inte räcker."
+                    </p>
+                </div>
+
+                <!-- TOURNESOL -->
+                <div class="info-card" style="border-left: 4px solid #c5a059; margin-bottom: 25px;">
+                    <h3><i class="fas fa-sun"></i> Tournesol</h3>
+                    <!-- UPDATED BADGE: Mer korrekt relation -->
+                    <span class="relationship-badge" style="background: #c5a059; color: #3e2723;">Rivalens Hus</span>
+                    
+                    <!-- EMBLEM IMAGE -->
+                    <div class="sketch-container" style="margin: 15px 0; border-bottom: 1px dashed var(--text-sub); padding-bottom: 15px;">
+                        <img src="https://raw.githubusercontent.com/nordsym/DD/refs/heads/main/Tournesol.svg" 
+                             alt="Tournesol Emblem" 
+                             style="width: 100%; height: auto; max-width: 200px; display: block; margin: 0 auto;">
+                        <span class="handwritten-caption" style="color: #3e2723;">"Samma solros som besegrade mig."</span>
+                    </div>
+
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem; line-height: 1.7; margin: 15px 0;">
+                        Handelshus. Grönsakshandlare enligt Maximilliam, men ingen handlar bara grönsaker med egen fästning. Mäktigt i Lisse. Kaspar Falkenschlag är deras löjtnant-riddare. De skulle hämta Amberolja-leveransen. Vi stal den först. De vet inte. Ännu.
+                    </p>
+                    
+                    <div class="person-meta">
+                        <p><strong>Maktstruktur:</strong></p>
+                        <ul style="font-size: 0.85rem; padding-left: 20px; margin: 5px 0;">
+                            <li>Okänd ledare/ägare</li>
+                            <li>Riddare som Kaspar (löjtnant-level)</li>
+                            <li>Egen fästning i staden</li>
+                        </ul>
+                        
+                        <p style="margin-top: 10px;"><strong>Relation:</strong> Vi stal deras olja (de vet ej)</p>
+                        <p><strong>Medlemmar:</strong> Kaspar Falkenschlag (se Personer)</p>
+                    </div>
+                    
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 15px; border-top: 1px dashed var(--text-sub); padding-top: 15px;">
+                        "Solen. Tournesol. Grönsaker och guld och riddare med fästningar. Vi stal från dem. De vet inte. Men när de upptäcker... solens vrede bränner."
+                    </p>
+                </div>
+
+                <!-- HELMUT UND LYCKTA -->
+                <div class="info-card" style="border-left: 4px solid #5d4037; margin-bottom: 25px;">
+                    <h3><i class="fas fa-shield-alt"></i> Helmut und Lyckta</h3>
+                    <span class="relationship-badge" style="background: #5d4037;">Arbetsgivare (Kurt)</span>
+                    
+                    <p style="font-family: 'EB Garamond'; font-size: 0.95rem; line-height: 1.7; margin: 15px 0;">
+                        Vaktbolag från Zügwern. Professionellt. Disciplinerat. Känner igen stålet. Känner igen ordningen. De anställde mig som reservvakt. Fem guld per natt. Jag vaktade Lager 10 medan mina kompanjoner stal från Lager 13. Ironi.
+                    </p>
+                    
+                    <div class="person-meta">
+                        <p><strong>Maktstruktur:</strong></p>
+                        <ul style="font-size: 0.85rem; padding-left: 20px; margin: 5px 0;">
+                            <li>Zügwernskt vaktbolag</li>
+                            <li>Opererar som contractors</li>
+                            <li>Professionell hierarki</li>
+                        </ul>
+                        
+                        <p style="margin-top: 10px;"><strong>Relation:</strong> Kurt är trusted reservvakt (5gp/natt)</p>
+                        <p><strong>Medlemmar:</strong> Inga specifika namn ännu</p>
+                    </div>
+                    
+                    <p style="font-family: 'Caveat'; color: var(--ink-color); font-size: 1.1rem; margin-top: 15px; border-top: 1px dashed var(--text-sub); padding-top: 15px;">
+                        "Hemlandets stål i främmande land. De litade på mig. Jag vaktade deras lager medan mina... vänner stal bredvid. Turneringen lärde mig vinna. Detta lär mig leva med skam."
+                    </p>
+                </div>
+
+                <div class="page-controls">
+                    <button class="page-btn" onclick="showSection('maps')"><i class="fas fa-chevron-left"></i> Föregående</button>
+                    <span class="page-num">— XI —</span>
+                    <button class="page-btn disabled">Slut på boken</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: KASSABOK (LEDGER) -->
+        <section id="sec-ledger" class="section-container theme-journal">
+            <div class="section-content-wrapper">
+                <header class="page-header">
+                    <h1 class="page-title">Kassabok</h1>
+                    <div class="page-subtitle">Ekonomisk Liggare & Transaktioner</div>
+                </header>
+
+                <p style="font-family: 'Caveat'; font-size: 1.3rem; color: var(--ink-color); text-align: center; margin-bottom: 30px; padding: 0 20px;">
+                    "Farfar förde liggare för turneringen. Varje vinst. Varje förlust. Varje utgift för utrustning. Han lärde mig: Guld försvinner om man inte skriver ner det. Nu för jag party's liggare. Samma disciplin. Andra siffror."
+                </p>
+
+                <!-- TABS -->
+                <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 0px; position: relative; z-index: 5; top: 5px;">
+                    <button onclick="switchLedgerTab('party')" id="tab-party" class="condition-btn active" style="padding: 10px 25px; font-family: 'Cinzel'; font-weight: bold; font-size: 1rem; border-bottom: none; border-radius: 5px 5px 0 0; background: #fdfbf7; box-shadow: 0 -2px 5px rgba(0,0,0,0.05);">
+                        <i class="fas fa-users"></i> Party Pot
+                    </button>
+                    <button onclick="switchLedgerTab('kurt')" id="tab-kurt" class="condition-btn" style="padding: 10px 25px; font-family: 'Cinzel'; font-weight: bold; font-size: 1rem; border-bottom: none; border-radius: 5px 5px 0 0; background: #eee8dc; color: #888;">
+                        <i class="fas fa-user-shield"></i> Kurt Privat
+                    </button>
+                </div>
+
+                <!-- LEDGER CONTAINER (PURE PAPER STYLE) -->
+                <div class="ledger-sheet">
+                    
+                    <!-- NEW ORGANIC HEADER -->
+                    <div class="ledger-header">
+                        <h3 id="ledger-title" class="ledger-title-stamp">PARTY POT</h3>
+                        
+                        <div class="ledger-summary-row">
+                            <div class="ledger-summary-item">
+                                <span class="ledger-label">Tillgängligt</span>
+                                <span id="ledger-total" style="font-size: 1.4rem; color: #2e5c3e; font-weight: bold;">0 gp</span>
+                            </div>
+                            
+                            <div class="ledger-summary-item" style="border-style: dashed; border-color: #b8860b;">
+                                <span class="ledger-label" style="color: #b8860b;">Väntande</span>
+                                <span id="ledger-pending" style="font-size: 1.2rem; color: #b8860b;">0 gp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Row (Write directly on paper) -->
+                    <div style="display: flex; align-items: flex-end; gap: 10px; padding-bottom: 15px; margin-bottom: 15px; border-bottom: 2px solid rgba(0,0,0,0.1);">
+                        <div style="flex-shrink: 0; width: 30px; text-align: center; color: var(--ink-color); opacity: 0.5;">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <div style="flex-grow: 1; display: grid; grid-template-columns: 1fr 2fr 0.8fr 0.5fr; gap: 15px;">
+                            <input type="text" id="tx-date" class="ledger-input" placeholder="Datum">
+                            <input type="text" id="tx-desc" class="ledger-input" placeholder="Ny transaktion...">
+                            <input type="number" id="tx-amount" class="ledger-input" placeholder="Guld">
+                            <button onclick="addTransaction()" style="background: transparent; border: none; color: var(--ink-color); font-size: 1.2rem; cursor: pointer; transition: transform 0.2s;">
+                                <i class="fas fa-save"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- THE TABLE -->
+                    <table class="ledger-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Datum</th>
+                                <th style="width: 45%;">Beskrivning</th>
+                                <th style="width: 20%; text-align: right;">Belopp</th>
+                                <th style="width: 10%; text-align: center;">Status</th>
+                                <th style="width: 5%; border: none;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="transaction-list">
+                            <!-- JS Injects Rows Here -->
+                        </tbody>
+                    </table>
+
+                </div>
+
             </div>
         </section>
 
@@ -2593,7 +3374,7 @@
                 
                 if (prepared.includes(spellName)) {
                     card.classList.add('prepared');
-                    if(indicator) indicator.textContent = '⭐';
+                    if(indicator) indicator.innerHTML = '<i class="fas fa-star"></i>';
                 } else {
                     card.classList.remove('prepared');
                     if(indicator) indicator.textContent = '☆';
@@ -2823,6 +3604,199 @@
             });
         }
 
+        // ============================================
+        // NYTT KASSABOK SYSTEM (LEDGER)
+        // ============================================
+        
+        let currentLedgerTab = 'party';
+        let ledgerData = {
+            party: [],
+            kurt: []
+        };
+
+        // Initial Data Sets (Updated)
+        const initialPartyData = [
+            {id: 1, date: "Session 1", desc: "Förskott Råttkungens hov", amount: 200, status: "betalt"},
+            {id: 7, date: "Session 1", desc: "Förfalskning (Maximilliam)", amount: -10, status: "betalt"},
+            {id: 6, date: "Session 1", desc: "Billo: Gift (Bolliver)", amount: -10, status: "betalt"},
+            {id: 3, date: "Session 1", desc: "Öl till vakter (ca)", amount: -5, status: "betalt"},
+            {id: 4, date: "Session 1", desc: "Kurt lön Helmut und Lyckta", amount: 5, status: "betalt"},
+            {id: 5, date: "Session 1", desc: "Amberolja-leverans (3 tunnor)", amount: 800, status: "pending"}
+        ];
+
+        const initialKurtData = [
+            {id: 101, date: "Start", desc: "Initial guld", amount: 59, status: "betalt"},
+            {id: 102, date: "Session 1", desc: "Helmut und Lyckta lön", amount: 5, status: "betalt"},
+            {id: 103, date: "Session 1", desc: "Maximilliam: Info om Kaspar", amount: -10, status: "betalt"}
+        ];
+
+        function initLedger() {
+            const savedData = localStorage.getItem('kurt_ledger_system');
+            if (savedData) {
+                ledgerData = JSON.parse(savedData);
+            } else {
+                // Load defaults if no save exists
+                ledgerData.party = initialPartyData;
+                ledgerData.kurt = initialKurtData;
+                saveLedger();
+            }
+            renderLedger();
+        }
+
+        function saveLedger() {
+            localStorage.setItem('kurt_ledger_system', JSON.stringify(ledgerData));
+        }
+
+        function switchLedgerTab(tab) {
+            currentLedgerTab = tab;
+            
+            // Update Tab UI (Visual depth logic)
+            const btnParty = document.getElementById('tab-party');
+            const btnKurt = document.getElementById('tab-kurt');
+            
+            if(tab === 'party') {
+                btnParty.classList.add('active');
+                btnParty.style.background = '#fdfbf7';
+                btnParty.style.color = 'var(--text-main)';
+                
+                btnKurt.classList.remove('active');
+                btnKurt.style.background = '#eee8dc';
+                btnKurt.style.color = '#888';
+            } else {
+                btnKurt.classList.add('active');
+                btnKurt.style.background = '#fdfbf7';
+                btnKurt.style.color = 'var(--text-main)';
+                
+                btnParty.classList.remove('active');
+                btnParty.style.background = '#eee8dc';
+                btnParty.style.color = '#888';
+            }
+            
+            // Update Header
+            const title = tab === 'party' ? "PARTY POT" : "KURT PRIVAT";
+            document.getElementById('ledger-title').textContent = title;
+            
+            renderLedger();
+        }
+
+        function addTransaction() {
+            const date = document.getElementById('tx-date').value || "Idag";
+            const amount = parseFloat(document.getElementById('tx-amount').value);
+            const desc = document.getElementById('tx-desc').value;
+            
+            // Default status 'betalt' för snabb-inmatning i pappers-designen
+            const status = 'betalt'; 
+
+            if (isNaN(amount) || !desc) {
+                alert("Ange belopp och beskrivning.");
+                return;
+            }
+
+            const newTx = {
+                id: Date.now(),
+                date: date,
+                desc: desc,
+                amount: amount,
+                status: status
+            };
+
+            ledgerData[currentLedgerTab].unshift(newTx); // Add to top
+            saveLedger();
+            renderLedger();
+            
+            // Reset fields
+            document.getElementById('tx-amount').value = '';
+            document.getElementById('tx-desc').value = '';
+        }
+
+        function toggleStatus(id) {
+            const tx = ledgerData[currentLedgerTab].find(t => t.id === id);
+            if (!tx) return;
+
+            // Cycle: betalt -> pending -> skuld -> oklart -> betalt
+            if (tx.status === 'betalt') tx.status = 'pending';
+            else if (tx.status === 'pending') tx.status = 'skuld';
+            else if (tx.status === 'skuld') tx.status = 'oklart';
+            else tx.status = 'betalt';
+
+            saveLedger();
+            renderLedger();
+        }
+
+        function deleteTransaction(id) {
+            if(confirm("Radera denna post?")) {
+                ledgerData[currentLedgerTab] = ledgerData[currentLedgerTab].filter(tx => tx.id !== id);
+                saveLedger();
+                renderLedger();
+            }
+        }
+
+        function renderLedger() {
+            const list = document.getElementById('transaction-list');
+            const totalDisplay = document.getElementById('ledger-total');
+            const pendingDisplay = document.getElementById('ledger-pending');
+            const txs = ledgerData[currentLedgerTab];
+            
+            if (!list) return;
+            
+            list.innerHTML = '';
+            
+            let total = 0;
+            let pendingTotal = 0;
+
+            txs.forEach(tx => {
+                // Calc Totals
+                if (tx.status === 'betalt') {
+                    total += tx.amount;
+                } else if (tx.status === 'pending') {
+                    pendingTotal += tx.amount;
+                }
+
+                // Create Table Row
+                const row = document.createElement('tr');
+                
+                // Colors for handwritten look
+                let amountColor = tx.amount >= 0 ? '#2e5c3e' : '#8b0000'; // Darker green/red for ink look
+                let rowStyle = '';
+                
+                if (tx.status === 'pending') {
+                    amountColor = '#b8860b';
+                    rowStyle = 'background: rgba(197, 160, 89, 0.05);';
+                }
+
+                // Action Icon logic (Click to toggle status)
+                let actionIcon = '';
+                if(tx.status === 'betalt') actionIcon = '<i class="fas fa-check-circle" style="color: #2e5c3e; font-size: 1.2rem;" title="Betalt (Klicka för att ändra)"></i>';
+                else if(tx.status === 'pending') actionIcon = '<i class="fas fa-clock" style="color: #b8860b; font-size: 1.2rem;" title="Väntande (Klicka för att ändra)"></i>';
+                else if(tx.status === 'skuld') actionIcon = '<i class="fas fa-exclamation-triangle" style="color: #8b0000; font-size: 1.2rem;" title="Skuld (Klicka för att ändra)"></i>';
+                else actionIcon = '<i class="fas fa-question-circle" style="color: var(--text-sub); font-size: 1.2rem;" title="Oklart (Klicka för att ändra)"></i>';
+
+                row.style = rowStyle;
+                row.innerHTML = `
+                    <td style="font-family: 'Cinzel'; font-size: 0.75rem; color: var(--text-sub);">${tx.date}</td>
+                    <td style="font-weight: 600;">${tx.desc}</td>
+                    <td style="text-align: right; color: ${amountColor}; font-weight: bold; font-family: 'Special Elite';">
+                        ${tx.amount > 0 ? '+' : ''}${tx.amount}
+                    </td>
+                    <td style="text-align: center; cursor: pointer; border-right: 1px solid rgba(0,0,0,0.05);" onclick="toggleStatus(${tx.id})">
+                        ${actionIcon}
+                    </td>
+                    <td style="text-align: center; border-right: none; cursor: pointer;" onclick="deleteTransaction(${tx.id})">
+                        <i class="fas fa-times" style="color: #8b0000; opacity: 0.4;" title="Radera"></i>
+                    </td>
+                `;
+                
+                list.appendChild(row);
+            });
+
+            // Update Summaries
+            if (totalDisplay) {
+                totalDisplay.textContent = total + " gp";
+                totalDisplay.style.color = total >= 0 ? '#4a7c59' : '#8b0000';
+            }
+            if (pendingDisplay) pendingDisplay.textContent = pendingTotal + " gp";
+        }
+
         // Add to DOMContentLoaded
         const existingOnLoad = window.onload;
         window.onload = function() {
@@ -2835,6 +3809,7 @@
             // ... existing listeners ...
             initSpellPrep();
             initCombatTracking();
+            initLedger(); // Initialize new Ledger
         });
 
     </script>
